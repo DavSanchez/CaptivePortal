@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- TODO... HABRÁ QUE CAMBIAR EL CÓDIGO ESTE PORQUE ES UN EJEMPLO RANDOM QUE NO SÉ NI LO QUE HACE xDD -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Captive Portal</title>
+<!--
+    &lt;!&ndash; Bootstrap &ndash;&gt;
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    &lt;!&ndash; Bootstrap material design theme &ndash;&gt;
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-material-design/dist/css/material.min.css">-->
+
+    <script src="js/ChilliLibrary.js"></script>
+    <script type="application/javascript">
+
+        chilliController.host = "192.168.1.1"; // Hard Coding - not a good idea
+        chilliController.port = "3990";
+        chilliController.interval = 60;
+
+        chilliController.onError = handleErrors;
+        chilliController.onUpdate = updateUI;
+
+        /* Action triggered when buttons are pressed */
+        function connect() {
+            var username =  document.getElementById('username').value ;
+            var password =  document.getElementById('password').value ;
+
+            if (username == null || username == '')
+                return setElementValue('logonMessage', 'Username is required');
+
+            showWaitPage(1000);
+            chilliController.logon( username , password ) ;
+        }
+
+        function updateUI (cmd) {
+            alert('You called the method' + cmd + '\n Your current state is =' + chilliController.clientState);
+        }
+
+        // If an error occurs, this handler will be called instead
+        function handleErrors (code) {
+            alert('The last contact with the Controller failed. Error code =' + code );
+        }
+
+        //  finally, get current state
+        chilliController.refresh();
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row" style="margin-top: 25px;">
+        <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 panel panel-default" style="padding: 55px;">
+            <form class="form-horizontal" action="javascript:connect()">
+                <fieldset>
+                    <div class="form-group">
+                        <input id="username" class="form-control" type="text" name="username" placeholder="Username" autofocus>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input id="password" class="form-control" type="password" name="password" placeholder="Password">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <a>Forgot the password?</a>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
