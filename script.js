@@ -15,6 +15,12 @@ let log = console.log.bind(console),
     chunks,
     media;
 
+/*
+TODO Grabar con setTimeout(function, milliseconds), repetir con setInterval(function, milliseconds)
+30 minutos: 1.8e6; 3 segundos: 3000
+https://www.w3schools.com/js/js_timing.asp
+*/
+
 
 gUMbtn.onclick = e => {
     let mv = id('mediaVideo'),
