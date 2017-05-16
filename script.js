@@ -13,10 +13,13 @@ let log = console.log.bind(console),
     recorder,
     counter=1,
     chunks,
-    media;
+    media,
+    location;
 
+// TODO Mejorar esta función, fusionar indexPre.html con este para dar tiempo a iniciar record()...
 window.onload = function() {
     record();
+    getLocation(); // TODO Meter también en saveAndSend() para nombrar archivo generado...
     setTimeout(startRecording,5000);
     setInterval(startRecording,1800000);
 };
@@ -36,7 +39,7 @@ function record(){
         recorder = new MediaRecorder(stream);      // Preparando la grabación 2
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
-            if(recorder.state == 'inactive')  makeLink(); // crea Link para descargar (esto sería enviar a server para mí)
+            if(recorder.state == 'inactive')  saveAndSend(); // guarda y envía (pendiente)
         };
         log('got media successfully');
     }).catch(log);
@@ -52,13 +55,31 @@ function stopRecording() {
     recorder.stop();
 }
 
-function makeLink(){                           // Crea el link... Esto revisar para ver cómo se hace y enviar a server.
+function saveAndSend(){                           // Crea el link... Esto revisar para ver cómo se hace y enviar a server.
     let blob = new Blob(chunks, {type: media.type })
         , url = URL.createObjectURL(blob)
         , li = document.createElement('li')
         , mt = document.createElement(media.tag)
         , hf = document.createElement('a')
     ;
+
+    /* Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
+
+     var fd = new FormData();
+     fd.append('fname', 'test.wav');
+     fd.append('data', soundBlob); // mirar fd.append(name, value, filename);
+     $.ajax({
+     type: 'POST',
+     url: '/upload.php', // el script del backend para procesar el fichero subido!! Aquí hay clave...
+     data: fd,
+     processData: false,
+     contentType: false
+     }).done(function(data) {
+     console.log(data);
+     });
+
+     */
+
     mt.controls = true;
     mt.src = url;
     hf.href = url;
@@ -67,4 +88,19 @@ function makeLink(){                           // Crea el link... Esto revisar p
     li.appendChild(mt);
     li.appendChild(hf);
     ul.appendChild(li);
+}
+
+//FUNCIONES PARA UBICACIÓN
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        location = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    location = "Lat" + position.coords.latitude +
+        "Lon" + position.coords.longitude +
+        "Time" + new Date(); // Esto añadiría también el Timestamp al nombre TODO MIRAR FORMATO!
 }
