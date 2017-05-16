@@ -17,7 +17,7 @@ let log = console.log.bind(console),
 
 window.onload = function() {
     record();
-    setTimeout(startRecording, 5000);
+    setTimeout(startRecording,5000);
     setInterval(startRecording,1800000);
 };
 
@@ -51,11 +51,6 @@ function startRecording() {                         // Se ejecuta al pulsar el b
 function stopRecording() {
     recorder.stop();
 }
-// stop.onclick = e => {                          // Se ejecuta al pulsar el botón Stop
-//     stop.disabled = true;
-//     recorder.stop();                           // Deja de grabar (condición de acabar el timeout)
-//     start.removeAttribute('disabled');
-// }
 
 function makeLink(){                           // Crea el link... Esto revisar para ver cómo se hace y enviar a server.
     let blob = new Blob(chunks, {type: media.type })
