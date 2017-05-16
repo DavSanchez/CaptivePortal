@@ -14,12 +14,12 @@ let log = console.log.bind(console),
     counter=1,
     chunks,
     media,
-    location;
+    locationTime; // Variable mía para localización y timestamp
 
 // TODO Mejorar esta función, fusionar indexPre.html con este para dar tiempo a iniciar record()...
 window.onload = function() {
     record();
-    getLocation(); // TODO Meter también en saveAndSend() para nombrar archivo generado...
+    getLocationTime(); // TODO Meter también en saveAndSend() para nombrar archivo generado...
     setTimeout(startRecording,5000);
     setInterval(startRecording,1800000);
 };
@@ -91,16 +91,16 @@ function saveAndSend(){                           // Crea el link... Esto revisa
 }
 
 //FUNCIONES PARA UBICACIÓN
-function getLocation() {
+function getLocationTime() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPositionTime);
     } else {
-        location = "Geolocation is not supported by this browser.";
+        locationTime = "Geolocation is not supported by this browser.";
     }
 }
 
-function showPosition(position) {
-    location = "Lat" + position.coords.latitude +
+function showPositionTime(position) {
+    locationTime = "Lat" + position.coords.latitude +
         "Lon" + position.coords.longitude +
         "Time" + new Date(); // Esto añadiría también el Timestamp al nombre TODO MIRAR FORMATO!
 }
