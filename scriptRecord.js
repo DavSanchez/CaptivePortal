@@ -1,7 +1,6 @@
-/**
- * Created by David on 09/05/2017.
- */
-'use strict'
+// TODO cuando hayamos terminado esto no va a hacer falta.
+
+'use strict';
 
 let log = console.log.bind(console),
     id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
@@ -14,14 +13,6 @@ let log = console.log.bind(console),
     counter=1,
     chunks,
     media;
-
-/*
-TODO Grabar con setTimeout(function, milliseconds), repetir con setInterval(function, milliseconds)
-30 minutos: 1.8e6; 3 segundos: 3000
-https://www.w3schools.com/js/js_timing.asp
-Si no repites con setInterval() dar un lease-time de 30 minutos tras lo cual desconecta.
-*/
-
 
 gUMbtn.onclick = e => {                        // Se ejecuta al pulsar el botón Request Stream
     let mv = id('mediaVideo'),

@@ -1,7 +1,6 @@
-/**
- * Created by David on 13/05/2017.
- */
-'use strict'
+// TODO aqui hace falta un refactor porque chiquito desorden... mirar node.js y responsabilidad única de funciones!
+
+'use strict';
 
 let log = console.log.bind(console),
     id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
