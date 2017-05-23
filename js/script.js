@@ -4,10 +4,11 @@
 
 let log = console.log.bind(console),
     id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
-    ul = id('ul'),                           // Lo que está bajo los botones de start/stop
-// gUMbtn = id('gUMbtn'),                    // Botón de Request Stream
-// start = id('start'),                      // Botón de Start
-// stop = id('stop'),                        // Botón de Stop
+    ul = id('ul'),                            // Lo que está bajo los botones de start/stop
+    agreeBtn = id('agreeBtn'),                // Botón de Aceptar
+    recordBtn = id('recordBtn'),
+// start = id('start'),                       // Botón de Start
+// stop = id('stop'),                         // Botón de Stop
     stream,                                   // Variables para MediaRecorder, supongo...
     recorder,
     counter=1,
@@ -15,15 +16,11 @@ let log = console.log.bind(console),
     media,
     locationTime; // Variable mía para localización y timestamp
 
-// TODO Mejorar esta función, fusionar indexPre.html con este para dar tiempo a iniciar record()...
 window.onload = function() {
-    record();
     getLocationTime(); // TODO Meter también en saveAndSend() para nombrar archivo generado...
-    setTimeout(startRecording,5000);
-    setInterval(startRecording,1800000);
 };
 
-function record(){
+agreeBtn.onclick = e => {
     let mediaOptions = {
         audio: {                           // Ajustes de sonido
             tag: 'audio',
@@ -35,6 +32,8 @@ function record(){
     media = mediaOptions.audio;
     navigator.mediaDevices.getUserMedia(media.gUM).then(_stream => {
         stream = _stream;                          // Preparando la grabación 1
+        id('gUMArea').style.display = 'none';
+        id('preRecordArea').style.display = 'inherit';
         recorder = new MediaRecorder(stream);      // Preparando la grabación 2
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
@@ -44,7 +43,14 @@ function record(){
     }).catch(log);
 }
 
-function startRecording() {                         // Se ejecuta al pulsar el botón Start
+recordBtn.onclick = e => {
+    id('preRecordArea').style.display = 'none';
+    //id('preRecordArea').style.display = 'inherit';
+    setTimeout(startRecording,1000);
+    setInterval(startRecording,180000);
+}
+
+function startRecording() {                    // Se ejecuta al pulsar el botón Start
     chunks=[];                                 // Crea un array
     recorder.start();                          // Empieza a grabar (aquí poner timeout)
     setTimeout(stopRecording,5000);
