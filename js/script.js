@@ -14,7 +14,8 @@ let //log = console.log.bind(console), // ELIMINADA POR PROBLEMA CON CHILLI...
     counter=1,
     chunks,
     media,
-    locationTime; // Variable mía para localización y timestamp
+    locationTime,
+    signalEnergy = 0; // Variables mías para localización, timestamp y energía de la señal (PENDIENTE)
 
 window.onload = function() {
     getLocationTime(); // TODO Meter también en saveAndSend() para nombrar archivo generado...
@@ -60,7 +61,14 @@ function stopRecording() {
     recorder.stop();
 }
 
-function saveAndSend(){                           // Crea el link... Esto revisar para ver cómo se hace y enviar a server.
+function saveAndSend(){                         // Crea el link... Esto revisar para ver cómo se hace y enviar a server.
+
+    /*  for (var k = 0; k<chunks.length; k++){  // ESTO ES PARA CALCULAR LA ENERGÍA, PERO COGE EL VECTOR INCORRECTO...
+     signalEnergy += (chunks[k]*chunks[k]);
+     console.log(signalEnergy);
+     } */
+
+
     let blob = new Blob(chunks, {type: media.type })
         , url = URL.createObjectURL(blob)
         , li = document.createElement('li')
@@ -68,7 +76,7 @@ function saveAndSend(){                           // Crea el link... Esto revisa
         , hf = document.createElement('a')
     ;
 
-    /* Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
+    /* // Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
 
      var fd = new FormData();
      fd.append('fname', 'test.wav');
@@ -89,9 +97,10 @@ function saveAndSend(){                           // Crea el link... Esto revisa
     mt.src = url;
     hf.href = url;
     hf.download = `${counter++}${media.ext}`;
-    hf.innerHTML = `download ${hf.download}`;
+    hf.innerHTML = `download ${hf.download}`; // + ` Energy: ${signalEnergy}`; para el bucle de antes...
     li.appendChild(mt);
     li.appendChild(hf);
+    //li.appendChild(signalEnergy);
     ul.appendChild(li);
 }
 
@@ -100,7 +109,7 @@ function getLocationTime() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPositionTime);
     } else {
-        locationTime = "Geolocation is not supported by this browser.";
+        locationTime = "Geolocation is not supported by this browser";
     }
 }
 
