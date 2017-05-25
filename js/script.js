@@ -109,12 +109,12 @@ function getLocationTime() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPositionTime);
     } else {
-        locationTime = "Geolocation is not supported by this browser";
+        locationTime = 'Geolocation is not supported by this browser';
     }
 }
 
 function showPositionTime(position) {
-    locationTime = "Lat" + position.coords.latitude +
-        "Lon" + position.coords.longitude +
-        "Time" + new Date(); // Esto añadiría también el Timestamp al nombre TODO MIRAR FORMATO!
+    locationTime = 'Lat' + position.coords.latitude +
+        'Lon' + position.coords.longitude +
+        'Time' + new Date(); // Esto añadiría también el Timestamp al nombre TODO MIRAR FORMATO!
 }
