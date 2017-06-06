@@ -87,45 +87,6 @@ function saveAndSend(){                         // Crea el link... Esto revisar 
             // TODO con el string recibido (data) iniciar sesión en CoovaChilli...
         }
     });
-
-    // // Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
-    //
-    // var fd = new FormData();
-    // fd.append(blob, `${locationTime}${media.ext}`);
-    // var xhr = new XMLHttpRequest();
-    // // Open the connection.
-    // xhr.open('POST', '/upload', true);
-    // // Set up a handler for when the request finishes.
-    // xhr.onload = function () {
-    //     if (xhr.status === 200) {
-    //         // File(s) uploaded.
-    //         uploadArea.innerHTML = 'Uploaded a file!';
-    //     } else {
-    //         alert('An error occurred!');
-    //     }
-    // };
-    // // Send the Data.
-    // xhr.send(fd);
-
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/upload.php', // el script del backend para procesar el fichero subido!! Aquí hay clave...
-    //     data: fd,
-    //     processData: false,
-    //     contentType: false
-    // }).done(function(data) {
-    //     console.log(data);
-    // });
-
-    // mt.controls = true;
-    // mt.src = url;
-    // hf.href = url;
-    // hf.download = `${counter++}${media.ext}`;
-    // hf.innerHTML = `download ${hf.download}`; // + ` Energy: ${signalEnergy}`; para el bucle de antes...
-    // li.appendChild(mt);
-    // li.appendChild(hf);
-    // li.appendChild(signalEnergy);
-    // ul.appendChild(li);
 }
 
 //FUNCIONES PARA UBICACIÓN
