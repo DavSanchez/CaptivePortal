@@ -7,15 +7,16 @@ let //log = console.log.bind(console), // ELIMINADA POR PROBLEMA CON CHILLI...
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
+    uploadArea = id('uploadArea'),
 // start = id('start'),                       // Botón de Start
 // stop = id('stop'),                         // Botón de Stop
     stream,                                   // Variables para MediaRecorder, supongo...
     recorder,
-    counter=1,
+    //counter=1,
     chunks,
     media,
-    locationTime,
-    signalEnergy = 0; // Variables mías para localización, timestamp y energía de la señal (PENDIENTE)
+    locationTime;
+//signalEnergy = 0; // Variables mías para localización, timestamp y energía de la señal (PENDIENTE)
 
 window.onload = function() {
     getLocationTime(); // TODO Meter también en saveAndSend() para nombrar archivo generado...
@@ -42,14 +43,14 @@ agreeBtn.onclick = e => {
         };
         log('got media successfully');
     }).catch(log);
-}
+};
 
 recordBtn.onclick = e => {
     id('preRecordArea').style.display = 'none';
     //id('preRecordArea').style.display = 'inherit';
     setTimeout(startRecording,1000);
     setInterval(startRecording,180000);
-}
+};
 
 function startRecording() {                    // Se ejecuta al pulsar el botón Start
     chunks=[];                                 // Crea un array
@@ -70,38 +71,50 @@ function saveAndSend(){                         // Crea el link... Esto revisar 
 
 
     let blob = new Blob(chunks, {type: media.type })
-        , url = URL.createObjectURL(blob)
-        , li = document.createElement('li')
-        , mt = document.createElement(media.tag)
-        , hf = document.createElement('a')
+        // , url = URL.createObjectURL(blob)
+        // , li = document.createElement('li')
+        // , mt = document.createElement(media.tag)
+        // , hf = document.createElement('a')
     ;
 
-    /* // Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
+    // Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
 
-     var fd = new FormData();
-     fd.append('fname', 'test.wav');
-     fd.append('data', soundBlob); // mirar fd.append(name, value, filename);
-     $.ajax({
-     type: 'POST',
-     url: '/upload.php', // el script del backend para procesar el fichero subido!! Aquí hay clave...
-     data: fd,
-     processData: false,
-     contentType: false
-     }).done(function(data) {
-     console.log(data);
-     });
+    var fd = new FormData();
+    fd.append(blob, `${locationTime}${media.ext}`);
+    var xhr = new XMLHttpRequest();
+    // Open the connection.
+    xhr.open('POST', '/upload', true);
+    // Set up a handler for when the request finishes.
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // File(s) uploaded.
+            uploadArea.innerHTML = 'Uploaded a file!';
+        } else {
+            alert('An error occurred!');
+        }
+    };
+    // Send the Data.
+    xhr.send(formData);
 
-     */
+    // $.ajax({
+    //     type: 'POST',
+    //     url: '/upload.php', // el script del backend para procesar el fichero subido!! Aquí hay clave...
+    //     data: fd,
+    //     processData: false,
+    //     contentType: false
+    // }).done(function(data) {
+    //     console.log(data);
+    // });
 
-    mt.controls = true;
-    mt.src = url;
-    hf.href = url;
-    hf.download = `${counter++}${media.ext}`;
-    hf.innerHTML = `download ${hf.download}`; // + ` Energy: ${signalEnergy}`; para el bucle de antes...
-    li.appendChild(mt);
-    li.appendChild(hf);
-    //li.appendChild(signalEnergy);
-    ul.appendChild(li);
+    // mt.controls = true;
+    // mt.src = url;
+    // hf.href = url;
+    // hf.download = `${counter++}${media.ext}`;
+    // hf.innerHTML = `download ${hf.download}`; // + ` Energy: ${signalEnergy}`; para el bucle de antes...
+    // li.appendChild(mt);
+    // li.appendChild(hf);
+    // li.appendChild(signalEnergy);
+    // ul.appendChild(li);
 }
 
 //FUNCIONES PARA UBICACIÓN
