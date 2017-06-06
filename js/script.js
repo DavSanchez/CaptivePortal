@@ -74,6 +74,7 @@ function saveAndSend(){                         // Crea el link... Esto revisar 
 
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${media.ext}`); // TODO mirar esto bien a ver cómo se guarda...
+    //fd.append('blob', blob);
 
     $.ajax({
         url: '/upload',
@@ -83,6 +84,7 @@ function saveAndSend(){                         // Crea el link... Esto revisar 
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
+            // TODO con el string recibido (data) iniciar sesión en CoovaChilli...
         }
     });
 

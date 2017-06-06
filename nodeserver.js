@@ -27,7 +27,7 @@ app.get('/', function(req, res){
 * Create the upload/ route to handle the incoming uploads via the POST method:
 */
 
-app.post('/upload', function(req, res){ // TODO mirar cómo renombrar archivo subido!!
+app.post('/upload', function(req, res){ // TODO mirar cómo renombrar archivo subido y REVISAR ERRORES!!
     // create an incoming form object
     var form = new formidable.IncomingForm();
     // specify that we want to allow the user to upload multiple files in a single request
@@ -45,7 +45,7 @@ app.post('/upload', function(req, res){ // TODO mirar cómo renombrar archivo su
     });
     // once all the files have been uploaded, send a response to the client
     form.on('end', function() {
-        res.end('success');
+        res.end('success'); // TODO Este mensaje se le manda de vuelta al cliente, aquí pueden ir las credenciales...
     });
     // parse the incoming request containing the form data
     form.parse(req);
