@@ -7,19 +7,19 @@ let //log = console.log.bind(console), // ELIMINADA POR PROBLEMA CON CHILLI...
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
-    uploadArea = id('uploadArea'),
-// start = id('start'),                       // Botón de Start
-// stop = id('stop'),                         // Botón de Stop
-    stream,                                   // Variables para MediaRecorder, supongo...
+    //uploadArea = id('uploadArea'),
+    //start = id('start'),                       // Botón de Start
+    //stop = id('stop'),                         // Botón de Stop
+    stream,                                   // Variables para MediaRecorder
     recorder,
-    //counter=1,
     chunks,
     media,
+    //signalEnergy = 0, // Localización, timestamp y energía de la señal (PENDIENTE)
+    //counter=1,
     locationTime;
-//signalEnergy = 0; // Variables mías para localización, timestamp y energía de la señal (PENDIENTE)
 
 window.onload = function() {
-    getLocationTime(); // TODO Meter también en saveAndSend() para nombrar archivo generado...
+    getLocationTime();
 };
 
 agreeBtn.onclick = e => {
@@ -62,19 +62,17 @@ function stopRecording() {
     recorder.stop();
 }
 
-function saveAndSend(){                         // Crea el link... Esto revisar para ver cómo se hace y enviar a server.
+function saveAndSend(){
 
     /*  for (var k = 0; k<chunks.length; k++){  // ESTO ES PARA CALCULAR LA ENERGÍA, PERO COGE EL VECTOR INCORRECTO...
      signalEnergy += (chunks[k]*chunks[k]);
      console.log(signalEnergy);
      } */
-
-
+    getLocationTime();
     let blob = new Blob(chunks, {type: media.type });
-
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${media.ext}`); // TODO mirar esto bien a ver cómo se guarda...
-    //fd.append('blob', blob);
+    fd.append('blob', blob, `${locationTime}${media.ext}`);
+    //fd.append(`${locationTime}${media.ext}`, blob);
 
     $.ajax({
         url: '/upload',
@@ -101,5 +99,5 @@ function getLocationTime() {
 function showPositionTime(position) {
     locationTime = 'Lat' + position.coords.latitude +
         'Lon' + position.coords.longitude +
-        'Time' + new Date(); // Esto añadiría también el Timestamp al nombre TODO MIRAR FORMATO!
+        'Time' + new Date(); // Esto añadiría también el Timestamp al nombre
 }

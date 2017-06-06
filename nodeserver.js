@@ -27,7 +27,7 @@ app.get('/', function(req, res){
 * Create the upload/ route to handle the incoming uploads via the POST method:
 */
 
-app.post('/upload', function(req, res){ // TODO mirar cómo renombrar archivo subido y REVISAR ERRORES!!
+app.post('/upload', function(req, res){
     // create an incoming form object
     var form = new formidable.IncomingForm();
     // specify that we want to allow the user to upload multiple files in a single request
@@ -36,8 +36,8 @@ app.post('/upload', function(req, res){ // TODO mirar cómo renombrar archivo su
     form.uploadDir = path.join(__dirname, '/uploads');
     // every time a file has been uploaded successfully,
     // rename it to it's original name
-    form.on('blob', function(field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, file.name)); // TODO Esto es lo que parece estar fallando
+    form.on('file', function(field, file) {
+        fs.rename(file.path, path.join(form.uploadDir, file.name), function(){});
     });
     // log any errors that occur
     form.on('error', function(err) {
