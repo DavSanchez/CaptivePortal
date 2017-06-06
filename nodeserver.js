@@ -37,7 +37,7 @@ app.post('/upload', function(req, res){ // TODO mirar cómo renombrar archivo su
     // every time a file has been uploaded successfully,
     // rename it to it's original name
     form.on('blob', function(field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, file.name));
+        fs.rename(file.path, path.join(form.uploadDir, file.name)); // TODO Esto es lo que parece estar fallando
     });
     // log any errors that occur
     form.on('error', function(err) {
