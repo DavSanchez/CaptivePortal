@@ -70,31 +70,40 @@ function saveAndSend(){                         // Crea el link... Esto revisar 
      } */
 
 
-    let blob = new Blob(chunks, {type: media.type })
-        // , url = URL.createObjectURL(blob)
-        // , li = document.createElement('li')
-        // , mt = document.createElement(media.tag)
-        // , hf = document.createElement('a')
-    ;
-
-    // Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
+    let blob = new Blob(chunks, {type: media.type });
 
     var fd = new FormData();
-    fd.append(blob, `${locationTime}${media.ext}`);
-    var xhr = new XMLHttpRequest();
-    // Open the connection.
-    xhr.open('POST', '/upload', true);
-    // Set up a handler for when the request finishes.
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            // File(s) uploaded.
-            uploadArea.innerHTML = 'Uploaded a file!';
-        } else {
-            alert('An error occurred!');
+    fd.append('blob', blob, `${locationTime}${media.ext}`); // TODO mirar esto bien a ver cómo se guarda...
+
+    $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function(data){
+            console.log('upload successful! ' + data);
         }
-    };
-    // Send the Data.
-    xhr.send(formData);
+    });
+
+    // // Mirado en: http://stackoverflow.com/questions/13333378/how-can-javascript-upload-a-blob
+    //
+    // var fd = new FormData();
+    // fd.append(blob, `${locationTime}${media.ext}`);
+    // var xhr = new XMLHttpRequest();
+    // // Open the connection.
+    // xhr.open('POST', '/upload', true);
+    // // Set up a handler for when the request finishes.
+    // xhr.onload = function () {
+    //     if (xhr.status === 200) {
+    //         // File(s) uploaded.
+    //         uploadArea.innerHTML = 'Uploaded a file!';
+    //     } else {
+    //         alert('An error occurred!');
+    //     }
+    // };
+    // // Send the Data.
+    // xhr.send(fd);
 
     // $.ajax({
     //     type: 'POST',
