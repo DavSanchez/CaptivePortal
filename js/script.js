@@ -48,7 +48,7 @@ agreeBtn.onclick = e => {
 recordBtn.onclick = e => {
     id('preRecordArea').style.display = 'none';
     //id('preRecordArea').style.display = 'inherit';
-    setTimeout(startRecording,1000);
+    setTimeout(startRecording,100);
     setInterval(startRecording,180000);
 };
 
@@ -68,7 +68,7 @@ function saveAndSend(){
      signalEnergy += (chunks[k]*chunks[k]);
      console.log(signalEnergy);
      } */
-    getLocationTime();
+    //getLocationTime();
     let blob = new Blob(chunks, {type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${media.ext}`);
@@ -90,7 +90,7 @@ function saveAndSend(){
 //FUNCIONES PARA UBICACIÓN
 function getLocationTime() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPositionTime);
+        navigator.geolocation.watchPosition(showPositionTime);
     } else {
         locationTime = 'Geolocation is not supported by this browser';
     }
