@@ -1,0 +1,23 @@
+{
+  "name": "captiveportal",
+  "version": "1.0.0",
+  "description": "a captive portal service using CoovaChilli and NodeJS",
+  "main": "nodeserver.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavSanchez/CaptivePortal.git"
+  },
+  "author": "David",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavSanchez/CaptivePortal/issues"
+  },
+  "homepage": "https://github.com/DavSanchez/CaptivePortal#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "formidable": "^1.1.1"
+  }
+}
