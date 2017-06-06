@@ -1,4 +1,4 @@
-// TODO aqui hace falta un refactor porque chiquito desorden... mirar node.js y responsabilidad única de funciones!
+// TODO aqui hace falta un refactor porque chiquito desorden...
 
 'use strict';
 
