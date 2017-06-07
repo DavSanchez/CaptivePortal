@@ -11,6 +11,7 @@ var app = express();
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
+var users = require('/users/users.json');
 
 /*
 * We'll use the express.static middleware to serve up the static files in our public/ directory
@@ -45,6 +46,7 @@ app.post('/upload', function(req, res){
     });
     // once all the files have been uploaded, send a response to the client
     form.on('end', function() {
+        // FUNCION DE LEER JSON Y DEVOLVER STRING.
         res.end('success'); // TODO Este mensaje se le manda de vuelta al cliente, aquí pueden ir las credenciales...
     });
     // parse the incoming request containing the form data
@@ -64,4 +66,6 @@ var server = app.listen(3000, function(){
 * TODO
 * Aquí falta función que sea llamada cuando form.on('end', ...), en 47:5, para proporcionar las credenciales :)
 * y conectarse usando ChilliLibrary y todos esos rollos.
+*
+*
 */
