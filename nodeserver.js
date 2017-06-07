@@ -46,7 +46,7 @@ app.post('/upload', function(req, res){
     });
     // once all the files have been uploaded, send a response to the client
     form.on('end', function() {
-        // FUNCION DE LEER JSON Y DEVOLVER STRING.
+        // FUNCION DE LEER JSON Y DEVOLVER STRING??
         res.end('success'); // TODO Este mensaje se le manda de vuelta al cliente, aquí pueden ir las credenciales...
     });
     // parse the incoming request containing the form data

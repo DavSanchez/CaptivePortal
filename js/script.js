@@ -82,6 +82,7 @@ function saveAndSend(){
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
+            // Llamada de nuevo al server con AJAX??
             // TODO con el string recibido (data) iniciar sesión en CoovaChilli...
         }
     });
