@@ -47,7 +47,6 @@ agreeBtn.onclick = e => {
 
 recordBtn.onclick = e => {
     id('preRecordArea').style.display = 'none';
-    //id('preRecordArea').style.display = 'inherit';
     setTimeout(startRecording,100);
     setInterval(startRecording,180000);
 };
