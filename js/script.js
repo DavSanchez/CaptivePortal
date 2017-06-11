@@ -2,7 +2,7 @@
 
 // TODO aqui hace falta un refactor porque chiquito desorden...
 // TODO imports!!!
-import {getUserCredentials} from './userController';
+import {getUserCredentials} from '../userController';
 
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop

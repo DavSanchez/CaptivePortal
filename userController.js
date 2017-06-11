@@ -2,7 +2,7 @@ var fs = require('fs');
 var activeUserId;
 var userAndPass;
 
-exports.getInactiveUser = function(){
+exports.getInactiveUser = function() {
     var jsonContents = fs.readFileSync("./users/users.json");
     var usersList = JSON.parse(jsonContents);
     //console.log(usersList.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
@@ -38,6 +38,6 @@ prepareToConnect = function (userId) {
 };
 
 export function getUserCredentials() {
-    console.log(userAndPass); // TODO las tres lineas anteriores deberían ir en otra función o módulo!!
+    console.log(userAndPass);
     return userAndPass;
 }

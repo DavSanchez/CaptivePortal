@@ -10,7 +10,10 @@ var app = express();
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
-var userController = require('./js/userController');
+
+// import from userController.js
+var userController = require('./userController.js');
+//import {getInactiveUser} from './userController';
 
 /*
  * We'll use the express.static middleware to serve up the static files in our public/ directory
