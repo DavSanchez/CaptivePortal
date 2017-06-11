@@ -1,9 +1,10 @@
-// TODO aqui hace falta un refactor porque chiquito desorden...
-
 'use strict';
 
-let //log = console.log.bind(console), // ELIMINADA POR PROBLEMA CON CHILLI...
-    id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
+// TODO aqui hace falta un refactor porque chiquito desorden...
+// TODO imports!!!
+import {getUserCredentials} from './userController';
+
+let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
@@ -39,7 +40,8 @@ agreeBtn.onclick = e => {
         recorder = new MediaRecorder(stream);      // Preparando la grabación 2
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
-            if(recorder.state == 'inactive')  saveAndSend(); // guarda y envía (pendiente)
+            if(recorder.state == 'inactive')
+                saveAndSend(); // guarda y envía
         };
         log('got media successfully');
     }).catch(log);
@@ -53,7 +55,7 @@ recordBtn.onclick = e => {
 
 function startRecording() {                    // Se ejecuta al pulsar el botón Start
     chunks=[];                                 // Crea un array
-    recorder.start();                          // Empieza a grabar (aquí poner timeout)
+    recorder.start();                          // Empieza a grabar
     setTimeout(stopRecording,5000);
 }
 
@@ -63,7 +65,7 @@ function stopRecording() {
 
 function saveAndSend(){
 
-    /*  for (var k = 0; k<chunks.length; k++){  // ESTO ES PARA CALCULAR LA ENERGÍA, PERO COGE EL VECTOR INCORRECTO...
+    /*  for (var k = 0; k<chunks.length; k++){  // ESTO ERA PARA CALCULAR LA ENERGÍA, PERO COGE EL VECTOR INCORRECTO...
      signalEnergy += (chunks[k]*chunks[k]);
      console.log(signalEnergy);
      } */
@@ -71,7 +73,6 @@ function saveAndSend(){
     let blob = new Blob(chunks, {type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${media.ext}`);
-    //fd.append(`${locationTime}${media.ext}`, blob);
 
     $.ajax({
         url: '/upload',
@@ -83,6 +84,8 @@ function saveAndSend(){
             console.log('upload successful! ' + data);
             // Llamada de nuevo al server con AJAX??
             // TODO con el string recibido (data) iniciar sesión en CoovaChilli...
+            var userCredentials = getUserCredentials();
+            connect(userCredentials[0], userCredentials[1]);
         }
     });
 }
@@ -96,8 +99,16 @@ function getLocationTime() {
     }
 }
 
+//FUNCIÓN PARA PONER LATITUD, LONGITUD Y HORA EN UN STRING PARA EL NOMBRE DE LOS ARCHIVOS DE SONIDO
 function showPositionTime(position) {
     locationTime = 'Lat' + position.coords.latitude +
         'Lon' + position.coords.longitude +
         'Time' + new Date(); // Esto añadiría también el Timestamp al nombre
+}
+
+//FUNCIÓN PARA CONECTARSE A CHILLI
+function connect(username, password){
+    if (username == null || password == null)
+        console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
+    chilliController.logon(username, password);
 }
