@@ -31,7 +31,7 @@ setUserInactive = function (userId) {
     fs.writeFileSync("./users/users.json", JSON.stringify(usersList, null, 2));
 };
 
-preparetoConnect = function (userId) {
+prepareToConnect = function (userId) {
     var jsonContents = fs.readFileSync("./users/users.json");
     var usersList = JSON.parse(jsonContents);
     userAndPass = [usersList.users[userId].username, usersList.users[userId].password];
