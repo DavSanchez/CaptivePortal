@@ -15,8 +15,8 @@ exports.getInactiveUser = function() {
     //console.log(usersList.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
     for (var i =0; i<usersList.users.length; i++){
         if (!usersList.users[i].isActive){
-            activeUserId = setUserActive(i);
-            prepareToConnect(activeUserId);
+            setUserActive(i);
+            prepareToConnect(i);
             return;
         }
     }
@@ -28,7 +28,6 @@ setUserActive = function (userId) {
     var usersList = JSON.parse(jsonContents);
     usersList.users[userId].isActive = true;
     fs.writeFileSync("./users/users.json", JSON.stringify(usersList, null, 2));
-    return userId;
 };
 
 setUserInactive = function (userId) {
