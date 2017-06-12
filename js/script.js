@@ -77,7 +77,7 @@ function saveAndSend(){
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
-            var userCredentials = getUserCredentials();
+            // var userCredentials = getUserCredentials();
             console.log(userCredentials);
             // connect(userCredentials[0], userCredentials[1]); //TODO pendiente.
         }

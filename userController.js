@@ -4,9 +4,11 @@ var userAndPass;
 
 // con export function esta función puede ser usada por script.js ?¿?¿?
 /*export function getUserCredentials() {
-    console.log(userAndPass);
-    return userAndPass;
-}*/
+ console.log(userAndPass);
+ return userAndPass;
+ }*/
+
+
 
 // y con exports.getInact... esta función puede ser usada por nodeserver.js
 exports.getInactiveUser = function() {
