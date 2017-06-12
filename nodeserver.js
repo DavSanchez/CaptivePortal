@@ -64,34 +64,3 @@ var server = app.listen(3000, function(){
  * Aquí falta función que sea llamada cuando form.on('end', ...), en 47:5, para proporcionar las credenciales :)
  * y conectarse usando ChilliLibrary y todos esos rollos.
  */
-/*
-function getInactiveUser(){
-    var jsonContents = fs.readFileSync("./users/users.json");
-    var usersList = JSON.parse(jsonContents);
-    //console.log(usersList.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
-    for (var i =0; i<usersList.users.length; i++){
-        if (!usersList.users[i].isActive){
-            usersList.users[i].isActive = true;
-            fs.writeFileSync("./users/users.json", JSON.stringify(usersList, null, 2));
-            var userAndPass = [usersList.users[i].username, usersList.users[i].password];
-            console.log(userAndPass); // TODO las tres lineas anteriores deberían ir en otra función o módulo!!
-            return userAndPass;
-        }
-    }
-}
-*/
-
-/*
-function require(script) {
-    $.ajax({
-        url: script,
-        dataType: "script",
-        async: false,           // <-- This is the key
-        success: function () {
-            // all good...
-        },
-        error: function () {
-            throw new Error("Could not load script " + script);
-        }
-    });
-}*/
