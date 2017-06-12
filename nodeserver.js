@@ -10,10 +10,7 @@ var app = express();
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
-
-// import from userController.js
-var userController = require('./userController.js');
-//import {getInactiveUser} from './userController';
+var userController = require('./userController');
 
 /*
  * We'll use the express.static middleware to serve up the static files in our public/ directory
@@ -83,3 +80,18 @@ function getInactiveUser(){
     }
 }
 */
+
+/*
+function require(script) {
+    $.ajax({
+        url: script,
+        dataType: "script",
+        async: false,           // <-- This is the key
+        success: function () {
+            // all good...
+        },
+        error: function () {
+            throw new Error("Could not load script " + script);
+        }
+    });
+}*/

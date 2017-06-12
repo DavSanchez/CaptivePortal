@@ -2,6 +2,13 @@ var fs = require('fs');
 var activeUserId;
 var userAndPass;
 
+// con export function esta función puede ser usada por script.js ?¿?¿?
+/*export function getUserCredentials() {
+    console.log(userAndPass);
+    return userAndPass;
+}*/
+
+// y con exports.getInact... esta función puede ser usada por nodeserver.js
 exports.getInactiveUser = function() {
     var jsonContents = fs.readFileSync("./users/users.json");
     var usersList = JSON.parse(jsonContents);
@@ -36,8 +43,3 @@ prepareToConnect = function (userId) {
     var usersList = JSON.parse(jsonContents);
     userAndPass = [usersList.users[userId].username, usersList.users[userId].password];
 };
-
-export function getUserCredentials() {
-    console.log(userAndPass);
-    return userAndPass;
-}

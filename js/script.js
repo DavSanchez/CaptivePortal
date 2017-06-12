@@ -2,21 +2,16 @@
 
 // TODO aqui hace falta un refactor porque chiquito desorden...
 // TODO imports!!!
-import {getUserCredentials} from '../userController';
+//import {getUserCredentials} from 'userController';
 
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
-    //uploadArea = id('uploadArea'),
-    //start = id('start'),                       // Botón de Start
-    //stop = id('stop'),                         // Botón de Stop
     stream,                                   // Variables para MediaRecorder
     recorder,
     chunks,
     media,
-    //signalEnergy = 0, // Localización, timestamp y energía de la señal (PENDIENTE)
-    //counter=1,
     locationTime;
 
 window.onload = function() {
@@ -82,10 +77,9 @@ function saveAndSend(){
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
-            // Llamada de nuevo al server con AJAX??
-            // TODO con el string recibido (data) iniciar sesión en CoovaChilli...
             var userCredentials = getUserCredentials();
-            connect(userCredentials[0], userCredentials[1]);
+            console.log(userCredentials);
+            // connect(userCredentials[0], userCredentials[1]); //TODO pendiente.
         }
     });
 }
