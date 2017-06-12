@@ -1,7 +1,7 @@
 'use strict';
 
 // TODO aqui hace falta un refactor porque chiquito desorden...
-// TODO imports!!!
+// TODO imports!!!????
 //import {getUserCredentials} from 'userController';
 
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
@@ -78,7 +78,7 @@ function saveAndSend(){
         success: function(data){
             console.log('upload successful! ' + data);
             // var userCredentials = getUserCredentials();
-            console.log(userCredentials);
+            // console.log(userCredentials);
             // connect(userCredentials[0], userCredentials[1]); //TODO pendiente.
         }
     });
@@ -100,7 +100,7 @@ function showPositionTime(position) {
         'Time' + new Date(); // Esto añadiría también el Timestamp al nombre
 }
 
-//FUNCIÓN PARA CONECTARSE A CHILLI
+//FUNCIÓN PARA CONECTARSE A CHILLI //TODO pendiente... o algo
 function connect(username, password){
     if (username == null || password == null) // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
