@@ -62,5 +62,5 @@ var server = app.listen(3000, function(){
 
 /*
  * Aquí falta función que sea llamada cuando form.on('end', ...), en 47:5, para proporcionar las credenciales :)
- * y conectarse usando ChilliLibrary y todos esos rollos.
+ * y conectarse usando ChilliLibrary y todos esos rollos... CREO.
  */
