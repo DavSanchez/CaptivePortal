@@ -1,8 +1,6 @@
 'use strict';
 
 // TODO aqui hace falta un refactor porque chiquito desorden...
-// TODO imports!!!????
-//import {getUserCredentials} from 'userController';
 
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop
@@ -77,9 +75,20 @@ function saveAndSend(){
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
-            // var userCredentials = getUserCredentials();
-            // console.log(userCredentials);
-            // connect(userCredentials[0], userCredentials[1]); //TODO pendiente.
+            var userCredentials = getUserCredentials();
+            console.log("CREDENCIALES RECIBIDAS: "+userCredentials);
+            //connect(userCredentials[0], userCredentials[1]);
+        }
+    });
+}
+
+function receiveResponse(){
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+        url: '/test',
+        success: function(data) {
+            console.log(data); // show Hello world
         }
     });
 }
@@ -100,9 +109,14 @@ function showPositionTime(position) {
         'Time' + new Date(); // Esto añadiría también el Timestamp al nombre
 }
 
-//FUNCIÓN PARA CONECTARSE A CHILLI //TODO pendiente... o algo
+//FUNCIÓN PARA CONECTARSE A CHILLI
 function connect(username, password){
-    if (username == null || password == null) // ELABORAR
+    if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
     chilliController.logon(username, password);
+}
+
+function getUserCredentials(){
+    // TODO ALGO
+
 }

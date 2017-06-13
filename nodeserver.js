@@ -4,7 +4,7 @@
  * express handles our routing and serves up the index.html page and static files to our visitors
  * formidable will parse the incoming form data (the uploaded files)
  * The fs module will be used to rename uploaded files
- */
+ * */
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -15,7 +15,7 @@ var userController = require('./userController');
 /*
  * We'll use the express.static middleware to serve up the static files in our public/ directory
  * and we'll create a route which will serve up the homepage (index.html) when someone visits the website:
- */
+ * */
 app.use(express.static(path.join(__dirname, '')));
 
 app.get('/', function(req, res){
@@ -24,7 +24,7 @@ app.get('/', function(req, res){
 
 /*
  * Create the upload/ route to handle the incoming uploads via the POST method:
- */
+ * */
 app.post('/upload', function(req, res){
     // create an incoming form object
     var form = new formidable.IncomingForm();
@@ -46,7 +46,6 @@ app.post('/upload', function(req, res){
         // FUNCION DE LEER JSON Y DEVOLVER STRING??
         res.end('success');
         userController.getInactiveUser();
-        //userController.setUserActive(userId);
     });
     // parse the incoming request containing the form data
     form.parse(req);
@@ -55,7 +54,7 @@ app.post('/upload', function(req, res){
 /*
  * Now that we have everything set up and the route to handle the uploads in place,
  * all we need to do it start our NodeJS server and start processing uploads!
- */
+ * */
 var server = app.listen(3000, function(){
     console.log('Server listening on port 3000');
 });
@@ -63,4 +62,4 @@ var server = app.listen(3000, function(){
 /*
  * Aquí falta función que sea llamada cuando form.on('end', ...), en 47:5, para proporcionar las credenciales :)
  * y conectarse usando ChilliLibrary y todos esos rollos... CREO.
- */
+ * */
