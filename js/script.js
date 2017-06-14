@@ -75,20 +75,21 @@ function saveAndSend(){
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
-            var userCredentials = getUserCredentials();
-            console.log("CREDENCIALES RECIBIDAS: "+userCredentials);
-            //connect(userCredentials[0], userCredentials[1]);
+            console.log('recibiendo respuesta...');
+            receiveResponse();
         }
     });
 }
 
+// Petición GET para las credenciales
 function receiveResponse(){
     $.ajax({
         type: 'GET',
-        contentType: 'application/json',
-        url: '/test',
+        url: '/creds',
+        dataType: 'json',
         success: function(data) {
-            console.log(data); // show Hello world
+            console.log('respuesta recibida: ' + data);
+            getUserCredentials(data);
         }
     });
 }
@@ -113,10 +114,11 @@ function showPositionTime(position) {
 function connect(username, password){
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
-    chilliController.logon(username, password);
+    //chilliController.logon(username, password); //TODO DESCOMENTAR CUANDO SE VAYA A USAR!!
 }
 
-function getUserCredentials(){
-    // TODO ALGO
-
+//Extraer credenciales del JSON recibido y conectar...
+function getUserCredentials(data){
+    console.log('conectando con username: '+data.username+' y password: '+data.password);
+    connect(data.username, data.password);
 }

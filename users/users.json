@@ -4,7 +4,7 @@
       "id": 0,
       "username": "prueba1",
       "password": "prueba1",
-      "isActive": true
+      "isActive": false
     },
     {
       "id": 1,

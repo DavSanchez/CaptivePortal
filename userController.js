@@ -2,11 +2,6 @@
 
 var fs = require('fs');
 
-var userCreds = {
-    username : "",
-    password : ""
-};
-
 /*
  * Esta función busca en el archivo JSON un usuario con el atributo isActive = false,
  * tras lo cual cambia dicho atributo a true y llama al procedimiento para conectar a ese usuario
@@ -19,9 +14,7 @@ exports.getInactiveUser = function() {
     for (var i =0; i<usersList.users.length; i++){
         if (!usersList.users[i].isActive){
             setUserActive(i);
-            prepareToConnect(i);
-            console.log();
-            return;
+            return prepareToConnect(i);
         }
     }
     console.log("Parece que no hay usuarios activos...");
@@ -53,6 +46,5 @@ function setUserInactive(userId) {
 function prepareToConnect(userId) {
     var jsonContents = fs.readFileSync("./users/users.json");
     var usersList = JSON.parse(jsonContents);
-    // usersList.users[userId].isActive = true;
-    // TODO ALGO
+    return [usersList.users[userId].username, usersList.users[userId].password];
 }

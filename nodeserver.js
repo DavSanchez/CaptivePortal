@@ -12,6 +12,11 @@ var formidable = require('formidable');
 var fs = require('fs');
 var userController = require('./userController');
 
+var creds = {
+    username: "prueba",
+    password: "pruebaPass"
+};
+
 /*
  * We'll use the express.static middleware to serve up the static files in our public/ directory
  * and we'll create a route which will serve up the homepage (index.html) when someone visits the website:
@@ -20,6 +25,15 @@ app.use(express.static(path.join(__dirname, '')));
 
 app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+/*
+* Aquí se recibe la petición de credenciales y se envía de vuelta.
+* */
+app.get('/creds', function(req,res){
+    console.log("Pidiendo la variable correctamente...");
+    var jsonCr = JSON.stringify(creds);
+    res.send(jsonCr);
 });
 
 /*
@@ -45,11 +59,17 @@ app.post('/upload', function(req, res){
     form.on('end', function() {
         // FUNCION DE LEER JSON Y DEVOLVER STRING??
         res.end('success');
-        userController.getInactiveUser();
+        setCreds();
     });
     // parse the incoming request containing the form data
     form.parse(req);
 });
+
+function setCreds(){
+    var data = userController.getInactiveUser();
+    creds.username = data[0];
+    creds.password = data[1];
+}
 
 /*
  * Now that we have everything set up and the route to handle the uploads in place,
