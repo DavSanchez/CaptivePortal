@@ -51,6 +51,41 @@
          //  finally, get current state
          chilliController.refresh();
      </script> -->
+
+
+    <!--     <script type="application/javascript"> // SCRIPT HECHO POR UN TIPO AHÍ!!
+
+        chilliController.host = "192.168.1.1"; // Hard Coding - not a good idea
+        chilliController.port = "3990";
+        chilliController.interval = 60;
+
+        chilliController.onError = handleErrors;
+        chilliController.onUpdate = updateUI;
+
+        /* Action triggered when buttons are pressed */
+        function connect() {
+            var username =  document.getElementById('username').value ;
+            var password =  document.getElementById('password').value ;
+
+            if (username == null || username == '')
+                return setElementValue('logonMessage', 'Username is required');
+
+            showWaitPage(1000);
+            chilliController.logon( username , password ) ;
+        }
+
+        function updateUI (cmd) {
+            alert('You called the method' + cmd + '\n Your current state is =' + chilliController.clientState);
+        }
+
+        // If an error occurs, this handler will be called instead
+        function handleErrors (code) {
+            alert('The last contact with the Controller failed. Error code =' + code );
+        }
+
+        //  finally, get current state
+        chilliController.refresh();
+    </script> -->
 </head>
 <body>
 <div id='gUMArea'>
