@@ -114,7 +114,7 @@ function showPositionTime(position) {
 function connect(username, password){
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
-    //chilliController.logon(username, password); //TODO DESCOMENTAR CUANDO SE VAYA A USAR!!
+    chilliController.logon(username, password);
 }
 
 //Extraer credenciales del JSON recibido y conectar...
