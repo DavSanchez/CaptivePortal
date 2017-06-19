@@ -21,7 +21,7 @@ var creds = {
  * We'll use the express.static middleware to serve up the static files in our public/ directory
  * and we'll create a route which will serve up the homepage (index.html) when someone visits the website:
  * */
-app.set('trust proxy', true);
+//app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname, '')));
 
 app.get('/', function(req, res){
