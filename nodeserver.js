@@ -70,6 +70,7 @@ app.post('/upload', function(req, res){
     });
     // once all the files have been uploaded, send a response to the client
     form.on('end', function() {
+        console.log("Audio subido con éxito.");
         setCreds();
         res.end('success');
     });
