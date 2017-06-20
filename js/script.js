@@ -11,7 +11,7 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
     chunks,
     media,
     serverStatus,
-    locationTime;
+    locationTime = "locTime";
 
 window.onload = function() {
     prepareSite();
@@ -123,7 +123,13 @@ function checkServerStatus(){
 //FUNCIONES PARA UBICACIÓN
 function prepareSite() {
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(showPositionTime);
+        try {
+            navigator.geolocation.watchPosition(showPositionTime);
+        }
+        catch(err){
+            console.log("Error de ubicación: " + err);
+            locationTime = 'LocError';
+        }
     } else {
         locationTime = 'Geolocation is not supported by this browser';
     }
