@@ -6,7 +6,7 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
-    chilliCon = id('chilliCon'),
+    //chilliCon = id('chilliCon'),
     stream,                                   // Variables para MediaRecorder
     recorder,
     chunks,
@@ -158,5 +158,5 @@ function connect(username, password){
 //Extraer credenciales del JSON recibido y conectar...
 function getUserCredentials(data){
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
-    chilliCon.connect(data.username, data.password);
+    connect(data.username, data.password);
 }
