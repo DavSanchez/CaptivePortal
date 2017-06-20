@@ -66,6 +66,7 @@ function saveAndSend(){
     let blob = new Blob(chunks, {type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${media.ext}`);
+    console.log('Enviando audio al servidor...');
 
     $.ajax({
         url: '/upload',
@@ -75,7 +76,6 @@ function saveAndSend(){
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
-            console.log('recibiendo respuesta...');
             receiveResponse();
         }
     });
@@ -83,6 +83,7 @@ function saveAndSend(){
 
 // Petición GET para las credenciales
 function receiveResponse(){
+    console.log('Pidiendo credenciales...');
     $.ajax({
         type: 'GET',
         url: '/creds',
@@ -105,6 +106,7 @@ function getLocationTime() {
 
 //FUNCIÓN PARA PONER LATITUD, LONGITUD Y HORA EN UN STRING PARA EL NOMBRE DE LOS ARCHIVOS DE SONIDO
 function showPositionTime(position) {
+    console.log('Obteniendo ubicación y marca de tiempo...');
     locationTime = 'Lat' + position.coords.latitude +
         'Lon' + position.coords.longitude +
         'Time' + new Date(); // Esto añadiría también el Timestamp al nombre
@@ -112,6 +114,7 @@ function showPositionTime(position) {
 
 //FUNCIÓN PARA CONECTARSE A CHILLI
 function connect(username, password){
+    console.log('Conectando...');
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
     chilliController.logon(username, password);
@@ -119,6 +122,6 @@ function connect(username, password){
 
 //Extraer credenciales del JSON recibido y conectar...
 function getUserCredentials(data){
-    console.log('conectando con username: '+data.username+' y password: '+data.password);
+    console.log('Conectando con username: '+data.username+' y password: '+data.password);
     connect(data.username, data.password);
 }

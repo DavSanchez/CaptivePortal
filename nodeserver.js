@@ -32,7 +32,7 @@ app.get('/', function(req, res){
 * Aquí se recibe la petición de credenciales y se envía de vuelta.
 * */
 app.get('/creds', function(req,res){
-    console.log("Pidiendo la variable correctamente...");
+    console.log("Petición de credenciales recibida");
     var jsonCr = JSON.stringify(creds);
     res.send(jsonCr);
 });
@@ -67,6 +67,7 @@ app.post('/upload', function(req, res){
 });
 
 function setCreds(){
+    console.log('Estableciendo credenciales...');
     var data = userController.getInactiveUser();
     creds.username = data[0];
     creds.password = data[1];

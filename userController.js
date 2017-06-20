@@ -10,19 +10,22 @@ var userObj = require('./users/users.json');
  * */
 exports.getInactiveUser = function() {
     //console.log(userObj.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
+    console.log('Buscando usuarios inactivos...')
     for (var i =0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
             setUserActive(i);
             return prepareToConnect(i);
         }
     }
-    console.log("Parece que no hay usuarios activos...");
+    console.log("Parece que no hay usuarios libres...");
+    return ["",""];
 };
 
 /*
  * Lee el JSON de usuarios, marca el usuario como activo y lo guarda en el archivo.
  * */
 function setUserActive(userId) {
+    console.log("Estableciendo usuario " + userId + " como ocupado.");
     userObj.users[userId].isActive = true;
     writeUsersFile(userObj);
 }
@@ -31,6 +34,7 @@ function setUserActive(userId) {
  * (aún sin uso, para la futura desconexión de usuarios...)
  * */
 function setUserInactive(userId) {
+    console.log("Estableciendo usuario " + userId + " como libre.");
     userObj.users[userId].isActive = false;
     writeUsersFile(userObj);
 }
@@ -39,9 +43,11 @@ function setUserInactive(userId) {
  * para escribirlos en el JSON de usuario activo, para que lo use el script front-end...
  * */
 function prepareToConnect(userId) {
+    console.log("Almacenando credenciales del usuario " + userId + " para el cliente.");
     return [userObj.users[userId].username, userObj.users[userId].password];
 }
 
 function writeUsersFile(userJSON){
+    console.log("Guardando estado de usuarios en fichero JSON.");
     fs.writeFileSync("./users/users.json", JSON.stringify(userJSON, null, 2));
 }
