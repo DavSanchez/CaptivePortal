@@ -43,11 +43,12 @@ agreeBtn.onclick = e => {
 
 recordBtn.onclick = e => {
     if (serverStatus === true) {
+        console.log('El servidor parece estar bien...');
         id('preRecordArea').style.display = 'none';
         setTimeout(startRecording,100);
         setInterval(startRecording,180000); //TODO esto igual no hace falta con el lease-time... y checkServerStatus()??
     } else {
-        // ALGO. TODO
+        console.log('Aquí hay movida');// ALGO. TODO
     }
 };
 
@@ -124,7 +125,7 @@ function checkServerStatus(){
 function prepareSite() {
     if (navigator.geolocation) {
         try {
-            //checkServerStatus();
+            checkServerStatus();
             navigator.geolocation.watchPosition(showPositionTime);
         }
         catch(err){
