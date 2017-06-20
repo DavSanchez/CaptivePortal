@@ -1,4 +1,5 @@
 'use strict';
+import {connect} from "chilliController";
 
 // TODO aqui hace falta un refactor porque chiquito desorden...
 
@@ -146,13 +147,13 @@ function showPositionTime(position) {
         'Time' + new Date(); // Esto añadiría también el Timestamp al nombre
 }
 
-//FUNCIÓN PARA CONECTARSE A CHILLI
+/*//FUNCIÓN PARA CONECTARSE A CHILLI
 function connect(username, password){
     console.log('Conectando...');
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
     chilliController.logon(username, password);
-}
+}*/
 
 //Extraer credenciales del JSON recibido y conectar...
 function getUserCredentials(data){
