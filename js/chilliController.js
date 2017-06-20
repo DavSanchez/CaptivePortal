@@ -1,11 +1,4 @@
-//FUNCIÓN PARA CONECTARSE A CHILLI
-export function connect(username, password){
-    console.log('Conectando...');
-    if (username == "" || password == "") // ELABORAR
-        console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
-    chilliController.logon(username, password);
-}
-
+/*
 // The included script creates a global chilliController object
 
 // If you use non standard configuration, define your configuration
@@ -16,6 +9,14 @@ export function connect(username, password){
 // then define event handler functions
 chilliController.onError  = handleErrors;
 chilliController.onUpdate = updateUI ;
+
+//FUNCIÓN PARA CONECTARSE A CHILLI
+function connect(username, password){
+    console.log('Conectando...');
+    if (username == "" || password == "") // ELABORAR
+        console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
+    chilliController.logon(username, password);
+}
 
 // when the reply is ready, this handler function is called
 function updateUI( cmd ) {
@@ -28,4 +29,4 @@ function handleErrors ( code ) {
     alert ( 'The last contact with the Controller failed. Error code = ' + code );
 }
 //  finally, get current state
-chilliController.refresh();
+chilliController.refresh();*/

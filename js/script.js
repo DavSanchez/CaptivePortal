@@ -158,5 +158,5 @@ function connect(username, password){
 //Extraer credenciales del JSON recibido y conectar...
 function getUserCredentials(data){
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
-    connect(data.username, data.password);
+    window.connect(data.username, data.password);
 }
