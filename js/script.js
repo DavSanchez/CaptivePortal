@@ -123,19 +123,17 @@ function checkServerStatus(){
 
 //FUNCIONES PARA UBICACIÓN
 function prepareSite() {
+    checkServerStatus();
     if (navigator.geolocation) {
         try {
-            checkServerStatus();
             navigator.geolocation.watchPosition(showPositionTime);
         }
         catch(err){
             console.log("Error de ubicación: " + err);
             locationTime = 'LocError';
-            checkServerStatus();
         }
     } else {
         locationTime = 'Geolocation is not supported by this browser';
-        checkServerStatus();
     }
 }
 
