@@ -45,7 +45,7 @@ recordBtn.onclick = e => {
     if (serverStatus === true) {
         id('preRecordArea').style.display = 'none';
         setTimeout(startRecording,100);
-        setInterval(startRecording,180000);
+        setInterval(startRecording,180000); //TODO esto igual no hace falta con el lease-time... y checkServerStatus()??
     } else {
         // ALGO. TODO
     }
@@ -127,11 +127,11 @@ function prepareSite() {
     } else {
         locationTime = 'Geolocation is not supported by this browser';
     }
-    checkServerStatus();
 }
 
 //FUNCIÓN PARA PONER LATITUD, LONGITUD Y HORA EN UN STRING PARA EL NOMBRE DE LOS ARCHIVOS DE SONIDO
 function showPositionTime(position) {
+    checkServerStatus();
     console.log('Obteniendo ubicación y marca de tiempo...');
     locationTime = 'Lat' + position.coords.latitude +
         'Lon' + position.coords.longitude +
