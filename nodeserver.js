@@ -32,15 +32,25 @@ app.get('/', function(req, res){
 * Aquí se recibe la petición de credenciales y se envía de vuelta.
 * */
 app.get('/creds', function(req,res){
-    console.log("Petición de credenciales recibida");
+    console.log("Petición de credenciales recibida. Enviando...");
     var jsonCr = JSON.stringify(creds);
     res.send(jsonCr);
+});
+
+app.get('/status', function(req,res){
+    console.log("Petición de estado del servidor recibida");
+    if (userController.checkInactiveUser()){
+        res.send("true");
+    } else {
+        res.send("false");
+    }
 });
 
 /*
  * Create the upload/ route to handle the incoming uploads via the POST method:
  * */
 app.post('/upload', function(req, res){
+    console.log("Petición para subir audio recibida");
     // create an incoming form object
     var form = new formidable.IncomingForm();
     // specify that we want to allow the user to upload multiple files in a single request
@@ -58,9 +68,8 @@ app.post('/upload', function(req, res){
     });
     // once all the files have been uploaded, send a response to the client
     form.on('end', function() {
-        // FUNCION DE LEER JSON Y DEVOLVER STRING??
-        res.end('success');
         setCreds();
+        res.end('success');
     });
     // parse the incoming request containing the form data
     form.parse(req);

@@ -10,7 +10,7 @@ var userObj = require('./users/users.json');
  * */
 exports.getInactiveUser = function() {
     //console.log(userObj.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
-    console.log('Buscando usuarios inactivos...')
+    //console.log('Buscando usuarios inactivos...')
     for (var i =0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
             setUserActive(i);
@@ -19,6 +19,17 @@ exports.getInactiveUser = function() {
     }
     console.log("Parece que no hay usuarios libres...");
     return ["",""];
+};
+
+exports.checkInactiveUser = function () {
+    console.log('Buscando usuarios inactivos...');
+    var counter = 0;
+    for (var i = 0; i<userObj.users.length; i++){
+        if (!userObj.users[i].isActive){
+            counter++;
+        }
+    }
+    return counter;
 };
 
 /*

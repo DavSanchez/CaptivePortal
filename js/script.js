@@ -10,10 +10,11 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
     recorder,
     chunks,
     media,
+    serverStatus,
     locationTime;
 
 window.onload = function() {
-    getLocationTime();
+    prepareSite();
 };
 
 agreeBtn.onclick = e => {
@@ -41,9 +42,13 @@ agreeBtn.onclick = e => {
 };
 
 recordBtn.onclick = e => {
-    id('preRecordArea').style.display = 'none';
-    setTimeout(startRecording,100);
-    setInterval(startRecording,180000);
+    if (serverStatus === true) {
+        id('preRecordArea').style.display = 'none';
+        setTimeout(startRecording,100);
+        setInterval(startRecording,180000);
+    } else {
+        // ALGO. TODO
+    }
 };
 
 function startRecording() {                    // Se ejecuta al pulsar el botón Start
@@ -62,7 +67,7 @@ function saveAndSend(){
      signalEnergy += (chunks[k]*chunks[k]);
      console.log(signalEnergy);
      } */
-    //getLocationTime();
+    //prepareSite();
     let blob = new Blob(chunks, {type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${media.ext}`);
@@ -95,13 +100,34 @@ function receiveResponse(){
     });
 }
 
+// Comprobar que el servicio no está completo
+function checkServerStatus(){
+    console.log('Comprobando estado del servidor...');
+    $.ajax({
+        type: 'GET',
+        url: '/status',
+        dataType: 'text',
+        success: function(data){
+            console.log('Respuesta recibida: ' + data);
+            if (data === "true"){
+                console.log('El servidor parece estar bien.')
+                serverStatus = true;
+            } else {
+                console.log('Servidor parece lleno... Hacer algo.');
+                serverStatus = false;
+            }
+        }
+    });
+}
+
 //FUNCIONES PARA UBICACIÓN
-function getLocationTime() {
+function prepareSite() {
     if (navigator.geolocation) {
         navigator.geolocation.watchPosition(showPositionTime);
     } else {
         locationTime = 'Geolocation is not supported by this browser';
     }
+    checkServerStatus();
 }
 
 //FUNCIÓN PARA PONER LATITUD, LONGITUD Y HORA EN UN STRING PARA EL NOMBRE DE LOS ARCHIVOS DE SONIDO
@@ -117,7 +143,7 @@ function connect(username, password){
     console.log('Conectando...');
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
-    chilliController.logon(username, password);
+    //chilliController.logon(username, password);
 }
 
 //Extraer credenciales del JSON recibido y conectar...
