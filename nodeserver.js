@@ -39,7 +39,7 @@ app.get('/creds', function(req,res){
 /*
 * Aquí se recibe la petición de estado del servidor, por si los usuarios ya están todos cogidos.
 * */
-app.get('/status', function(req,res){
+app.get('/serverstatus', function(req,res){
     console.log("Petición de estado del servidor recibida");
     if (userController.checkInactiveUser()){
         res.send("true");

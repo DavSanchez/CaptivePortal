@@ -105,7 +105,7 @@ function checkServerStatus(){
     console.log('Comprobando estado del servidor...');
     $.ajax({
         type: 'GET',
-        url: '/status',
+        url: '/serverstatus',
         dataType: 'text',
         success: function(data){
             console.log('Respuesta recibida: ' + data);
