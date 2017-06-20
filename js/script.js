@@ -1,5 +1,5 @@
-'use strict';
 import {connect} from "chilliController";
+'use strict';
 
 // TODO aqui hace falta un refactor porque chiquito desorden...
 
