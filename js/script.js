@@ -11,7 +11,7 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
     chunks,
     media,
     serverStatus,
-    locationTime = "locTime";
+    locationTime;
 
 window.onload = function() {
     prepareSite();
