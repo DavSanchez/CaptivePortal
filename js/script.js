@@ -124,14 +124,17 @@ function checkServerStatus(){
 function prepareSite() {
     if (navigator.geolocation) {
         try {
+            //checkServerStatus();
             navigator.geolocation.watchPosition(showPositionTime);
         }
         catch(err){
             console.log("Error de ubicación: " + err);
             locationTime = 'LocError';
+            checkServerStatus();
         }
     } else {
         locationTime = 'Geolocation is not supported by this browser';
+        checkServerStatus();
     }
 }
 
@@ -154,6 +157,6 @@ function connect(username, password){
 
 //Extraer credenciales del JSON recibido y conectar...
 function getUserCredentials(data){
-    console.log('Conectando con username: '+data.username+' y password: '+data.password);
+    console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
     connect(data.username, data.password);
 }
