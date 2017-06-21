@@ -126,6 +126,7 @@ function checkServerStatus(){
 function prepareSite() {
     checkServerStatus();
     if (navigator.geolocation) {
+        console.log('Intentando obtener ubicación...');
         try {
             navigator.geolocation.watchPosition(showPositionTime, positionError, geoOptions);
         }
@@ -134,6 +135,7 @@ function prepareSite() {
             locationTime = 'LocError';
         }
     } else {
+        console.log('Geolocation not supported')
         locationTime = 'Geolocation is not supported by this browser';
     }
 }
