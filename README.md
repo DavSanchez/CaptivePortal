@@ -4,11 +4,21 @@ with **CoovaChilli**
 
 ## What is this?
 This is a captive portal service designed to serve as landing page and login process
-for a CoovaChilli implementation. It uses Node.js as the backend and the MediaStream
+for a CoovaChilli hotspot implementation. It uses Node.js as the backend and the MediaStream
 Recording API and the JSON interface provided by CoovaChilli for client management.
 
+**This is still an unstable version subject to immediate changes!** This is currently being
+developed as a final project for ULPGC's Degree in Telecommunication Technology Engineering.
+
 ### How does it work?
-When an user tries to connect 
+When an user tries to connect to a network guarded by CoovaChilli a captive portal comes up
+served by the Node backend. This landing page will ask the user for permissions to use their
+location and microphone. If permissions are granted and the Connect button is clicked a
+3-second piece of audio will be recorded and sent to the server, with the user location in
+its name. When this audio is received by the node server, the captive portal will ask the
+server for the credentials with which it will connect that user to CoovaChilli through its JSON
+interface. Once the credentials are received the captive portal attempts the login process to
+give network access to the user.
 
 
 ## How can I try this on my machine?
@@ -25,10 +35,10 @@ packages for the backend. You can install the LTS or the latest version of Node 
 following the instructions at their [website](https://nodejs.org/).
 
 - **A browser compatible with MediaStream Recording.** This captive portal service makes use
-of the MediaStream Recording API, which means that only clients using browsers that support
-this API (currently Firefox and Chrome) will be able to get past the landing page and be
-granted network access. Let's hope time treats this API well and gives support for it on all
-other browsers too!
+of the MediaStream Recording API to record audio, which means that only clients using browsers
+that support this API (currently Firefox and Chrome) will be able to get past the landing page
+and be granted network access. Let's hope time treats this API well and gives support for it on
+all other browsers too!
 
 Once all of this is set, you will only need to edit the CoovaChilli `/etc/chilli/config` file
 (created from copying and renaming `/etc/chilli/defaults`) changing the following attributes:
@@ -38,8 +48,8 @@ Once all of this is set, you will only need to edit the CoovaChilli `/etc/chilli
 - `HS_UAMFORMAT`: The complete node server root URL (stored in the previous attribute), port
 included (for example `http://\$HS_UAMSERVER:3000` if the node server uses the default port).
 
-If you have any doubts or problems with this just let me know by opening an issue. I'll
-do my best to provide an answer!
+If you have any doubts, suggestions or problems with this just let me know by opening an issue.
+I'll do my best to provide an answer!
 
 ## Sources
 - Web Development with Node &amp; Express, by Ethan Brown
