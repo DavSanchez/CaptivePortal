@@ -14,9 +14,9 @@ pending
 ## How can I try this on my machine?
 For it to work you will need the following:
 
-- **A working installation of CoovaChilli and the AAA manager it needs to function.** If you
-happen to be trying this on a Raspberry Pi with Raspbian OS, I strongly recommend using the
-script provided by GitHub user Pi Home Server at
+- **An installation of CoovaChilli and the AAA manager it needs to function.** If you happen
+to be trying this on a Raspberry Pi with Raspbian OS, I strongly recommend using the script
+provided by GitHub user Pi Home Server at
 [this repository](https://github.com/pihomeserver/Pi-Hotspot-Script) to have all of this up
 and running in a snap!
 
