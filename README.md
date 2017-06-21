@@ -8,15 +8,15 @@ for a CoovaChilli implementation. It uses Node.js as the backend and the MediaSt
 Recording API and the JSON interface provided by CoovaChilli for client management.
 
 ### How does it work?
-pending
+When an user tries to connect 
 
 
 ## How can I try this on my machine?
 For it to work you will need the following:
 
 - **A working installation of CoovaChilli and the AAA manager it needs to function.** If you
-happen to be trying this on a Raspberry Pi with Raspbian OS as I do, I strongly recommend using the
-script provided by GitHub user _Pi Home Server_ at
+happen to be trying this on a Raspberry Pi with Raspbian OS to use it as a WiFi hotspot
+(as I did), I strongly recommend using the script provided by GitHub user _Pi Home Server_ at
 [this repository](https://github.com/pihomeserver/Pi-Hotspot-Script) to have all of this up
 and running in a snap!
 
