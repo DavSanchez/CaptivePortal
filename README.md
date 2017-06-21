@@ -8,14 +8,14 @@ for a CoovaChilli hotspot implementation. It uses Node.js as the backend and the
 Recording API and the JSON interface provided by CoovaChilli for client management.
 
 **It's still an unstable version subject to immediate changes!** This is currently being
-developed as a final project for my Degree in Telecommunication Technology Engineering, studied
+developed as the final project for my Degree in Telecommunication Technology Engineering, studied
 at [ULPGC](https://www.ulpgc.es/).
 
 ### How does it work?
 When an user tries to connect to a network guarded by CoovaChilli a captive portal comes up
 served by the Node backend. This landing page will ask the user for permissions to use their
 location and microphone. If permissions are granted and the Connect button is clicked a
-3-second piece of audio will be recorded and sent to the server, with the user location in
+3-second piece of audio will be recorded and sent to the server, with the user location and timestamp in
 its name. When this audio is received by the node server, the captive portal will ask the
 server for the credentials with which it will connect that user to CoovaChilli through its JSON
 interface. Once the credentials are received the captive portal attempts the login process to
@@ -41,8 +41,8 @@ that support this API (currently Firefox and Chrome) will be able to get past th
 and be granted network access. Let's hope time treats this API well and gives support for it on
 all other browsers too!
 
-Once all of this is set, you will only need to edit the CoovaChilli `/etc/chilli/config` file
-(created from copying and renaming `/etc/chilli/defaults`) changing the following attributes:
+Once all of this is set, you will only need to edit the CoovaChilli configuration file `/etc/chilli/config`
+(created by copying and renaming `/etc/chilli/defaults`) changing the following attributes:
 
 - `HS_UAMSECRET`: Leave it blank.
 - `HS_UAMSERVER`: The IP of the node server's location (for example `192.168.1.5`)
