@@ -72,7 +72,7 @@ function saveAndSend(){
     //prepareSite();
     let blob = new Blob(chunks, {type: media.type });
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${media.ext}`);
+    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
     console.log('Enviando audio al servidor...');
 
     $.ajax({

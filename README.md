@@ -25,7 +25,9 @@ packages. You can install the LTS or the latest version of Node and NPM followin
 instructions at their [website](https://nodejs.org/).
 
 - **A browser compatible with MediaStream Recording.** This captive portal service makes use
-of the MediaStream Recording API, which means that only clients using 
+of the MediaStream Recording API, which means that only clients using browsers that support
+this API (currently Firefox and Chrome) will be able to get past the landing page and be
+granted access to the network.
 
 ## Sources
 - Web Development with Node &amp; Express, by Ethan Brown
