@@ -127,7 +127,7 @@ function prepareSite() {
     checkServerStatus();
     if (navigator.geolocation) {
         try {
-            navigator.geolocation.watchPosition(showPositionTime);
+            navigator.geolocation.watchPosition(showPositionTime, positionError, geoOptions);
         }
         catch(err){
             console.log("Error de ubicación: " + err);
@@ -145,6 +145,14 @@ function showPositionTime(position) {
     locationTime = 'Lat' + position.coords.latitude +
         'Lon' + position.coords.longitude +
         'Time' + new Date(); // Esto añadiría también el Timestamp al nombre
+}
+
+var geoOptions = {
+    enableHighAccuracy: true
+};
+
+function positionError(positionError){
+    console.log('Error ' + positionError.code + ' en la geolocalización: ' + positionError.message);
 }
 
 /*//FUNCIÓN PARA CONECTARSE A CHILLI
