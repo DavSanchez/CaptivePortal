@@ -8,7 +8,8 @@ for a CoovaChilli hotspot implementation. It uses Node.js as the backend and the
 Recording API and the JSON interface provided by CoovaChilli for client management.
 
 **It's still an unstable version subject to immediate changes!** This is currently being
-developed as a final project for ULPGC's Degree in Telecommunication Technology Engineering.
+developed as a final project for my Degree in Telecommunication Technology Engineering, studied
+at [ULPGC](https://www.ulpgc.es/).
 
 ### How does it work?
 When an user tries to connect to a network guarded by CoovaChilli a captive portal comes up
