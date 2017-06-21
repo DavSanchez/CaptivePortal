@@ -7,7 +7,7 @@ This is a captive portal service designed to serve as landing page and login pro
 for a CoovaChilli hotspot implementation. It uses Node.js as the backend and the MediaStream
 Recording API and the JSON interface provided by CoovaChilli for client management.
 
-**This is still an unstable version subject to immediate changes!** This is currently being
+**It's still an unstable version subject to immediate changes!** This is currently being
 developed as a final project for ULPGC's Degree in Telecommunication Technology Engineering.
 
 ### How does it work?
