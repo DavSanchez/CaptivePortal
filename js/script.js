@@ -112,7 +112,7 @@ function checkServerStatus(){
         success: function(data){
             console.log('Respuesta recibida: ' + data);
             if (data === "true"){
-                console.log('El servidor parece estar bien.')
+                console.log('El servidor parece estar bien.');
                 serverStatus = true;
             } else {
                 console.log('Servidor parece lleno... Hacer algo.');
