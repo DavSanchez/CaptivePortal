@@ -25,6 +25,7 @@ var creds = {
 app.use(express.static(path.join(__dirname, '')));
 
 app.get('/', function(req, res){
+    console.log('Petición recibida.');
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
