@@ -32,8 +32,13 @@ exports.checkInactiveUser = function () {
     return counter;
 };
 
-exports.userInactive = function(id){
-  setUserInactive(id);
+exports.userInactive = function() {
+    for (var i = 0; i<userObj.users.length; i++) {
+        if (userObj.users[i].isActive) {
+            setUserInactive(id);
+            return;
+        }
+    }
 };
 
 /*
