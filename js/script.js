@@ -138,11 +138,11 @@ function checkServerStatus(){
 function liberateUser(id){
     console.log('Liberando usuario ' + id);
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: '/userlogoff',
         data: id,
-        processData: false,
-        //contentType: false,
+        //processData: false,
+        contentType: 'text/plain',
         success: function (data) {
             console.log('success ' + data);
         }
