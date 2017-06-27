@@ -31,6 +31,9 @@ happen to be trying this on a Raspberry Pi with Raspbian OS to use it as a WiFi 
 [this repository](https://github.com/pihomeserver/Pi-Hotspot-Script) to have all of this up
 and running in a snap!
 
+- **The users on your AAA manager and `./users/users.json` have to be the same!** The IDs don't
+matter provided they are greater than 0. Initially, their `isActive` value must be `false`.
+
 - **Node.js and a few NPM packages.** This service uses Node.js with the Express and Formidable
 packages for the backend. You can install the LTS or the latest version of Node and NPM
 following the instructions at their [website](https://nodejs.org/).
