@@ -12,6 +12,7 @@ function connect(username, password){
 }
 
 function disconnect(){
+    console.log('Disconnecting...');
     chilliController.logoff();
 }
 
