@@ -57,8 +57,8 @@ app.get('/serverstatus', function(req,res){
 /*
  * Disconnecting user... */
 app.post('/userlogoff', function(req,res){
-    console.log('Recibida desconexión de usuario. Desconectando...' + req.body);
-    userController.userInactive();
+    console.log('Recibida desconexión de usuario. Desconectando...' + req.body.id);
+    userController.userInactive(req.body.id);
     res.end('success');
 });
 
