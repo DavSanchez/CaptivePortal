@@ -35,7 +35,7 @@ exports.checkInactiveUser = function () {
 exports.userInactive = function() {
     for (var i = 0; i<userObj.users.length; i++) {
         if (userObj.users[i].isActive) {
-            setUserInactive(id);
+            setUserInactive(i);
             return;
         }
     }
