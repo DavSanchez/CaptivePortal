@@ -25,36 +25,6 @@
             margin: 100px;
         }
     </style>
-    <script src="js/ChilliLibrary.js"></script>
-    <script>
-        // The included script creates a global chilliController object
-        // TODO esto podría mudarse a un JavaScript aparte...?
-
-        // then define event handler functions
-        chilliController.onError  = handleErrors;
-        chilliController.onUpdate = updateUI ;
-
-        //FUNCIÓN PARA CONECTARSE A CHILLI //TODO mudar a script.js y probar si funciona
-        function connect(username, password){
-            console.log('Conectando...');
-            if (username == "" || password == "") // ELABORAR
-                console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
-            chilliController.logon(username, password);
-        }
-
-        // when the reply is ready, this handler function is called
-        function updateUI( cmd ) {
-            alert ('You called the method ' + cmd +
-                '\n Your current state is = ' + chilliController.clientState);
-        }
-
-        // If an error occurs, this handler will be called instead
-        function handleErrors ( code ) {
-            alert ( 'The last contact with the Controller failed. Error code = ' + code );
-        }
-        //  finally, get current state
-        chilliController.refresh();
-    </script>
 </head>
 <body>
 <div id='gUMArea'>
@@ -78,6 +48,8 @@
 </div>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="js/ChilliLibrary.js"></script>
+<script src="js/chilliController.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
