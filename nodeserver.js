@@ -25,6 +25,7 @@ var creds = {
  * */
 //app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname, '')));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));

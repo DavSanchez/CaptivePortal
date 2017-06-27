@@ -26,7 +26,7 @@ window.onload = function() {
 // Si cierras la ventana te desconectas de la red!!
 window.onbeforeunload = function (event){
     disconnect();
-    liberateUser(userCreds.id);
+    liberateUser(userCreds);
     event.returnValue = "Disconecting from the network...";
 };
 
@@ -135,12 +135,12 @@ function checkServerStatus(){
 }
 
 // Función para liberar usuario de la lista
-function liberateUser(id){
+function liberateUser(creds){
     console.log('Liberando usuario...');
     $.ajax({
         type: 'POST',
         url: '/userlogoff',
-        data: id,
+        data: creds,
         success: function (data) {
             console.log('success ' + data);
         }
