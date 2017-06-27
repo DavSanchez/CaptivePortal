@@ -24,7 +24,7 @@ window.onload = function() {
 };
 
 // Si cierras la ventana te desconectas de la red!!
-window.onbeforeunload = function (event){
+window.onunload = function (event){
     disconnect();
     liberateUser(userCreds.id);
     event.returnValue = "Disconecting from the network...";
@@ -140,10 +140,8 @@ function liberateUser(id){
     $.ajax({
         type: 'GET',
         url: '/userlogoff',
-        data: {
-            ajaxId: id
-        },
-        //processData: false,
+        data: id,
+        processData: false,
         //contentType: false,
         success: function (data) {
             console.log('success ' + data);
