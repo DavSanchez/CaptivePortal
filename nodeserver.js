@@ -11,6 +11,7 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var userController = require('./userController');
+var bodyParser = require('body-parser');
 
 var creds = {
     id: "-1",
@@ -24,6 +25,9 @@ var creds = {
  * */
 //app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname, '')));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.get('/', function(req, res){
     console.log('Petición recibida.');
@@ -31,16 +35,16 @@ app.get('/', function(req, res){
 });
 
 /*
-* Aquí se recibe la petición de credenciales y se envía de vuelta.
-* */
+ * Aquí se recibe la petición de credenciales y se envía de vuelta.
+ * */
 app.get('/creds', function(req,res){
     console.log("Petición de credenciales recibida. Enviando...");
     var jsonCr = JSON.stringify(creds);
     res.send(jsonCr);
 });
 /*
-* Aquí se recibe la petición de estado del servidor, por si los usuarios ya están todos cogidos.
-* */
+ * Aquí se recibe la petición de estado del servidor, por si los usuarios ya están todos cogidos.
+ * */
 app.get('/serverstatus', function(req,res){
     console.log("Petición de estado del servidor recibida");
     if (userController.checkInactiveUser()){
@@ -51,9 +55,9 @@ app.get('/serverstatus', function(req,res){
 });
 
 /*
-* Disconnecting user... */
+ * Disconnecting user... */
 app.post('/userlogoff', function(req,res){
-    console.log('Recibida desconexión de usuario. Desconectando...' + req);
+    console.log('Recibida desconexión de usuario. Desconectando...' + req.body);
     userController.userInactive();
     res.end('success');
 });
