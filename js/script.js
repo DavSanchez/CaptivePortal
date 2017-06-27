@@ -140,7 +140,9 @@ function liberateUser(id){
     $.ajax({
         type: 'GET',
         url: '/userlogoff',
-        data: id,
+        data: {
+            ajaxId: id
+        },
         //processData: false,
         //contentType: false,
         success: function (data) {
