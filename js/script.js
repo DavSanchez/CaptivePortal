@@ -11,19 +11,24 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
     chunks,
     media,
     serverStatus,
-    userCreds,
     locationTime;
+
+var userCreds = {
+    id: "-1",
+    username: "prueba",
+    password: "pruebaPass"
+};
 
 window.onload = function() {
     prepareSite();
 };
 
 // Si cierras la ventana te desconectas de la red!!
-window.addEventListener("beforeunload", function (event){
+window.onbeforeunload = function (event){
     disconnect();
     liberateUser(userCreds.id);
     event.returnValue = "Disconecting from the network...";
-});
+};
 
 agreeBtn.onclick = e => {
     let mediaOptions = {
