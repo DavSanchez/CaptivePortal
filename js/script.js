@@ -137,7 +137,7 @@ function liberateUser(id){
         url: '/userlogoff',
         data: id,
         //processData: false,
-        contentType: false,
+        //contentType: false,
         success: function (data) {
             console.log('success ' + data);
         }
