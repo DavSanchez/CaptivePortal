@@ -18,7 +18,7 @@ exports.getInactiveUser = function() {
         }
     }
     console.log("Parece que no hay usuarios libres...");
-    return ["",""];
+    return ["","",""];
 };
 
 exports.checkInactiveUser = function () {
@@ -30,6 +30,10 @@ exports.checkInactiveUser = function () {
         }
     }
     return counter;
+};
+
+exports.userInactive = function(id){
+  setUserInactive(id);
 };
 
 /*
@@ -55,7 +59,7 @@ function setUserInactive(userId) {
  * */
 function prepareToConnect(userId) {
     console.log("Almacenando credenciales del usuario " + userId + " para el cliente.");
-    return [userObj.users[userId].username, userObj.users[userId].password];
+    return [userObj.users[userId].id, userObj.users[userId].username, userObj.users[userId].password];
 }
 
 function writeUsersFile(userJSON){

@@ -3,12 +3,16 @@
 chilliController.onError  = handleErrors;
 chilliController.onUpdate = updateUI ;
 
-//FUNCIÓN PARA CONECTARSE A CHILLI //TODO mudar a script.js y probar si funciona
+//FUNCIÓN PARA CONECTARSE A CHILLI
 function connect(username, password){
     console.log('Conectando...');
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
     chilliController.logon(username, password);
+}
+
+function disconnect(){
+    chilliController.logoff();
 }
 
 // when the reply is ready, this handler function is called

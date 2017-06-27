@@ -6,17 +6,24 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
     ul = id('ul'),                            // Lo que está bajo los botones de start/stop
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
-    //chilliCon = id('chilliCon'),
     stream,                                   // Variables para MediaRecorder
     recorder,
     chunks,
     media,
     serverStatus,
+    userCreds,
     locationTime;
 
 window.onload = function() {
     prepareSite();
 };
+
+// Si cierras la ventana te desconectas de la red!!
+window.addEventListener("beforeunload", function (event){
+    disconnect();
+    liberateUser(userCreds.id);
+    event.returnValue = "Disconecting from the network...";
+});
 
 agreeBtn.onclick = e => {
     let mediaOptions = {
@@ -69,8 +76,7 @@ function saveAndSend(){
      signalEnergy += (chunks[k]*chunks[k]);
      console.log(signalEnergy);
      } */
-    //prepareSite();
-    let blob = new Blob(chunks, {type: media.type });
+    let blob = new Blob(chunks, {type: media.type});
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
     console.log('Enviando audio al servidor...');
@@ -97,7 +103,8 @@ function receiveResponse(){
         dataType: 'json',
         success: function(data) {
             console.log('respuesta recibida: ' + data);
-            getUserCredentials(data);
+            userCreds = data;
+            getUserCredentials(userCreds);
         }
     });
 }
@@ -118,6 +125,21 @@ function checkServerStatus(){
                 console.log('Servidor parece lleno... Hacer algo.');
                 serverStatus = false;
             }
+        }
+    });
+}
+
+// Función para liberar usuario de la lista
+function liberateUser(id){
+    console.log('Liberando usuario ' + id);
+    $.ajax({
+        type: 'GET',
+        url: '/userlogoff',
+        data: id,
+        //processData: false,
+        contentType: false,
+        success: function (data) {
+            console.log('success ' + data);
         }
     });
 }
@@ -156,14 +178,6 @@ var geoOptions = {
 function positionError(positionError){
     console.log('Error ' + positionError.code + ' en la geolocalización: ' + positionError.message);
 }
-
-/*//FUNCIÓN PARA CONECTARSE A CHILLI
-function connect(username, password){
-    console.log('Conectando...');
-    if (username == "" || password == "") // ELABORAR
-        console.log('Algo va mal... ¿Usuarios completos? User: '+username+'. Pass: '+password+'.');
-    chilliController.logon(username, password);
-}*/
 
 //Extraer credenciales del JSON recibido y conectar...
 function getUserCredentials(data){

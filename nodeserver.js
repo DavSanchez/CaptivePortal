@@ -13,6 +13,7 @@ var fs = require('fs');
 var userController = require('./userController');
 
 var creds = {
+    id: "-1",
     username: "prueba",
     password: "pruebaPass"
 };
@@ -50,6 +51,14 @@ app.get('/serverstatus', function(req,res){
 });
 
 /*
+* Disconnecting user... */
+app.get('/userlogoff', function(req,res){
+    console.log('Recibida desconexión de usuario '+ req);
+    userController.userInactive(req);
+    res.end('success');
+});
+
+/*
  * Create the upload/ route to handle the incoming uploads via the POST method:
  * */
 app.post('/upload', function(req, res){
@@ -82,8 +91,9 @@ app.post('/upload', function(req, res){
 function setCreds(){
     console.log('Estableciendo credenciales...');
     var data = userController.getInactiveUser();
-    creds.username = data[0];
-    creds.password = data[1];
+    creds.id = data[0];
+    creds.username = data[1];
+    creds.password = data[2];
 }
 
 /*
