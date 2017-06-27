@@ -18,7 +18,7 @@ exports.getInactiveUser = function() {
         }
     }
     console.log("Parece que no hay usuarios libres...");
-    return ["","",""];
+    return ["", "", ""];
 };
 
 exports.checkInactiveUser = function () {
