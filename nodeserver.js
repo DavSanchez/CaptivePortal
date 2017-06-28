@@ -26,9 +26,9 @@ var creds = {
 //app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname, '')));
 app.use(bodyParser.json());
-/*app.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({
     extended: true
-}));*/
+}));
 
 app.get('/', function(req, res){
     console.log('Petición recibida.');
