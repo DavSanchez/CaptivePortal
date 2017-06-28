@@ -52,8 +52,8 @@ Once all of this is set, you will only need to edit the CoovaChilli configuratio
 - `HS_UAMSERVER`: The IP of the node server's location (for example `192.168.1.5`)
 - `HS_UAMFORMAT`: The complete node server root URL (stored in the previous attribute), port
 included (for example `http://\$HS_UAMSERVER:3000` if the node server uses the default port).
-- `HS_UAMDOMAINS`: Type `"maxcdn.bootstrapcdn.com code.jquery.com"` as allowed domains for the
-captive portal to function.
+- `HS_UAMDOMAINS`: Type `"maxcdn.bootstrapcdn.com code.jquery.com"` as the allowed domains for
+the captive portal to function.
 
 If you have any doubts, suggestions or problems with this just let me know by opening an issue.
 I'll do my best to provide an answer!
