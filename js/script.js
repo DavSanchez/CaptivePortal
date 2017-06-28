@@ -27,7 +27,7 @@ window.onload = function() {
 window.onbeforeunload = function (event){
     disconnect();
     liberateUser(userCreds);
-    event.returnValue = "Disconecting from the network...";
+    // event.returnValue = "Disconecting from the network...";
 };
 
 agreeBtn.onclick = e => {
