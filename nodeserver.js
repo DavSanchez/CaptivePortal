@@ -31,8 +31,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res){
-    console.log('Petición recibida.');
     res.sendFile(path.join(__dirname, 'index.html'));
+    console.log('Petición al servidor recibida.');
 });
 
 /*
