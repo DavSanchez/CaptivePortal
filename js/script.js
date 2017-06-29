@@ -21,6 +21,7 @@ var userCreds = {
 
 window.onload = function() {
     prepareSite();
+    setInterval(checkServerStatus(),100000);
 };
 
 // Si cierras la ventana te desconectas de la red!!
@@ -149,7 +150,6 @@ function liberateUser(creds){
 
 //FUNCIONES PARA UBICACIÓN
 function prepareSite() {
-    checkServerStatus();
     if (navigator.geolocation) {
         console.log('Intentando obtener ubicación...');
         try {

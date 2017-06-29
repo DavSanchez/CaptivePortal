@@ -1,50 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MediaRecorder API - Sample</title>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="WebRTC getUserMedia MediaRecorder API">
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+    <title>MediaRecorder API - Sample</title>
     <style>
-        button{
-            margin: 10px 5px;
+        html {
+            position: relative;
+            min-height: 100%;
         }
-        li{
-            margin: 10px;
-        }
-        body{
-            width: 90%;
-            max-width: 960px;
-            margin: 0 auto;
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
         }
         #preRecordArea{
             display: none;
         }
-        h1{
-            margin: 100px;
+        #agreedArea{
+            display: none;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: auto;
+            max-width: 680px;
+            padding: 0 15px;
+        }
+        .container .text-muted {
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-<div id='gUMArea'>
-    <div>
+<div id='gUMArea' class="container">
+    <div class="page-header">
         <h1>Welcome</h1>
-        <p>Aquí vamos a escribir una movida loquísima que ya veremos cómo lo hacemos pero va de que si le das click al
-            botón me quedo con todo tu puto audio cada 30 minutos o te piras de aquí ok?...</p>
-        <button class="btn btn-default" id='agreeBtn'>Estoy de acuerdo</button>
     </div>
+    <p class="lead">Aquí vamos a escribir una movida loquísima que ya veremos cómo lo hacemos pero va de que si le das click al
+        botón me quedo con todo tu puto audio cada 30 minutos o te piras de aquí ok?...</p>
+    <button class="btn btn-default" id='agreeBtn'>Estoy de acuerdo</button>
 </div>
-<div id='preRecordArea'>
-    <div>
+<div id='preRecordArea' class="container">
+    <div class="page-header">
         <h1>Welcome</h1>
-        <p>OK... dale a Conectar para que empiece la movida.</p>
-        <button class="btn btn-default" id='recordBtn'>Conectar</button>
     </div>
+    <p class="lead">OK... dale a Conectar para que empiece la movida.</p>
+    <button class="btn btn-default" id='recordBtn'>Conectar</button>
 </div>
-<div>
-    <h1  id="uploadArea"></h1>
-    <ul  class="list-unstyled" id='ul'></ul>
+<div id="agreedArea" class="container">
+    <div class="page-header">
+        <h1>Grabando</h1>
+    </div>
+    <p class="lead">Aquí vamos a escribir una movida loquísima que ya veremos cómo lo hacemos pero va de que si le das click al
+        botón me quedo con todo tu puto audio cada 30 minutos o te piras de aquí ok?...</p>
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
