@@ -21,7 +21,8 @@ var userCreds = {
 
 window.onload = function() {
     prepareSite();
-    setInterval(checkServerStatus(),100000);
+    checkServerStatus();
+    setInterval(checkServerStatus(),500000);
 };
 
 // Si cierras la ventana te desconectas de la red!!
