@@ -168,7 +168,6 @@ function prepareSite() {
 
 //FUNCIÓN PARA PONER LATITUD, LONGITUD Y HORA EN UN STRING PARA EL NOMBRE DE LOS ARCHIVOS DE SONIDO
 function showPositionTime(position) {
-    checkServerStatus();
     console.log('Obteniendo ubicación y marca de tiempo...');
     locationTime = 'Lat' + position.coords.latitude +
         'Lon' + position.coords.longitude +
