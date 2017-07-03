@@ -10,7 +10,7 @@ var app = express();
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
-var userController = require('./userController');
+var userController = require('./users/userController');
 var bodyParser = require('body-parser');
 
 var creds = {
