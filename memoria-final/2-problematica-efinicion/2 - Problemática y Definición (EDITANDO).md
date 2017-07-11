@@ -42,7 +42,7 @@ Se utilizará una Raspberry Pi 3 como elemento principal del diseño, pues allí
 
 * **_Hostapd_**: Este *daemon* de linux se encarga de configurar el módulo WiFi en modo AP. De esta manera, la Raspberry Pi puede actuar como un punto de acceso configurable, conectándose sus clientes a través de su interfaz WiFi y obteniendo acceso a la red a través de la interfaz Ethernet de acuerdo al siguiente esquema.[INSERTAR ESQUEMA RASPI-ROUTER-INTERNET]
 
-* **CoovaChilli**: El software controlador de acceso que proporcionará IPs a las conexiones entrantes con su DHCP, redirigirá dichas conexiones al portal cautivo para su autenticación en el sistema y gestionará las mismas y la contabilidad del sistema por medio de un sistema de AAA que ha de ser instalado aparte, habitualmente un servidor RADIUS.![image alt text](image_4.jpg)
+* **CoovaChilli**: El software controlador de acceso que proporcionará IPs a las conexiones entrantes con su DHCP, redirigirá dichas conexiones al portal cautivo para su autenticación en el sistema y gestionará las mismas y la contabilidad del sistema por medio de un sistema de AAA que ha de ser instalado aparte, habitualmente un servidor RADIUS.![image alt text](image_4.jpg)
 
 * **FreeRADIUS**: El servicio de AAA gracias al cual CoovaChilli controlará los usuarios del sistema. Para su utilización es necesaria su previa integración con MySQL, que ha de estar instalado en el sistema.
 
@@ -122,31 +122,21 @@ hostapd se configura por medio de un fichero de texto que lista todos los parám
 
 De este modo, un ejemplo de archivo de configuración podría ser el siguiente:
 
+```shell
 interface=wlan0
-
 driver=nl80211
-
 ssid=RaspAP
-
 hw_mode=g
-
 channel=8
-
 wpa=2
-
 wpa_psk=928519398acf811e96f5dcac68a11d6aa876140599be3dd49612e760a2aaac0e
-
 wpa_key_mgmt=WPA-PSK
-
 wpa_pairwise=CCMP
-
 rsn_pairwise=CCMP
-
 beacon_int=100
-
 auth_algs=3
-
 wmm_enabled=1
+```
 
 ## CoovaChilli y su Entorno
 
@@ -222,7 +212,8 @@ Cuando un cliente es autorizado el objeto chilliController actualizará periódi
 
 CoovaChilli facilita una plantilla de código en su página web que puede alojarse en el HTML de un portal cautivo que utilice esta interfaz. Este código puede verse a continuación:
 
-<script src="http&#58;//my.host.com/ChilliLibrary.js"></script><script>// The included script creates a global chilliController object  // If you use non standard configuration, define your configuration chilliController.host = "10.0.0.1";  // Default is 192.168.182.1chilliController.port  = 4003     ; //  Default is 3990chilliController.interval = 60    ; // Default is 30 seconds  // then define event handler functionschilliController.onError  = handleErrors;chilliController.onUpdate = updateUI ;// when the reply is ready, this handler function is calledfunction updateUI( cmd ) {  alert ( ‘You called the method' + cmd +    '\n Your current state is =’ + chilliController.clientState ) ;}  // If an error occurs, this handler will be called insteadfunction handleErrors ( code ) {  alert ( 'The last contact with the Controller failed. Error code =' + code );}//  finally, get current statechilliController.refresh();</script>
+```JavaScript<script src="http&#58;//my.host.com/ChilliLibrary.js"></script><script>// The included script creates a global chilliController object// If you use non standard configuration, define your configurationchilliController.host = "10.0.0.1";  // Default is 192.168.182.1chilliController.port  = 4003     ; //  Default is 3990chilliController.interval = 60    ; // Default is 30 seconds// then define event handler functionschilliController.onError  = handleErrors;chilliController.onUpdate = updateUI ;// when the reply is ready, this handler function is calledfunction updateUI( cmd ) {  alert ( ‘You called the method' + cmd +    '\n Your current state is =’ + chilliController.clientState ) ;}// If an error occurs, this handler will be called insteadfunction handleErrors ( code ) {  alert ( 'The last contact with the Controller failed. Error code =' + code );}//  finally, get current statechilliController.refresh();</script>
+```
 
 chilliController es un objeto global creado por el script incluido al principio. Por defecto, está configurado para contactar con CoovaChilli en 192.168.182.1:3990 cada 30 segundos. Si deseamos valores diferentes, pueden modificarse antes de llamar a cualquier método tal y como se ve en el bloque de código.
 
@@ -296,37 +287,43 @@ Como se ha mencionado anteriormente, los comandos se envían a CoovaChilli media
 
 ##### Logon
 
-Siguiendo el ejemplo del bloque de código que configuró el objeto chilliController en apartados anteriores, cuando se llama al método *logon()* del Controlador el objeto genera un desafío CHAP aleatorio (*string* hexadecimal) y realiza la petición *[http://192.168.182.1:3990/json/logon?username=XXXX&chapchallenge=YYYY&chappassword=0123456789abcdef&lang=E*N](http://192.168.182.1:3990/json/logon?username=XXXX&chapchallenge=YYYY&chappassword=0123456789abcdef&lang=EN).
+Siguiendo el ejemplo del bloque de código que configuró el objeto chilliController en apartados anteriores, cuando se llama al método *logon()* del Controlador el objeto genera un desafío CHAP aleatorio (*string* hexadecimal) y realiza la petición a http://192.168.182.1:3990/json/logon?username=XXXX&chapchallenge=YYYY&chappassword=0123456789abcdef&lang=EN
 
 CoovaChilli responde con un objeto en formato JSON como el siguiente:
 
-{  "version" : "1.0",  "clientState" : 1 ,  "sessionId" : "4662e92b0000000e" ,  "message" : "You’re now connected" ,  "location" : {     "name":  "Coova labs"  },   "redir" : {    "macAddress" : "00-30-1B-B5-03-6B",    "originalURL" : "http://my.yahoo.com/",    "redirectionURL" : "http://www.coova.org/welcome.php",    "ipAddress" : "192.168.182.47"  },   "session" : {    "startTime" : 137550720,    "terminateTime" : 13756072,    "sessionTimeout" : 3600,    "idleTimeout" : 240,    "maxInputOctets" : 100000000,    "maxOutputOctets" : 100000000,    "maxTotalOctets" : 100000000,    "bandwidthMaxDown" : 1000000,    "bandwidthMaxUp" : 1000000  },    "accounting": {     "sessionTime" : 2,     "idleTime" : 0,     "inputOctets" : 0,     "outputOctets" : 0,     "inputGigawords" : 0,     "outputGigawords" : 0  }}
+```JSON{  "version" : "1.0",  "clientState" : 1 ,  "sessionId" : "4662e92b0000000e" ,  "message" : "You’re now connected" ,  "location" : {     "name":  "Coova labs"  },  "redir" : {    "macAddress" : "00-30-1B-B5-03-6B",    "originalURL" : "http://my.yahoo.com/",    "redirectionURL" : "http://www.coova.org/welcome.php",    "ipAddress" : "192.168.182.47"  },  "session" : {    "startTime" : 137550720,    "terminateTime" : 13756072,    "sessionTimeout" : 3600,    "idleTimeout" : 240,    "maxInputOctets" : 100000000,    "maxOutputOctets" : 100000000,    "maxTotalOctets" : 100000000,    "bandwidthMaxDown" : 1000000,    "bandwidthMaxUp" : 1000000  },  "accounting": {     "sessionTime" : 2,     "idleTime" : 0,     "inputOctets" : 0,     "outputOctets" : 0,     "inputGigawords" : 0,     "outputGigawords" : 0  }}
+```
 
 Si por el contrario la autorización no tiene éxito la respuesta JSON será como la siguiente:
 
-{  "version": "1.0",  "clientState": 0,  "message": "This username does not exist",  "location" : { "name":"My HotSpot" } }
+```JSON{  "version": "1.0",  "clientState": 0,  "message": "This username does not exist",  "location" : { "name":"My HotSpot" } }
+ ```
 
 ##### Logoff
 
-Cuando se llama al método de desconexión se realiza la petición a [http://192.168.182.1:3990/json/logoff?lang=en&callback=myfunc](http://192.168.182.1:3990/json/logoff?lang=en&callback=myfunc).
+Cuando se llama al método de desconexión se realiza la petición a http://192.168.182.1:3990/json/logoff?lang=en&callback=myfunc.
 
 La respuesta JSON pasará a tener esta forma:
 
+```JSON
 myfunc ( { "version": "1.0", "clientState": 0 } )
+```
 
 ##### Refresh
 
-Cuando se llama al método de actualización se realiza la petición a [http://192.168.182.1:3990/json/status?lang=en](http://192.168.182.1:3990/json/status?lang=en).
+Cuando se llama al método de actualización se realiza la petición a http://192.168.182.1:3990/json/status?lang=en.
 
 La respuesta JSON en este caso será:
 
-{ "version" : "1.0", "clientState" : 1 , "sessionId" : "4662e92b0000000e" , "accounting": {     "sessionTime" : 1230,     "idleTime" : 240,     "inputOctets" : 2912981 ,     "outputOctets" : 51498511,     "inputGigawords" : 0,     "outputGigawords" : 0  }}
+```JSON{ "version" : "1.0", "clientState" : 1 , "sessionId" : "4662e92b0000000e" , "accounting": {     "sessionTime" : 1230,     "idleTime" : 240,     "inputOctets" : 2912981 ,     "outputOctets" : 51498511,     "inputGigawords" : 0,     "outputGigawords" : 0  }}
+```
 
 No es necesario repetir las propiedades fijas de sesión. El atributo *sessionId* se usa para asociar los nuevos valores de contabilidad recibidos con los valores de sesión recibidos con el comando *logon* inicial.
 
 Si el cliente no está autorizado:
 
-{ "version" : "1.0", "clientState" : 0}
+```JSON{ "version" : "1.0", "clientState" : 0}
+```
 
 ### El Servidor RADIUS
 
@@ -401,4 +398,3 @@ https://en.wikipedia.org/wiki/Node.js
 ## El *Front-end*
 
 [https://en.wikipedia.org/wiki/ECMAScript#ES6](https://en.wikipedia.org/wiki/ECMAScript#ES6)
-
