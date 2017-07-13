@@ -77,12 +77,6 @@ function stopRecording() {
 }
 
 function saveAndSend(){
-
-    /*  for (var k = 0; k<chunks.length; k++){  // ESTO ERA PARA CALCULAR LA ENERGÍA, PERO COGE EL VECTOR INCORRECTO...
-     signalEnergy += (chunks[k]*chunks[k]);
-     console.log(signalEnergy);
-     } */
-    // TODO
     let blob = new Blob(chunks, {type: media.type});
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
@@ -161,7 +155,7 @@ function prepareSite() {
             locationTime = 'LocError';
         }
     } else {
-        console.log('Geolocation not supported')
+        console.log('Geolocation not supported');
         locationTime = 'Geolocation is not supported by this browser';
     }
 }
