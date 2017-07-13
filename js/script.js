@@ -26,10 +26,10 @@ window.onload = function() {
 };
 
 // Si cierras la ventana te desconectas de la red!!
-window.onbeforeunload = function (event){
+window.onunload = function (event){
     disconnect();
     liberateUser(userCreds);
-    // event.returnValue = "Disconnecting from the network...";
+    log('Disconnecting...');
 };
 
 agreeBtn.onclick = e => {
@@ -61,9 +61,9 @@ recordBtn.onclick = e => {
         console.log('El servidor parece estar bien...');
         id('preRecordArea').style.display = 'none';
         setTimeout(startRecording,100);
-        setInterval(startRecording,180000); //TODO esto igual no hace falta con el lease-time... y checkServerStatus()??
+        setInterval(startRecording,180000);
     } else {
-        console.log('Aquí hay movida');// ALGO. TODO
+        console.log('Ha ocurrido un error en el servidor. ¿Podría estar completo?');
     }
 };
 
@@ -83,6 +83,7 @@ function saveAndSend(){
      signalEnergy += (chunks[k]*chunks[k]);
      console.log(signalEnergy);
      } */
+    // TODO
     let blob = new Blob(chunks, {type: media.type});
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
