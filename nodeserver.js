@@ -139,8 +139,8 @@ var server = app.listen(3000, function(){
 
 /*
 const options = {
-    key: fs.readFileSync('ssl/server.key'),
-    cert: fs.readFileSync('ssl/server.crt')
+    key: fs.readFileSync('ssl/server-key.pem'),
+    cert: fs.readFileSync('ssl/server-cert.pem')
     // pfx: fs.readFileSync('test/fixtures/test_cert.pfx'),
     // passphrase: 'sample'
 };
