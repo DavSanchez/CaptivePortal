@@ -28,14 +28,16 @@ window.onunload = function (event){
     if (userCreds.id != -1) {
         disconnect();
         liberateUser(userCreds);
+        userCreds.id = -1;
         log('Disconnecting...');
     }
 };
-
+// Pruebita...
 window.addEventListener("beforeunload", function (e) {
     if (userCreds.id != -1) {
         disconnect();
         liberateUser(userCreds);
+        userCreds.id = -1;
         log('Disconnecting...');
     }
 });
