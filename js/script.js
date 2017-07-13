@@ -26,7 +26,8 @@ window.onload = function() {
 // Si cierras la ventana te desconectas de la red!!
 window.onunload = function (event){
     disconnect();
-    liberateUser(userCreds);
+    if (userCreds.id != -1)
+        liberateUser(userCreds);
     log('Disconnecting...');
 };
 
@@ -47,9 +48,13 @@ agreeBtn.onclick = e => {
         recorder = new MediaRecorder(stream);      // Preparando la grabación 2
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
-            if(recorder.state == 'inactive')
-                // TODO hacer aquí un if (id actual != -1) llevarlo a otra ruta en el server que no pida credenciales!!
-                saveAndSend(); // guarda y envía
+            if(recorder.state == 'inactive') {
+                if (userCreds.id != -1){
+                    loggedUserSaveAndSend(); // guarda y envía
+                } else {
+                    saveAndSend(); // guarda y envía
+                }
+            }
         };
         log('got media successfully');
     }).catch(log);
@@ -84,6 +89,25 @@ function saveAndSend(){
 
     $.ajax({
         url: '/upload',
+        type: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function(data){
+            console.log('upload successful! ' + data);
+            receiveResponse();
+        }
+    });
+}
+
+function loggedUserSaveAndSend(){
+    let blob = new Blob(chunks, {type: media.type});
+    var fd = new FormData();
+    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
+    console.log('Enviando audio al servidor...');
+
+    $.ajax({
+        url: '/loggedupload',
         type: 'POST',
         data: fd,
         processData: false,
