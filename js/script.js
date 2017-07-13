@@ -25,10 +25,11 @@ window.onload = function() {
 
 // Si cierras la ventana te desconectas de la red!!
 window.onunload = function (event){
-    disconnect();
-    if (userCreds.id != -1)
+    if (userCreds.id != -1) {
+        disconnect();
         liberateUser(userCreds);
-    log('Disconnecting...');
+        log('Disconnecting...');
+    }
 };
 
 agreeBtn.onclick = e => {
