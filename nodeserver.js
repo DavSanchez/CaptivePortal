@@ -151,5 +151,5 @@ const options = {
 });*/
 
 https.createServer(options, app).listen(3000, function(){ // DEFAULT PORT 443
-    console.log('HTTPS server listening on port 4430');
+    console.log('HTTPS server listening on port 3000');
 });
