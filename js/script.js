@@ -48,6 +48,7 @@ agreeBtn.onclick = e => {
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
             if(recorder.state == 'inactive')
+                // TODO hacer aquí un if (id actual != -1) llevarlo a otra ruta en el server que no pida credenciales!!
                 saveAndSend(); // guarda y envía
         };
         log('got media successfully');
