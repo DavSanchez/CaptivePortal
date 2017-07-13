@@ -7,6 +7,8 @@
  * */
 var express = require('express');
 var app = express();
+var http = require('http');
+var https = require('https');
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
@@ -131,6 +133,12 @@ function setCreds(){
  * Now that we have everything set up and the route to handle the uploads in place,
  * all we need to do it start our NodeJS server and start processing uploads!
  * */
-var server = app.listen(3000, function(){
-    console.log('Server listening on port 3000');
+// var server = app.listen(3000, function(){
+//     console.log('Server listening on port 3000');
+// });
+http.createServer(app).listen(8080, function(){
+    console.log('HTTP server listening on port 8080');
+});
+https.createServer(options, app).listen(4430, function(){
+    console.log('HTTPS server listening on port 4430');
 });
