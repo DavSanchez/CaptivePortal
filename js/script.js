@@ -32,6 +32,14 @@ window.onunload = function (event){
     }
 };
 
+window.addEventListener("beforeunload", function (e) {
+    if (userCreds.id != -1) {
+        disconnect();
+        liberateUser(userCreds);
+        log('Disconnecting...');
+    }
+});
+
 agreeBtn.onclick = e => {
     let mediaOptions = {
         audio: {                           // Ajustes de sonido
@@ -115,7 +123,7 @@ function loggedUserSaveAndSend(){
         contentType: false,
         success: function(data){
             console.log('upload successful! ' + data);
-            receiveResponse();
+            //receiveResponse();
         }
     });
 }
