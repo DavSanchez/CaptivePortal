@@ -146,6 +146,10 @@ var server = app.listen(3000, function(){
 /*
 // FOR SSL (HTTPS) WITH KEYS CREATED WITH THIS COMMAND:
 // openssl req -x509 -sha256 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+// SOURCES:
+// https://sites.google.com/a/chromium.org/dev/Home/chromium-security/deprecating-powerful-features-on-insecure-origins
+// https://mail.mozilla.org/pipermail/web-vr-discuss/2016-July/001272.html
+// https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
 
  const options = {
     key: fs.readFileSync('./ssl/key.pem'),
