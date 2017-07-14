@@ -3,6 +3,9 @@
 chilliController.onError  = handleErrors;
 chilliController.onUpdate = updateUI ;
 
+// AJUSTES TEMPORALES PARA SSL (HTTPS)
+chilliController.ssl = true;
+
 //FUNCIÓN PARA CONECTARSE A CHILLI
 function connect(username, password){
     console.log('Conectando...');
