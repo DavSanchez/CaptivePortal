@@ -133,14 +133,21 @@ function setCreds(){
  * Now that we have everything set up and the route to handle the uploads in place,
  * all we need to do it start our NodeJS server and start processing uploads!
  * */
-
+/*
+ http.createServer(app).listen(8080, function(){
+ console.log('HTTP server listening on port 8080');
+ });
+ */
 var server = app.listen(3000, function(){
     console.log('HTTP server listening on port 3000');
 });
 
 
 /*
-const options = {
+// FOR SSL (HTTPS) WITH KEYS CREATED WITH THIS COMMAND:
+// openssl req -x509 -sha256 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+
+ const options = {
     key: fs.readFileSync('./ssl/key.pem'),
     cert: fs.readFileSync('./ssl/cert.pem'),
     passphrase: 'pruebassl'
@@ -150,9 +157,3 @@ https.createServer(options, app).listen(3000, function(){ // DEFAULT PORT 443
     console.log('HTTPS server listening on port 3000');
 });
 */
-
-/*
-http.createServer(app).listen(8080, function(){
- console.log('HTTP server listening on port 8080');
- });
- */
