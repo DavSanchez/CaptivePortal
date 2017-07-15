@@ -1,7 +1,6 @@
 'use strict';
 
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
-    ul = id('ul'),                            // Lo que está bajo los botones de start/stop
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
     stream,                                   // Variables para MediaRecorder
