@@ -157,7 +157,7 @@ function checkServerStatus(){
                 console.log('El servidor parece estar bien.');
                 serverStatus = true;
             } else {
-                console.log('Servidor parece lleno... Hacer algo.');
+                console.log('Servidor parece lleno...');
                 serverStatus = false;
             }
         }
