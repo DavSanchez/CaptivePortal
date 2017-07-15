@@ -58,7 +58,7 @@ agreeBtn.onclick = e => {
         recorder = new MediaRecorder(stream);      // Preparando la grabación 2
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
-            if(recorder.state == 'inactive') {
+            if (recorder.state == 'inactive') {
                 if (userCreds.id != -1){
                     loggedUserSaveAndSend(); // guarda y envía
                 } else {
