@@ -138,12 +138,12 @@ function setCreds(){
  console.log('HTTP server listening on port 8080');
  });
  */
-var server = app.listen(3000, function(){
-    console.log('HTTP server listening on port 3000');
-});
+//var server = app.listen(3000, function(){
+//    console.log('HTTP server listening on port 3000');
+//});
 
 
-/*
+
 // FOR SSL (HTTPS) WITH KEYS CREATED WITH THIS COMMAND:
 // openssl req -x509 -sha256 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
 // SOURCES:
@@ -160,4 +160,3 @@ var server = app.listen(3000, function(){
 https.createServer(options, app).listen(3000, function(){ // DEFAULT PORT 443
     console.log('HTTPS server listening on port 3000');
 });
-*/
