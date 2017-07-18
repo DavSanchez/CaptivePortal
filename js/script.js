@@ -22,17 +22,8 @@ window.onload = function() {
     setInterval(checkServerStatus(),500000);
 };
 
-// Si cierras la ventana te desconectas de la red!!
-window.onunload = function (event){
-    if (userCreds.id != -1) {
-        disconnect();
-        liberateUser(userCreds);
-        userCreds.id = -1;
-        log('Disconnecting...');
-    }
-};
 // Pruebita...
-window.addEventListener("beforeunload", function (e) {
+window.addEventListener("unload", function (event) {
     if (userCreds.id != -1) {
         disconnect();
         liberateUser(userCreds);
