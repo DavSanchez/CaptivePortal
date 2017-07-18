@@ -23,7 +23,7 @@ window.onload = function() {
 };
 
 // Pruebita...
-window.addEventListener("unload", function (event) {
+window.addEventListener('beforeunload', function (event) {
     if (userCreds.id != -1) {
         disconnect();
         liberateUser(userCreds);
