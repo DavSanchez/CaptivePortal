@@ -138,9 +138,9 @@ function setCreds(){
  console.log('HTTP server listening on port 8080');
  });
  */
-var server = app.listen(3000, function(){
-    console.log('HTTP server listening on port 3000');
-});
+// var server = app.listen(3000, function(){
+//    console.log('HTTP server listening on port 3000');
+//});
 
 
 
@@ -151,7 +151,7 @@ var server = app.listen(3000, function(){
 // https://mail.mozilla.org/pipermail/web-vr-discuss/2016-July/001272.html
 // https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
 
-/*
+
 const options = {
     key: fs.readFileSync('./ssl/key.pem'),
     cert: fs.readFileSync('./ssl/cert.pem'),
@@ -160,4 +160,4 @@ const options = {
 
 https.createServer(options, app).listen(3000, function(){ // DEFAULT PORT 443
     console.log('HTTPS server listening on port 3000');
-});*/
+});
