@@ -1,7 +1,7 @@
 'use strict';
 
 var fs = require('fs');
-var userObj = require('./users.json');
+//var userObj = require('./users.json');
 
 /*
  * Esta función busca en el archivo JSON un usuario con el atributo isActive = false,
@@ -11,6 +11,7 @@ var userObj = require('./users.json');
 exports.getInactiveUser = function() {
     //console.log(userObj.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
     //console.log('Buscando usuarios inactivos...')
+    var userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     for (var i =0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
             setUserActive(i);
@@ -23,6 +24,7 @@ exports.getInactiveUser = function() {
 
 exports.checkInactiveUser = function () {
     console.log('Buscando usuarios inactivos...');
+    var userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     var counter = 0;
     for (var i = 0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
@@ -47,6 +49,7 @@ exports.userInactive = function(id) {
  * */
 function setUserActive(userId) {
     console.log("Estableciendo usuario " + userId + " como ocupado.");
+    var userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     userObj.users[userId].isActive = true;
     writeUsersFile(userObj);
 }
@@ -56,6 +59,7 @@ function setUserActive(userId) {
  * */
 function setUserInactive(userId) {
     console.log("Estableciendo usuario " + userId + " como libre.");
+    var userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     userObj.users[userId].isActive = false;
     writeUsersFile(userObj);
 }
@@ -65,6 +69,7 @@ function setUserInactive(userId) {
  * */
 function prepareToConnect(userId) {
     console.log("Almacenando credenciales del usuario " + userId + " para el cliente.");
+    var userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     return [userObj.users[userId].id, userObj.users[userId].username, userObj.users[userId].password];
 }
 
