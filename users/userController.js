@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var userObj;
-//var userObj = require('./users.json');
+//var userObj = require('./users.json'); //PRUEBA CAMBIOS!
 
 /*
  * Esta función busca en el archivo JSON un usuario con el atributo isActive = false,
