@@ -6,9 +6,9 @@ module.exports = {
   apps : [
     {
       name      : 'nodeserver',
-      script    : 'nodeserver.js',
+      script    : './nodeserver.js',
       watch     : true,
-      ignore_watch: ["node_modules", ".gitignore", "uploads", "users/users.json"]
+      ignore_watch: ["./node_modules", "./.gitignore", "./uploads", "./users/users.json"]
     }
   ]
 }
