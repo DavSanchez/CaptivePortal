@@ -43,7 +43,7 @@ exports.userInactive = function(id) {
  * */
 function setUserActive(userId) {
     console.log("Estableciendo usuario " + userId + " como ocupado.");
-    userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
+    //userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     userObj.users[userId].isActive = true;
     writeUsersFile(userObj);
 }
@@ -53,7 +53,7 @@ function setUserActive(userId) {
  * */
 function setUserInactive(userId) {
     console.log("Estableciendo usuario " + userId + " como libre.");
-    userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
+    //userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     userObj.users[userId].isActive = false;
     writeUsersFile(userObj);
 }
