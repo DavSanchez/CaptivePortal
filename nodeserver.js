@@ -1,4 +1,9 @@
 /*
+ESTAMOS USANDO PM2!!
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
+ */
+
+/*
  * https://coligo.io/building-ajax-file-uploader-with-node/
  * Let's start off by requiring all the modules needed for the file uploader:
  * express handles our routing and serves up the index.html page and static files to our visitors
