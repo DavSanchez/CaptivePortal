@@ -26,7 +26,7 @@ window.onload = function() {
 window.addEventListener('beforeunload', function (event) {
     if (userCreds.id != -1) {
         disconnect();
-        liberateUser(userCreds);
+        //liberateUser(userCreds);
         userCreds.id = -1;
         log('Disconnecting...');
     }

@@ -17,6 +17,7 @@ function connect(username, password){
 
 function disconnect(){
     console.log('Disconnecting...');
+    liberateUser(userCreds);
     chilliController.logoff();
 }
 
