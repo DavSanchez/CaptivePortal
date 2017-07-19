@@ -11,7 +11,6 @@ var userObj;
  * */
 exports.getInactiveUser = function() {
     //console.log(userObj.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
-    //console.log('Buscando usuarios inactivos...')
     userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     for (var i =0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
@@ -37,12 +36,6 @@ exports.checkInactiveUser = function () {
 
 exports.userInactive = function(id) {
     setUserInactive(id);
-/*    for (var i = 0; i<userObj.users.length; i++) {
-        if (userObj.users[i].isActive) {
-            setUserInactive(i);
-            return;
-        }
-    }*/
 };
 
 /*
@@ -70,7 +63,6 @@ function setUserInactive(userId) {
  * */
 function prepareToConnect(userId) {
     console.log("Almacenando credenciales del usuario " + userId + " para el cliente.");
-    //userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     return [userObj.users[userId].id, userObj.users[userId].username, userObj.users[userId].password];
 }
 
