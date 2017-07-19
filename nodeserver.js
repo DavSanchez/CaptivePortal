@@ -20,7 +20,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var userController = require('./users/userController');
 var bodyParser = require('body-parser');
-
+var i = 0; // TEST
 var creds = {
     id: "-1",
     username: "prueba",
