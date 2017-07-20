@@ -8,7 +8,7 @@ module.exports = {
       name      : 'nodeserver',
       script    : './nodeserver.js',
       watch     : true,
-      ignore_watch: ["./.git","./node_modules", "./.gitignore", "./uploads", "./users/users.json"]
+      ignore_watch: ["./.git", "./node_modules", "./.gitignore", "./uploads", "./users/users.json"]
     }
   ]
 }
