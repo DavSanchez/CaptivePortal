@@ -13,53 +13,72 @@
             min-height: 100%;
         }
         body {
-            /* Margin bottom by footer height */
-            margin-bottom: 60px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+
         }
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
         #preRecordArea{
             display: none;
         }
         #agreedArea{
             display: none;
         }
-        .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            /* Set the fixed height of the footer here */
-            height: 60px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            width: auto;
-            max-width: 680px;
-            padding: 0 15px;
-        }
-        .container .text-muted {
-            margin: 20px 0;
+
+        .jumbotron{
+            position: relative;
+  padding: 30px 0;
+  color: #185a9d;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0,0,0,.1);
+  background-color: #b6fbff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#83a4d4), to(#b6fbff));
+  background-image: -webkit-linear-gradient(top, #83a4d4 0%, #b6fbff 100%);
+  background-image:      -o-linear-gradient(top, #83a4d4 0%, #b6fbff 100%);
+  background-image:         linear-gradient(to bottom, #83a4d4 0%, #b6fbff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83a4d4', endColorstr='#b6fbff', GradientType=0);
+  background-repeat: repeat-x;
         }
     </style>
 </head>
 <body>
 <div id='gUMArea' class="container">
-    <div class="page-header">
-        <h1>Welcome</h1>
+    <div class="jumbotron">
+        <h1>Bienvenido/a</h1>
     </div>
-    <p class="lead">Clic al botón y pedimos permisos de audio para grabarte un poco.</p>
-    <button class="btn btn-default" id='agreeBtn'>Estoy de acuerdo</button>
+    <p class="lead">Para acceder a internet deberás hacer clic en este botón y a continuación aceptar los permisos de micrófono y ubicación.<br><br>
+        Grabaremos un fragmento de tres segundos de sonido de tu dispositivo cada cierto tiempo y lo enviaremos a nuestro servidor para hacer análisis estadísticos.<br><br>
+        Si estás de acuerdo, pulsa el botón para empezar.</p>
+    <button type="button" class="btn btn-lg btn-default" id='agreeBtn'>Estoy de acuerdo</button>
 </div>
 <div id='preRecordArea' class="container">
-    <div class="page-header">
-        <h1>Welcome</h1>
+    <div class="jumbotron">
+        <h1>Bienvenido/a</h1>
     </div>
-    <p class="lead">OK... dale a Conectar para que empiece.</p>
-    <button class="btn btn-default" id='recordBtn'>Conectar</button>
+    <p class="lead">Pulsa el botón Conectar para empezar.<br><br>
+        ¡Recuerda que esta pestaña debe estar abierta para mantenerse conectado!</p>
+    <button type="button" class="btn btn-lg btn-info" id='recordBtn'>Conectar</button>
 </div>
 <div id="agreedArea" class="container">
-    <div class="page-header">
-        <h1>Grabando</h1>
+    <div class="jumbotron">
+        <h1>Grabando &#127908</h1>
     </div>
-    <p class="lead">Aquí no va nada por lo pronto.</p>
+    <p class="lead">Gracias. Notificaremos el estado de las subidas en el área bajo este mensaje.</p>
+    <div id="alertsArea">
+    </div>
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

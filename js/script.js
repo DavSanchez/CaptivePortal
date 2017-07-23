@@ -3,6 +3,7 @@
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
+    alertsArea = id('alertsArea'),
     stream,                                   // Variables para MediaRecorder
     recorder,
     chunks,
@@ -65,6 +66,7 @@ recordBtn.onclick = e => {
     if (serverStatus === true) {
         console.log('El servidor parece estar bien...');
         id('preRecordArea').style.display = 'none';
+        id('agreedArea').style.display = 'inherit';
         setTimeout(startRecording,100);
         setInterval(startRecording,180000);
     } else {
@@ -97,6 +99,11 @@ function saveAndSend(){
         success: function(data){
             console.log('upload successful! ' + data);
             receiveResponse();
+            setAlert("success");
+        },
+        error: function(data){
+            console.log('upload error ' + data);
+            setAlert("error");
         }
     });
 }
@@ -116,8 +123,31 @@ function loggedUserSaveAndSend(){
         success: function(data){
             console.log('upload successful! ' + data);
             //receiveResponse();
+            setAlert("success");
+        },
+        error: function(data){
+            console.log('upload error ' + data);
+            setAlert("errorLogged");
         }
     });
+}
+
+function setAlert(info){
+    var newDiv = document.createElement("div");
+    if (info === "success"){
+        newDiv.className = "alert alert-success";
+        newDiv.role = "alert";
+        newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito.";
+    } else if (info === "error") {
+        newDiv.className = "alert alert-danger";
+        newDiv.role = "alert";
+        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
+    } else if (info === "errorLogged") {
+        newDiv.className = "alert alert-danger";
+        newDiv.role = "alert";
+        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Volveremos a intentarlo más tarde.";
+    }
+    alertsArea.appendChild(newDiv);
 }
 
 // Petición GET para las credenciales
@@ -150,6 +180,8 @@ function checkServerStatus(){
             } else {
                 console.log('Servidor parece lleno...');
                 serverStatus = false;
+                agreeBtn.disabled = true;
+                agreeBtn.textContent = "Servidor lleno";
             }
         }
     });

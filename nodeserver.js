@@ -57,8 +57,10 @@ app.get('/serverstatus', function(req,res){
     console.log("Petición de estado del servidor recibida");
     if (userController.checkInactiveUser()){
         res.send("true");
+        console.log("El servidor parece estar bien.");
     } else {
         res.send("false");
+        console.log("El servidor parece estar lleno");
     }
 });
 
