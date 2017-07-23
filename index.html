@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,78 +13,80 @@
             position: relative;
             min-height: 100%;
         }
+
         body {
             padding-top: 30px;
             padding-bottom: 30px;
-
         }
 
-.theme-dropdown .dropdown-menu {
-  position: static;
-  display: block;
-  margin-bottom: 20px;
-}
-
-.theme-showcase > p > .btn {
-  margin: 5px 0;
-}
-
-.theme-showcase .navbar .container {
-  width: auto;
-}
-        #preRecordArea{
-            display: none;
+        .theme-dropdown .dropdown-menu {
+            position: static;
+            display: block;
+            margin-bottom: 20px;
         }
-        #agreedArea{
+
+        .theme-showcase>p>.btn {
+            margin: 5px 0;
+        }
+
+        .theme-showcase .navbar .container {
+            width: auto;
+        }
+
+        #preRecordArea {
             display: none;
         }
 
-        .jumbotron{
+        #agreedArea {
+            display: none;
+        }
+
+        .jumbotron {
             position: relative;
-  padding: 30px 0;
-  color: #185a9d;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(0,0,0,.1);
-  background-color: #b6fbff;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#83a4d4), to(#b6fbff));
-  background-image: -webkit-linear-gradient(top, #83a4d4 0%, #b6fbff 100%);
-  background-image:      -o-linear-gradient(top, #83a4d4 0%, #b6fbff 100%);
-  background-image:         linear-gradient(to bottom, #83a4d4 0%, #b6fbff 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83a4d4', endColorstr='#b6fbff', GradientType=0);
-  background-repeat: repeat-x;
+            padding: 30px 0;
+            color: #185a9d;
+            text-align: center;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+            background-color: #b6fbff;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#83a4d4), to(#b6fbff));
+            background-image: -webkit-linear-gradient(top, #83a4d4 0%, #b6fbff 100%);
+            background-image: -o-linear-gradient(top, #83a4d4 0%, #b6fbff 100%);
+            background-image: linear-gradient(to bottom, #83a4d4 0%, #b6fbff 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83a4d4', endColorstr='#b6fbff', GradientType=0);
+            background-repeat: repeat-x;
         }
     </style>
 </head>
+
 <body>
-<div id='gUMArea' class="container">
-    <div class="jumbotron">
-        <h1>Bienvenido/a</h1>
+    <div id='gUMArea' class="container">
+        <div class="jumbotron">
+            <h1>Bienvenido/a</h1>
+        </div>
+        <p class="lead">Para acceder a internet deberás hacer clic en este botón y a continuación aceptar los permisos de micrófono y ubicación.<br><br>            Grabaremos un fragmento de tres segundos de sonido de tu dispositivo cada cierto tiempo y lo enviaremos a nuestro
+            servidor para hacer análisis estadísticos.<br><br> Si estás de acuerdo, pulsa el botón para empezar.<br></p>
+        <button type="button" class="btn btn-lg btn-default" id='agreeBtn'>Estoy de acuerdo</button>
     </div>
-    <p class="lead">Para acceder a internet deberás hacer clic en este botón y a continuación aceptar los permisos de micrófono y ubicación.<br><br>
-        Grabaremos un fragmento de tres segundos de sonido de tu dispositivo cada cierto tiempo y lo enviaremos a nuestro servidor para hacer análisis estadísticos.<br><br>
-        Si estás de acuerdo, pulsa el botón para empezar.<br></p>
-    <button type="button" class="btn btn-lg btn-default" id='agreeBtn'>Estoy de acuerdo</button>
-</div>
-<div id='preRecordArea' class="container">
-    <div class="jumbotron">
-        <h1>Bienvenido/a</h1>
+    <div id='preRecordArea' class="container">
+        <div class="jumbotron">
+            <h1>Bienvenido/a</h1>
+        </div>
+        <p class="lead">Pulsa el botón Conectar para empezar.<br><br> ¡Recuerda que esta pestaña debe estar abierta para mantenerse conectado!<br></p>
+        <button type="button" class="btn btn-lg btn-primary" id='recordBtn'>Conectar</button>
     </div>
-    <p class="lead">Pulsa el botón Conectar para empezar.<br><br>
-        ¡Recuerda que esta pestaña debe estar abierta para mantenerse conectado!<br></p>
-    <button type="button" class="btn btn-lg btn-primary" id='recordBtn'>Conectar</button>
-</div>
-<div id="agreedArea" class="container">
-    <div class="jumbotron">
-        <h1>Grabando &#127908</h1>
+    <div id="agreedArea" class="container">
+        <div class="jumbotron">
+            <h1>Grabando &#127908</h1>
+        </div>
+        <p class="lead">Gracias. Notificaremos el estado de las subidas en el área bajo este mensaje.</p>
+        <div id="alertsArea">
+        </div>
     </div>
-    <p class="lead">Gracias. Notificaremos el estado de las subidas en el área bajo este mensaje.</p>
-    <div id="alertsArea">
-    </div>
-</div>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/ChilliLibrary.js"></script>
-<script src="js/chilliController.js"></script>
-<script src="js/script.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ChilliLibrary.js"></script>
+    <script src="js/chilliController.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
