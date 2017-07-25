@@ -33,6 +33,15 @@ window.addEventListener('beforeunload', function (event) {
     }
 });
 
+window.onbeforeunload = function(){
+        if (userCreds.id != -1) {
+        disconnect(userCreds);
+        //liberateUser(userCreds);
+        userCreds.id = -1;
+        log('Disconnecting...');
+    }
+}
+
 agreeBtn.onclick = e => {
     let mediaOptions = {
         audio: {                           // Ajustes de sonido
