@@ -13,7 +13,7 @@ exports.getInactiveUser = function() {
     userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     for (var i =0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
-            setUserActive(i);
+            setUserActive(i); // TODO cambiar por setInProcess para gestionar mejor las conexiones fallidas.
             return prepareToConnect(i);
         }
     }
