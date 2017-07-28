@@ -21,7 +21,7 @@ var fs = require('fs');
 var userController = require('./users/userController');
 var bodyParser = require('body-parser');
 var creds = {
-    id: "-1",
+    id: -1,
     username: "prueba",
     password: "pruebaPass"
 };
@@ -70,6 +70,15 @@ app.post('/userlogoff', function(req,res){
     console.log('Recibida desconexión de usuario. Desconectando al usuario ' + req.body.id);
     userController.userInactive(req.body.id);
     res.end('success');
+});
+
+/*
+* Checking if user connected correctly
+*/
+app.post('/userconnected', function(req,res){
+    if (!req.body.state){
+        userController.userInactive(req.body.id);
+    }
 });
 
 /*

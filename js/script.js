@@ -12,15 +12,16 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
     locationTime;
 
 var userCreds = {
-    id: "-1",
+    id: -1,
     username: "prueba",
-    password: "pruebaPass"
+    password: "pruebaPass",
+    connected: 0
 };
 
-window.onload = function() {
+window.onload = function () {
     prepareSite();
     checkServerStatus();
-    setInterval(checkServerStatus(),500000);
+    setInterval(checkServerStatus(), 500000);
 };
 
 // Pruebita...
@@ -33,8 +34,8 @@ window.addEventListener('beforeunload', function (event) {
     }
 });
 
-window.onbeforeunload = function(){
-        if (userCreds.id != -1) {
+window.onbeforeunload = function () {
+    if (userCreds.id != -1) {
         disconnect(userCreds);
         //liberateUser(userCreds);
         userCreds.id = -1;
@@ -48,7 +49,7 @@ agreeBtn.onclick = e => {
             tag: 'audio',
             type: 'audio/ogg',
             ext: '.ogg',
-            gUM: {audio: true}
+            gUM: { audio: true }
         }
     };
     media = mediaOptions.audio;
@@ -60,7 +61,7 @@ agreeBtn.onclick = e => {
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
             if (recorder.state == 'inactive') {
-                if (userCreds.id != -1){
+                if (userCreds.id != -1) {
                     loggedUserSaveAndSend(); // guarda y envía
                 } else {
                     saveAndSend(); // guarda y envía
@@ -76,25 +77,25 @@ recordBtn.onclick = e => {
         console.log('El servidor parece estar bien...');
         id('preRecordArea').style.display = 'none';
         id('agreedArea').style.display = 'inherit';
-        setTimeout(startRecording,100);
-        setInterval(startRecording,180000);
+        setTimeout(startRecording, 100);
+        setInterval(startRecording, 180000);
     } else {
         console.log('Ha ocurrido un error en el servidor. ¿Podría estar completo?');
     }
 };
 
 function startRecording() {                    // Se ejecuta al pulsar el botón Start
-    chunks=[];                                 // Crea un array
+    chunks = [];                                 // Crea un array
     recorder.start();                          // Empieza a grabar
-    setTimeout(stopRecording,5000);
+    setTimeout(stopRecording, 5000);
 }
 
 function stopRecording() {
     recorder.stop();
 }
 
-function saveAndSend(){
-    let blob = new Blob(chunks, {type: media.type});
+function saveAndSend() {
+    let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
     console.log('Enviando audio al servidor...');
@@ -105,20 +106,20 @@ function saveAndSend(){
         data: fd,
         processData: false,
         contentType: false,
-        success: function(data){
+        success: function (data) {
             console.log('upload successful! ' + data);
             receiveResponse();
             setAlert("success");
         },
-        error: function(data){
+        error: function (data) {
             console.log('upload error ' + data);
             setAlert("error");
         }
     });
 }
 
-function loggedUserSaveAndSend(){
-    let blob = new Blob(chunks, {type: media.type});
+function loggedUserSaveAndSend() {
+    let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
     console.log('Enviando audio al servidor...');
@@ -129,21 +130,21 @@ function loggedUserSaveAndSend(){
         data: fd,
         processData: false,
         contentType: false,
-        success: function(data){
+        success: function (data) {
             console.log('upload successful! ' + data);
             //receiveResponse();
             setAlert("success");
         },
-        error: function(data){
+        error: function (data) {
             console.log('upload error ' + data);
             setAlert("errorLogged");
         }
     });
 }
 
-function setAlert(info){
+function setAlert(info) {
     var newDiv = document.createElement("div");
-    if (info === "success"){
+    if (info === "success") {
         newDiv.className = "alert alert-success";
         newDiv.role = "alert";
         newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito.";
@@ -160,13 +161,13 @@ function setAlert(info){
 }
 
 // Petición GET para las credenciales
-function receiveResponse(){
+function receiveResponse() {
     console.log('Pidiendo credenciales...');
     $.ajax({
         type: 'GET',
         url: '/creds',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             console.log('respuesta recibida: ' + data);
             userCreds = data;
             getUserCredentials(userCreds);
@@ -175,15 +176,15 @@ function receiveResponse(){
 }
 
 // Comprobar que el servicio no está completo
-function checkServerStatus(){
+function checkServerStatus() {
     console.log('Comprobando estado del servidor...');
     $.ajax({
         type: 'GET',
         url: '/serverstatus',
         dataType: 'text',
-        success: function(data){
+        success: function (data) {
             console.log('Respuesta recibida: ' + data);
-            if (data === "true"){
+            if (data === "true") {
                 console.log('El servidor parece estar bien.');
                 serverStatus = true;
             } else {
@@ -197,7 +198,7 @@ function checkServerStatus(){
 }
 
 // Función para liberar usuario de la lista
-function liberateUser(creds){
+function liberateUser(creds) {
     console.log('Liberando usuario...');
     $.ajax({
         type: 'POST',
@@ -216,7 +217,7 @@ function prepareSite() {
         try {
             navigator.geolocation.watchPosition(showPositionTime, positionError, geoOptions);
         }
-        catch(err){
+        catch (err) {
             console.log("Error de ubicación: " + err);
             locationTime = 'LocError';
         }
@@ -238,12 +239,21 @@ var geoOptions = {
     enableHighAccuracy: true
 };
 
-function positionError(positionError){
+function positionError(positionError) {
     console.log('Error ' + positionError.code + ' en la geolocalización: ' + positionError.message);
 }
 
 //Extraer credenciales del JSON recibido y conectar...
-function getUserCredentials(data){
+function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
-    connect(data.username, data.password);
+    userCreds.connected = connect(data.username, data.password);
+
+    $.ajax({
+        type: 'POST',
+        url: '/userconnected',
+        data: userCreds,
+        success: function (data) {
+            console.log('success ' + data);
+        }
+    });
 }
