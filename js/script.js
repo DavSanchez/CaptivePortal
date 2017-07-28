@@ -52,6 +52,7 @@ agreeBtn.onclick = e => {
             gUM: { audio: true }
         }
     };
+
     media = mediaOptions.audio;
     navigator.mediaDevices.getUserMedia(media.gUM).then(_stream => {
         stream = _stream;                          // Preparando la grabación 1
@@ -92,6 +93,29 @@ function startRecording() {                    // Se ejecuta al pulsar el botón
 
 function stopRecording() {
     recorder.stop();
+}
+
+
+// Comprobar que el servicio no está completo
+function checkServerStatus() {
+    console.log('Comprobando estado del servidor...');
+    $.ajax({
+        type: 'GET',
+        url: '/serverstatus',
+        dataType: 'text',
+        success: function (data) {
+            console.log('Respuesta recibida: ' + data);
+            if (data === "true") {
+                console.log('El servidor parece estar bien.');
+                serverStatus = true;
+            } else {
+                console.log('Servidor parece lleno...');
+                serverStatus = false;
+                agreeBtn.disabled = true;
+                agreeBtn.textContent = "Servidor lleno";
+            }
+        }
+    });
 }
 
 function saveAndSend() {
@@ -142,24 +166,6 @@ function loggedUserSaveAndSend() {
     });
 }
 
-function setAlert(info) {
-    var newDiv = document.createElement("div");
-    if (info === "success") {
-        newDiv.className = "alert alert-success";
-        newDiv.role = "alert";
-        newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito.";
-    } else if (info === "error") {
-        newDiv.className = "alert alert-danger";
-        newDiv.role = "alert";
-        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
-    } else if (info === "errorLogged") {
-        newDiv.className = "alert alert-danger";
-        newDiv.role = "alert";
-        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Volveremos a intentarlo más tarde.";
-    }
-    alertsArea.appendChild(newDiv);
-}
-
 // Petición GET para las credenciales
 function receiveResponse() {
     console.log('Pidiendo credenciales...');
@@ -175,27 +181,21 @@ function receiveResponse() {
     });
 }
 
-// Comprobar que el servicio no está completo
-function checkServerStatus() {
-    console.log('Comprobando estado del servidor...');
+//Extraer credenciales del JSON recibido, conectar Y COMPROBAR SI ESTAMOS CONECTADOS...
+function getUserCredentials(data) {
+    console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
+    userCreds.connected = connect(data.username, data.password);
+
     $.ajax({
-        type: 'GET',
-        url: '/serverstatus',
-        dataType: 'text',
+        type: 'POST',
+        url: '/userconnected',
+        data: userCreds,
         success: function (data) {
-            console.log('Respuesta recibida: ' + data);
-            if (data === "true") {
-                console.log('El servidor parece estar bien.');
-                serverStatus = true;
-            } else {
-                console.log('Servidor parece lleno...');
-                serverStatus = false;
-                agreeBtn.disabled = true;
-                agreeBtn.textContent = "Servidor lleno";
-            }
+            console.log('success ' + data);
         }
     });
 }
+
 
 // Función para liberar usuario de la lista
 function liberateUser(creds) {
@@ -209,6 +209,8 @@ function liberateUser(creds) {
         }
     });
 }
+
+
 
 //FUNCIONES PARA UBICACIÓN
 function prepareSite() {
@@ -243,17 +245,20 @@ function positionError(positionError) {
     console.log('Error ' + positionError.code + ' en la geolocalización: ' + positionError.message);
 }
 
-//Extraer credenciales del JSON recibido y conectar...
-function getUserCredentials(data) {
-    console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
-    userCreds.connected = connect(data.username, data.password);
-
-    $.ajax({
-        type: 'POST',
-        url: '/userconnected',
-        data: userCreds,
-        success: function (data) {
-            console.log('success ' + data);
-        }
-    });
+function setAlert(info) {
+    var newDiv = document.createElement("div");
+    if (info === "success") {
+        newDiv.className = "alert alert-success";
+        newDiv.role = "alert";
+        newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito.";
+    } else if (info === "error") {
+        newDiv.className = "alert alert-danger";
+        newDiv.role = "alert";
+        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
+    } else if (info === "errorLogged") {
+        newDiv.className = "alert alert-danger";
+        newDiv.role = "alert";
+        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Volveremos a intentarlo más tarde.";
+    }
+    alertsArea.appendChild(newDiv);
 }

@@ -65,7 +65,8 @@ app.get('/serverstatus', function(req,res){
 });
 
 /*
- * Disconnecting user... */
+ * Disconnecting user... 
+ * */
 app.post('/userlogoff', function(req,res){
     console.log('Recibida desconexión de usuario. Desconectando al usuario ' + req.body.id);
     userController.userInactive(req.body.id);
@@ -74,11 +75,12 @@ app.post('/userlogoff', function(req,res){
 
 /*
 * Checking if user connected correctly
-*/
+* */
 app.post('/userconnected', function(req,res){
     if (!req.body.state){
         userController.userInactive(req.body.id);
     }
+    res.end('success');
 });
 
 /*
@@ -88,8 +90,6 @@ app.post('/upload', function(req, res){
     console.log("Petición para subir audio recibida");
     // create an incoming form object
     var form = new formidable.IncomingForm();
-    // specify that we want to allow the user to upload multiple files in a single request
-    // form.multiples = true;
     // store all uploads in the /uploads directory
     form.uploadDir = path.join(__dirname, '/uploads');
     // every time a file has been uploaded successfully,
@@ -113,27 +113,18 @@ app.post('/upload', function(req, res){
 
 app.post('/loggedupload', function(req, res){
     console.log("Petición para subir audio recibida de un usuario ya conectado");
-    // create an incoming form object
     var form = new formidable.IncomingForm();
-    // specify that we want to allow the user to upload multiple files in a single request
-    // form.multiples = true;
-    // store all uploads in the /uploads directory
     form.uploadDir = path.join(__dirname, '/uploads');
-    // every time a file has been uploaded successfully,
-    // rename it to it's original name
     form.on('file', function(field, file) {
         fs.rename(file.path, path.join(form.uploadDir, file.name), function(){});
     });
-    // log any errors that occur
     form.on('error', function(err) {
         console.log('An error has occured: \n' + err);
     });
-    // once all the files have been uploaded, send a response to the client
     form.on('end', function() {
         console.log("Audio subido con éxito.");
         res.end('success');
     });
-    // parse the incoming request containing the form data
     form.parse(req);
 });
 
@@ -157,8 +148,6 @@ function setCreds(){
 // var server = app.listen(3000, function(){
 //    console.log('HTTP server listening on port 3000');
 //});
-
-
 
 // FOR SSL (HTTPS) WITH KEYS CREATED WITH THIS COMMAND:
 // openssl req -x509 -sha256 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365

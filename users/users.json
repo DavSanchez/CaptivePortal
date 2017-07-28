@@ -4,21 +4,18 @@
       "id": 0,
       "username": "prueba1",
       "password": "prueba1",
-      "inProcess": false,
       "isActive": false
     },
     {
       "id": 1,
       "username": "prueba2",
       "password": "prueba2",
-      "inProcess": false,
       "isActive": false
     },
     {
       "id": 2,
       "username": "prueba3",
       "password": "prueba3",
-      "inProcess": false,
       "isActive": false
     }
   ]
