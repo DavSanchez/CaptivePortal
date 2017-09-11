@@ -19,11 +19,13 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var userController = require('./users/userController');
+var userControllerOneTime = require('./users/userControllerOneTime');
 var bodyParser = require('body-parser');
 var creds = {
     id: -1,
     username: "prueba",
-    password: "pruebaPass"
+    password: "pruebaPass",
+    oneTimePass: false
 };
 
 /*
@@ -128,12 +130,40 @@ app.post('/loggedupload', function(req, res){
     form.parse(req);
 });
 
+app.post('/onetimepassupload', function(req,res){
+    console.log("Petición para subir audio recibida de un usuario que pide 30 minutos sin más.");
+    var form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, '/uploads');
+    form.on('file', function(field, file) {
+        fs.rename(file.path, path.join(form.uploadDir, file.name), function(){});
+    });
+    form.on('error', function(err) {
+        console.log('An error has occured: \n' + err);
+    });
+    form.on('end', function() {
+        console.log("Audio subido con éxito.");
+        setCredsOneTime();
+        res.end('success');
+    });
+    form.parse(req);
+});
+
 function setCreds(){
     console.log('Estableciendo credenciales...');
     var data = userController.getInactiveUser();
     creds.id = data[0];
     creds.username = data[1];
     creds.password = data[2];
+    creds.oneTimePass = data[3];    
+}
+
+function setCredsOneTime(){
+    console.log('Estableciendo credenciales...');
+    var data = userController.getInactiveUserOneTime();
+    creds.id = data[0];
+    creds.username = data[1];
+    creds.password = data[2];
+    creds.oneTimePass = data[3];
 }
 
 /*

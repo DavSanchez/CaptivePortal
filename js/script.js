@@ -1,8 +1,16 @@
 'use strict';
 
+/* TODO tareas pendientes:
+- Añadir segundo botón para autenticarse con un procedimiento ligeramente diferente.
+- Añadir una categoría nueva de usuarios en el RADIUS para este nuevo procedimiento.
+- Añadir muchos usuarios en el RADIUS y en los JSON!!
+- Gestionar la conexión y desconexión de esta segunda categoría de usuarios.
+*/
+
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
+    recordBtn30min = id('recordBtn30min'),
     alertsArea = id('alertsArea'),
     stream,                                   // Variables para MediaRecorder
     recorder,
@@ -15,7 +23,8 @@ var userCreds = {
     id: -1,
     username: "prueba",
     password: "pruebaPass",
-    connected: 0
+    onetimePass: false,
+    connected: 0,
 };
 
 window.onload = function () {
@@ -64,8 +73,10 @@ agreeBtn.onclick = e => {
             if (recorder.state == 'inactive') {
                 if (userCreds.id != -1) {
                     loggedUserSaveAndSend(); // guarda y envía
-                } else {
+                } else if (userCreds.onetimePass === false) {
                     saveAndSend(); // guarda y envía
+                } else {
+                    saveAndSendOneTimePass();
                 }
             }
         };
@@ -73,13 +84,28 @@ agreeBtn.onclick = e => {
     }).catch(log);
 };
 
+
+
 recordBtn.onclick = e => {
     if (serverStatus === true) {
         console.log('El servidor parece estar bien...');
+        userCreds.onetimePass = false;
         id('preRecordArea').style.display = 'none';
         id('agreedArea').style.display = 'inherit';
         setTimeout(startRecording, 100);
         setInterval(startRecording, 180000);
+    } else {
+        console.log('Ha ocurrido un error en el servidor. ¿Podría estar completo?');
+    }
+};
+
+recordBtn30min.onclick = e => {
+    if (serverStatus === true) {
+        console.log('El servidor parece estar bien...');
+        userCreds.onetimePass = true;
+        id('preRecordArea').style.display = 'none';
+        id('agreedArea').style.display = 'inherit';
+        setTimeout(startRecording, 100);
     } else {
         console.log('Ha ocurrido un error en el servidor. ¿Podría estar completo?');
     }
@@ -157,6 +183,30 @@ function loggedUserSaveAndSend() {
         success: function (data) {
             console.log('upload successful! ' + data);
             //receiveResponse();
+            setAlert("success");
+        },
+        error: function (data) {
+            console.log('upload error ' + data);
+            setAlert("errorLogged");
+        }
+    });
+}
+
+function saveAndSendOneTimePass(){
+    let blob = new Blob(chunks, { type: media.type });
+    var fd = new FormData();
+    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
+    console.log('Enviando audio al servidor...');
+
+    $.ajax({
+        url: '/onetimepassupload',
+        type: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            console.log('upload successful! ' + data);
+            receiveResponse();
             setAlert("success");
         },
         error: function (data) {

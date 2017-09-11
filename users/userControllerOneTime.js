@@ -1,16 +1,16 @@
 'use strict';
 
 var fs = require('fs');
-var userObj = require('./users.json'); // TEST
+var userObj = require('./usersOneTime.json'); // TEST
 
 /*
  * Esta función busca en el archivo JSON un usuario con el atributo isActive = false,
  * tras lo cual cambia dicho atributo a true y llama al procedimiento para conectar a ese usuario
  * a CoovaChilli... Si no hay usuarios activos pone el atributo userAndPass a null.
  * */
-exports.getInactiveUser = function() {
+exports.getInactiveUserOneTime = function() {
     //console.log(userObj.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
-    userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
+    userObj = JSON.parse(fs.readFileSync('./users/usersOneTime.json', 'utf8'));
     for (var i =0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
             setUserActive(i); // TODO cambiar por setInProcess para gestionar mejor las conexiones fallidas.
@@ -21,9 +21,9 @@ exports.getInactiveUser = function() {
     return ["", "", "", ""];
 };
 
-exports.checkInactiveUser = function () {
+exports.checkInactiveUserOneTime = function () {
     console.log('Buscando usuarios inactivos...');
-    userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
+    userObj = JSON.parse(fs.readFileSync('./users/usersOneTime.json', 'utf8'));
     var counter = 0;
     for (var i = 0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
@@ -33,7 +33,7 @@ exports.checkInactiveUser = function () {
     return counter;
 };
 
-exports.userInactive = function(id) {
+exports.userInactiveOneTime = function(id) {
     setUserInactive(id);
 };
 
@@ -62,10 +62,10 @@ function setUserInactive(userId) {
  * */
 function prepareToConnect(userId) {
     console.log("Almacenando credenciales del usuario " + userId + " para el cliente.");
-    return [userObj.users[userId].id, userObj.users[userId].username, userObj.users[userId].password, false];
+    return [userObj.users[userId].id, userObj.users[userId].username, userObj.users[userId].password, true];
 }
 
 function writeUsersFile(userJSON){
     console.log("Guardando estado de usuarios en fichero JSON.");
-    fs.writeFileSync("./users/users.json", JSON.stringify(userJSON, null, 2));
+    fs.writeFileSync("./users/usersOneTime.json", JSON.stringify(userJSON, null, 2));
 }
