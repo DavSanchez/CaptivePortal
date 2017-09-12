@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     console.log("Petición al servidor recibida.");
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -47,7 +47,7 @@ app.get('/', function(req, res){
 /*
  * Aquí se recibe la petición de credenciales y se envía de vuelta.
  * */
-app.get('/creds', function(req,res){
+app.get('/creds', function (req, res) {
     console.log("Petición de credenciales recibida. Enviando...");
     var jsonCr = JSON.stringify(creds);
     res.send(jsonCr);
@@ -55,9 +55,9 @@ app.get('/creds', function(req,res){
 /*
  * Aquí se recibe la petición de estado del servidor, por si los usuarios ya están todos cogidos.
  * */
-app.get('/serverstatus', function(req,res){
+app.get('/serverstatus', function (req, res) {
     console.log("Petición de estado del servidor recibida");
-    if (userController.checkInactiveUser()){
+    if (userController.checkInactiveUser()) {
         res.send("true");
         console.log("El servidor parece estar bien.");
     } else {
@@ -69,22 +69,24 @@ app.get('/serverstatus', function(req,res){
 /*
  * Disconnecting user... 
  * */
-app.post('/userlogoff', function(req,res){
-    console.log('Recibida desconexión de usuario. Desconectando al usuario ' + req.body.id);
-    userController.userInactive(req.body.id);
-    res.end('success');
+app.post('/userlogoff', function (req, res) {
+    if (!req.body.oneTimePass) {
+        console.log('Recibida desconexión de usuario. Desconectando al usuario ' + req.body.id);
+        userController.userInactive(req.body.id);
+        res.end('success');
+    }
 });
 
 /*
 * Checking if user connected correctly
 * */
-app.post('/userconnected', function(req,res){
-    if (!req.body.state){
+app.post('/userconnected', function (req, res) {
+    if (!req.body.state) {
         if (req.body.oneTimePass) {
             userControllerOneTime.userInactiveOneTime(req.body.id);
-            
+
         } else {
-            userController.userInactive(req.body.id);            
+            userController.userInactive(req.body.id);
         }
     }
     res.end('success');
@@ -93,7 +95,7 @@ app.post('/userconnected', function(req,res){
 /*
  * Create the upload/ route to handle the incoming uploads via the POST method:
  * */
-app.post('/upload', function(req, res){
+app.post('/upload', function (req, res) {
     console.log("Petición para subir audio recibida");
     // create an incoming form object
     var form = new formidable.IncomingForm();
@@ -101,15 +103,15 @@ app.post('/upload', function(req, res){
     form.uploadDir = path.join(__dirname, '/uploads');
     // every time a file has been uploaded successfully,
     // rename it to it's original name
-    form.on('file', function(field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, file.name), function(){});
+    form.on('file', function (field, file) {
+        fs.rename(file.path, path.join(form.uploadDir, file.name), function () { });
     });
     // log any errors that occur
-    form.on('error', function(err) {
+    form.on('error', function (err) {
         console.log('An error has occured: \n' + err);
     });
     // once all the files have been uploaded, send a response to the client
-    form.on('end', function() {
+    form.on('end', function () {
         console.log("Audio subido con éxito.");
         setCreds();
         res.end('success');
@@ -118,34 +120,34 @@ app.post('/upload', function(req, res){
     form.parse(req);
 });
 
-app.post('/loggedupload', function(req, res){
+app.post('/loggedupload', function (req, res) {
     console.log("Petición para subir audio recibida de un usuario ya conectado");
     var form = new formidable.IncomingForm();
     form.uploadDir = path.join(__dirname, '/uploads');
-    form.on('file', function(field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, file.name), function(){});
+    form.on('file', function (field, file) {
+        fs.rename(file.path, path.join(form.uploadDir, file.name), function () { });
     });
-    form.on('error', function(err) {
+    form.on('error', function (err) {
         console.log('An error has occured: \n' + err);
     });
-    form.on('end', function() {
+    form.on('end', function () {
         console.log("Audio subido con éxito.");
         res.end('success');
     });
     form.parse(req);
 });
 
-app.post('/onetimepassupload', function(req,res){
+app.post('/onetimepassupload', function (req, res) {
     console.log("Petición para subir audio recibida de un usuario que pide 30 minutos sin más.");
     var form = new formidable.IncomingForm();
     form.uploadDir = path.join(__dirname, '/uploads');
-    form.on('file', function(field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, file.name), function(){});
+    form.on('file', function (field, file) {
+        fs.rename(file.path, path.join(form.uploadDir, file.name), function () { });
     });
-    form.on('error', function(err) {
+    form.on('error', function (err) {
         console.log('An error has occured: \n' + err);
     });
-    form.on('end', function() {
+    form.on('end', function () {
         console.log("Audio subido con éxito.");
         setCredsOneTime();
         res.end('success');
@@ -153,27 +155,27 @@ app.post('/onetimepassupload', function(req,res){
     form.parse(req);
 });
 
-function setCreds(){
+function setCreds() {
     console.log('Estableciendo credenciales...');
     var data = userController.getInactiveUser();
     creds.id = data[0];
     creds.username = data[1];
     creds.password = data[2];
-    creds.oneTimePass = data[3];    
+    creds.oneTimePass = data[3];
 }
 
-function setCredsOneTime(){
+function setCredsOneTime() {
     console.log('Estableciendo credenciales para usuario con tiempo de 30 minutos...');
-    var data = userControllerOneTime .getInactiveUserOneTime();
+    var data = userControllerOneTime.getInactiveUserOneTime();
     creds.id = data[0];
     creds.username = data[1];
     creds.password = data[2];
     creds.oneTimePass = data[3];
-    setTimeout(function(){
+    setTimeout(function () {
         console.log('Marcando como libre en la base de datos a un usuario con tiempo ya agotado...')
         userControllerOneTime.userInactiveOnetime(creds.id);
     }, 1920000); //Cuenta atrás de 30 minutos hasta que se libere al usuario.
-    
+
 }
 
 /*
@@ -203,6 +205,6 @@ const options = {
     passphrase: 'pruebassl'
 };
 
-https.createServer(options, app).listen(3000, function(){ // DEFAULT PORT 443
+https.createServer(options, app).listen(3000, function () { // DEFAULT PORT 443
     console.log('HTTPS server listening on port 3000');
 });
