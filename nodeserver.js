@@ -158,13 +158,16 @@ function setCreds(){
 }
 
 function setCredsOneTime(){
-    console.log('Estableciendo credenciales...');
+    console.log('Estableciendo credenciales para usuario con tiempo de 30 minutos...');
     var data = userController.getInactiveUserOneTime();
     creds.id = data[0];
     creds.username = data[1];
     creds.password = data[2];
     creds.oneTimePass = data[3];
-    setTimeout(userControllerOneTime.userInactiveOnetime(creds.id), 1920000); //Cuenta atrás de 30 minutos hasta que se libere al usuario.
+    setTimeout(function(){
+        console.log('Marcando como libre en la base de datos a un usuario con tiempo ya agotado...')
+        userControllerOneTime.userInactiveOnetime(creds.id);
+    }, 1920000); //Cuenta atrás de 30 minutos hasta que se libere al usuario.
     
 }
 
