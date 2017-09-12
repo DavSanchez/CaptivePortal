@@ -37,7 +37,7 @@ function crearObjeto(variable, objeto) {
         };
         objeto.users.push(item);
     }
-    if (objeto.users[0].username === "prueba0") {
+    if (objeto.users[0].username === "prueba1") {
         fs.writeFileSync("./users.json", JSON.stringify(objeto, null, 2));
     } else {
         fs.writeFileSync("./usersOneTime.json", JSON.stringify(objeto, null, 2));
