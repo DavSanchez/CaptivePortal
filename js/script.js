@@ -316,7 +316,7 @@ function setAlert(info) {
         case "succesOneTime":
             newDiv.className = "alert alert-success";
             newDiv.role = "alert";
-            newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito. <strong>Ya puedes cerrar esta pestaña en tu navegador.</strong>";
+            newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito. <strong>Ya puedes cerrar esta pestaña en tu navegador y disfrutar de tus 30 minutos de internet.</strong>";
             break;
     }
     alertsArea.appendChild(newDiv);
