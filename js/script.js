@@ -35,7 +35,7 @@ window.onload = function () {
 
 // Pruebita...
 window.addEventListener('beforeunload', function (event) {
-    if (userCreds.id > 0) {
+    if (userCreds.id >= 0) {
         disconnect(userCreds);
         //liberateUser(userCreds);
         userCreds.id = -1;
@@ -44,7 +44,7 @@ window.addEventListener('beforeunload', function (event) {
 });
 
 window.onbeforeunload = function () {
-    if (userCreds.id > 0) {
+    if (userCreds.id >= 0) {
         disconnect(userCreds);
         //liberateUser(userCreds);
         userCreds.id = -1;
@@ -71,7 +71,7 @@ agreeBtn.onclick = e => {
         recorder.ondataavailable = e => {          // Preparando la grabación 3
             chunks.push(e.data);                   // Preparando la grabación 4
             if (recorder.state == 'inactive') {
-                if (userCreds.id > 0) {
+                if (userCreds.id >= 0) {
                     console.log("Guardando audio y enviando para usuario ya conectado");
                     loggedUserSaveAndSend(); // guarda y envía
                 } else if (userCreds.oneTimePass === false) {
