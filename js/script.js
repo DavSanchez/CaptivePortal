@@ -304,7 +304,7 @@ function setAlert(info) {
         case "success":
             newDiv.className = "alert alert-success";
             newDiv.role = "alert";
-            newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito.";
+            newDiv.innerHTML = "<strong>¡Perfecto!</strong> Tu fragmento de audio se ha subido con éxito.";
             break;
         case "error":
             newDiv.className = "alert alert-danger";
@@ -319,7 +319,7 @@ function setAlert(info) {
         case "successOneTime":
             newDiv.className = "alert alert-success";
             newDiv.role = "alert";
-            newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito. <strong>Ya puedes cerrar esta pestaña en tu navegador y disfrutar de tus 30 minutos de internet.</strong>";
+            newDiv.innerHTML = "<strong>¡Perfecto!</strong> Tu fragmento de audio se ha subido con éxito. <strong>Ya puedes cerrar esta pestaña en tu navegador y disfrutar de tus 30 minutos de internet.</strong>";
             break;
     }
     alertsArea.appendChild(newDiv);
