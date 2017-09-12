@@ -237,9 +237,7 @@ function receiveResponse() {
 //Extraer credenciales del JSON recibido, conectar Y COMPROBAR SI ESTAMOS CONECTADOS...
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
-    //userCreds.connected = connect(data.username, data.password);
-    chilliController.logon(data.username, data.password);
-    chilliController.refresh();
+    userCreds.connected = connect(data.username, data.password);
 
     $.ajax({
         type: 'POST',
