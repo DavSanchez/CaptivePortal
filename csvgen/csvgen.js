@@ -18,8 +18,8 @@ var users30minObj = {
 
 function doTheShit() {
     console.log("Probando...");
-    prueba = fs.readFileSync("./prueba.csv", "utf-8");
-    prueba30min = fs.readFileSync("./prueba30min.csv", "utf-8");
+    prueba = fs.readFileSync("./Prueba.csv", "utf-8");
+    prueba30min = fs.readFileSync("./PruebaOneTime.csv", "utf-8");
 
     crearObjeto(prueba,usersObj);
     crearObjeto(prueba30min,users30minObj);
@@ -37,7 +37,7 @@ function crearObjeto(variable, objeto) {
         };
         objeto.users.push(item);
     }
-    if (objeto.users[0].username === "prueba1") {
+    if (objeto.users[0].username === "Prueba0") {
         fs.writeFileSync("./users.json", JSON.stringify(objeto, null, 2));
     } else {
         fs.writeFileSync("./usersOneTime.json", JSON.stringify(objeto, null, 2));
