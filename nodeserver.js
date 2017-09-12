@@ -164,6 +164,8 @@ function setCredsOneTime(){
     creds.username = data[1];
     creds.password = data[2];
     creds.oneTimePass = data[3];
+    setTimeout(userControllerOneTime.userInactiveOnetime(creds.id), 1920000); //Cuenta atrás de 30 minutos hasta que se libere al usuario.
+    
 }
 
 /*
