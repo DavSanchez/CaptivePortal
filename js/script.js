@@ -23,7 +23,7 @@ var userCreds = {
     id: -1,
     username: "prueba",
     password: "pruebaPass",
-    onetimePass: false,
+    oneTimePass: false,
     connected: 0,
 };
 
@@ -72,10 +72,13 @@ agreeBtn.onclick = e => {
             chunks.push(e.data);                   // Preparando la grabación 4
             if (recorder.state == 'inactive') {
                 if (userCreds.id > 0) {
+                    console.log("Guardando audio y enviando para usuario ya conectado");
                     loggedUserSaveAndSend(); // guarda y envía
-                } else if (userCreds.onetimePass === false) {
+                } else if (userCreds.oneTimePass === false) {
+                    console.log("Guardando audio y enviando para usuario primerizo");
                     saveAndSend(); // guarda y envía
                 } else {
+                    console.log("Guardando audio y enviando para usuario de 30 minutos");
                     saveAndSendOneTimePass();
                 }
             }
@@ -89,7 +92,7 @@ agreeBtn.onclick = e => {
 recordBtn.onclick = e => {
     if (serverStatus === true) {
         console.log('El servidor parece estar bien...');
-        userCreds.onetimePass = false;
+        userCreds.oneTimePass = false;
         id('preRecordArea').style.display = 'none';
         id('agreedArea').style.display = 'inherit';
         setTimeout(startRecording, 100);
@@ -102,7 +105,7 @@ recordBtn.onclick = e => {
 recordBtn30min.onclick = e => {
     if (serverStatus === true) {
         console.log('El servidor parece estar bien...');
-        userCreds.onetimePass = true;
+        userCreds.oneTimePass = true;
         id('preRecordArea').style.display = 'none';
         id('agreedArea').style.display = 'inherit';
         setTimeout(startRecording, 100);
@@ -313,7 +316,7 @@ function setAlert(info) {
             newDiv.role = "alert";
             newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Volveremos a intentarlo más tarde.";
             break;
-        case "succesOneTime":
+        case "successOneTime":
             newDiv.className = "alert alert-success";
             newDiv.role = "alert";
             newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito. <strong>Ya puedes cerrar esta pestaña en tu navegador y disfrutar de tus 30 minutos de internet.</strong>";
