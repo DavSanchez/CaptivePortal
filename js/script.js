@@ -21,10 +21,10 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
 
 var userCreds = {
     id: -1,
-    // username: "prueba",
-    // password: "pruebaPass",
-    // oneTimePass: false,
-    // connected: 0
+    username: "prueba",
+    password: "pruebaPass",
+    oneTimePass: false,
+    connected: 0
 };
 
 window.onload = function () {
