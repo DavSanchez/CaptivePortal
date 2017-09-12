@@ -24,7 +24,7 @@ var userCreds = {
     username: "prueba",
     password: "pruebaPass",
     oneTimePass: false,
-    connected: 0,
+    //connected: 0,
 };
 
 window.onload = function () {
@@ -237,7 +237,8 @@ function receiveResponse() {
 //Extraer credenciales del JSON recibido, conectar Y COMPROBAR SI ESTAMOS CONECTADOS...
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
-    userCreds.connected = connect(data.username, data.password);
+    //userCreds.connected = connect(data.username, data.password);
+    connect(data.username, data.password);
 
     $.ajax({
         type: 'POST',

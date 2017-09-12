@@ -11,7 +11,7 @@ chilliController.ssl = true;
 function connect(username, password){
     console.log('Conectando...');
     if (username == "" || password == "") // ELABORAR
-        console.log('Algo va mal... ¿Usuarios completos? User: ' + username + '. Pass: ' + password+'.');
+        console.log('Algo va mal... ¿Usuarios completos? User: ' + username + '. Pass: ' + password + '.');
     chilliController.logon(username, password);
     chilliController.refresh();
     return chilliController.clientState;
