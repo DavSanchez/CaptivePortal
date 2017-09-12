@@ -23,8 +23,8 @@ var userCreds = {
     id: -1,
     username: "prueba",
     password: "pruebaPass",
-    oneTimePass: false
-    //connected: 0,
+    oneTimePass: false,
+    connected: 0
 };
 
 window.onload = function () {

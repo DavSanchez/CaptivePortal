@@ -89,7 +89,7 @@ app.post('/userconnected', function (req, res) {
             userControllerOneTime.userInactiveOneTime(req.body.id);
 
         } else {
-            console.log(" Liberando usuario normal...");
+            console.log("Liberando usuario normal...");
             userController.userInactive(req.body.id);
         }
         res.end('success');
