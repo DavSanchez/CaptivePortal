@@ -81,7 +81,7 @@ app.post('/userlogoff', function(req,res){
 app.post('/userconnected', function(req,res){
     if (!req.body.state){
         if (req.body.oneTimePass) {
-            userControllerOneTime.userInactive(req.body.id);
+            userControllerOneTime.userInactiveOneTime(req.body.id);
             
         } else {
             userController.userInactive(req.body.id);            
