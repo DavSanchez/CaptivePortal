@@ -30,7 +30,7 @@ function crearObjeto(variable, objeto) {
     for (var i = 0; i < filas.length; i++) {
         var elementos = filas[i].split(",");
         var item = {
-            id: i + 1,
+            id: i,
             username: elementos[0],
             password: elementos[1],
             isActive: false
