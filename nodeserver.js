@@ -85,7 +85,7 @@ app.post('/userconnected', function (req, res) {
     if (!req.body.state) {
         console.log("El usuario no ha logrado conectarse.");
         if (req.body.oneTimePass) {
-            console.log(" Liberando usuario de 30 minutos...");
+            console.log("Liberando usuario de 30 minutos...");
             userControllerOneTime.userInactiveOneTime(req.body.id);
 
         } else {

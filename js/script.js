@@ -21,10 +21,10 @@ let id = val => document.getElementById(val), // Para extraer la ID de los campo
 
 var userCreds = {
     id: -1,
-    username: "prueba",
-    password: "pruebaPass",
-    oneTimePass: false,
-    connected: 0
+    // username: "prueba",
+    // password: "pruebaPass",
+    // oneTimePass: false,
+    // connected: 0
 };
 
 window.onload = function () {
@@ -151,7 +151,7 @@ function saveAndSend() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
-    console.log('Enviando audio al servidor...');
+    console.log('[Normal] Enviando audio al servidor...');
 
     $.ajax({
         url: '/upload',
@@ -160,12 +160,12 @@ function saveAndSend() {
         processData: false,
         contentType: false,
         success: function (data) {
-            console.log('upload successful! ' + data);
+            console.log('[Normal] upload successful! ' + data);
             receiveResponse();
             setAlert("success");
         },
         error: function (data) {
-            console.log('upload error ' + data);
+            console.log('[Normal] upload error ' + data);
             setAlert("error");
         }
     });
@@ -175,7 +175,7 @@ function loggedUserSaveAndSend() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
-    console.log('Enviando audio al servidor...');
+    console.log('[Logged] Enviando audio al servidor...');
 
     $.ajax({
         url: '/loggedupload',
@@ -184,12 +184,11 @@ function loggedUserSaveAndSend() {
         processData: false,
         contentType: false,
         success: function (data) {
-            console.log('upload successful! ' + data);
-            //receiveResponse();
+            console.log('[Logged] upload successful! ' + data);
             setAlert("success");
         },
         error: function (data) {
-            console.log('upload error ' + data);
+            console.log('[Logged] upload error ' + data);
             setAlert("errorLogged");
         }
     });
@@ -199,7 +198,7 @@ function saveAndSendOneTimePass() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
-    console.log('Enviando audio al servidor...');
+    console.log('[One-time] Enviando audio al servidor...');
 
     $.ajax({
         url: '/onetimepassupload',
@@ -208,12 +207,12 @@ function saveAndSendOneTimePass() {
         processData: false,
         contentType: false,
         success: function (data) {
-            console.log('upload successful! ' + data);
+            console.log('[One-time] upload successful! ' + data);
             receiveResponse();
             setAlert("successOneTime");
         },
         error: function (data) {
-            console.log('upload error ' + data);
+            console.log('[One-time] upload error ' + data);
             setAlert("error");
         }
     });
@@ -227,7 +226,7 @@ function receiveResponse() {
         url: '/creds',
         dataType: 'json',
         success: function (data) {
-            console.log('respuesta recibida: ' + data);
+            console.log('respuesta recibida: ' + data + '. Conectando...');
             userCreds = data;
             getUserCredentials(userCreds);
         }
