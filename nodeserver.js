@@ -26,7 +26,8 @@ var creds = {
     id: -1,
     username: "prueba",
     password: "pruebaPass",
-    oneTimePass: false
+    oneTimePass: false,
+    connected: 0
 };
 
 /*
@@ -82,14 +83,14 @@ app.post('/userlogoff', function (req, res) {
 * Checking if user connected correctly
 * */
 app.post('/userconnected', function (req, res) {
-    if (!req.body.state) {
+    if (!req.body.connected) {
         console.log("El usuario no ha logrado conectarse.");
         if (req.body.oneTimePass) {
-            console.log("Liberando usuario de 30 minutos...");
+            console.log("Liberando usuario de 30 minutos " + req.body.id + "...");
             userControllerOneTime.userInactiveOneTime(req.body.id);
 
         } else {
-            console.log("Liberando usuario normal...");
+            console.log("Liberando usuario normal... " + req.body.id + "...");
             userController.userInactive(req.body.id);
         }
         res.end('success');

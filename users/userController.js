@@ -18,7 +18,7 @@ exports.getInactiveUser = function() {
         }
     }
     console.log("Parece que no hay usuarios libres...");
-    return ["", "", "", ""];
+    return ["", "", "", "", ""];
 };
 
 exports.checkInactiveUser = function () {
@@ -62,7 +62,7 @@ function setUserInactive(userId) {
  * */
 function prepareToConnect(userId) {
     console.log("Almacenando credenciales del usuario " + userId + " para el cliente.");
-    return [userObj.users[userId].id, userObj.users[userId].username, userObj.users[userId].password, false];
+    return [userObj.users[userId].id, userObj.users[userId].username, userObj.users[userId].password, false, 0];
 }
 
 function writeUsersFile(userJSON){
