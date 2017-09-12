@@ -16,7 +16,7 @@ var users30minObj = {
     users: []
 };
 
-function doTheShit() {
+function doTheJob() {
     console.log("Probando...");
     prueba = fs.readFileSync("./Prueba.csv", "utf-8");
     prueba30min = fs.readFileSync("./PruebaOneTime.csv", "utf-8");
@@ -46,6 +46,6 @@ function crearObjeto(variable, objeto) {
     console.log("Tarea terminada...");
 }
 
-doTheShit();
+doTheJob();
 
 
