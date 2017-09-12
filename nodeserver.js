@@ -159,7 +159,7 @@ function setCreds(){
 
 function setCredsOneTime(){
     console.log('Estableciendo credenciales para usuario con tiempo de 30 minutos...');
-    var data = userController.getInactiveUserOneTime();
+    var data = userControllerOneTime.getInactiveUserOneTime();
     creds.id = data[0];
     creds.username = data[1];
     creds.password = data[2];
