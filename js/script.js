@@ -23,7 +23,7 @@ var userCreds = {
     id: -1,
     username: "prueba",
     password: "pruebaPass",
-    oneTimePass: false,
+    oneTimePass: false
     //connected: 0,
 };
 

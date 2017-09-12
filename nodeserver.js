@@ -50,7 +50,7 @@ app.get('/', function (req, res) {
  * */
 app.get('/creds', function (req, res) {
     console.log("Petición de credenciales recibida. Enviando...");
-    var jsonCr = JSON.stringify(creds);
+    var jsonCr = creds;//JSON.stringify(creds); //PRUEBA?¿?¿?¿
     res.send(jsonCr);
 });
 /*
