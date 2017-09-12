@@ -83,7 +83,7 @@ app.post('/userlogoff', function (req, res) {
 * Checking if user connected correctly
 * */
 app.post('/userconnected', function (req, res) {
-    if (!req.body.connected) {
+    if (req.body.connected !== 1) { // Antes era (!req.body.state)
         console.log("El usuario no ha logrado conectarse.");
         if (req.body.oneTimePass) {
             console.log("Liberando usuario de 30 minutos " + req.body.id + "...");
@@ -94,7 +94,7 @@ app.post('/userconnected', function (req, res) {
             userController.userInactive(req.body.id);
         }
         res.end('success');
-    } else if (req.body.oneTimePass) {
+    } else if (req.body.oneTimePass === true) {
         console.log("CUENTA ATRÁS DEL USUARIO " + req.body.id + " ACTIVADA.");
         setTimeout(function () {
             console.log('Marcando como libre en la base de datos al usuario  ' + req.body.id + ' con tiempo ya agotado...');
