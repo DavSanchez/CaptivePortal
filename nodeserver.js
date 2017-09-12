@@ -83,14 +83,22 @@ app.post('/userlogoff', function (req, res) {
 * */
 app.post('/userconnected', function (req, res) {
     if (!req.body.state) {
+        console.log("El usuario no ha logrado conectarse. Liberando usuario...");
         if (req.body.oneTimePass) {
             userControllerOneTime.userInactiveOneTime(req.body.id);
 
         } else {
             userController.userInactive(req.body.id);
         }
+        res.end('success');
+    } else if (req.body.oneTimePass) {
+        console.log("CUENTA ATRÁS DEL USUARIO " + req.body.id + " ACTIVADA.");
+        setTimeout(function () {
+            console.log('Marcando como libre en la base de datos al usuario  ' + req.body.id + ' con tiempo ya agotado...');
+            userControllerOneTime.userInactiveOnetime(req.body.id);
+        }, 1920000); //Cuenta atrás de 30 minutos hasta que se libere al usuario.
+        res.end('success');
     }
-    res.end('success');
 });
 
 /*
@@ -172,11 +180,6 @@ function setCredsOneTime() {
     creds.username = data[1];
     creds.password = data[2];
     creds.oneTimePass = data[3];
-    setTimeout(function () {
-        console.log('Marcando como libre en la base de datos a un usuario con tiempo ya agotado...')
-        userControllerOneTime.userInactiveOnetime(creds.id);
-    }, 1920000); //Cuenta atrás de 30 minutos hasta que se libere al usuario.
-
 }
 
 /*
