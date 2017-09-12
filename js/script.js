@@ -192,7 +192,7 @@ function loggedUserSaveAndSend() {
     });
 }
 
-function saveAndSendOneTimePass(){
+function saveAndSendOneTimePass() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
     fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
@@ -207,11 +207,11 @@ function saveAndSendOneTimePass(){
         success: function (data) {
             console.log('upload successful! ' + data);
             receiveResponse();
-            setAlert("success");
+            setAlert("successOneTime");
         },
         error: function (data) {
             console.log('upload error ' + data);
-            setAlert("errorLogged");
+            setAlert("error");
         }
     });
 }
@@ -297,18 +297,27 @@ function positionError(positionError) {
 
 function setAlert(info) {
     var newDiv = document.createElement("div");
-    if (info === "success") {
-        newDiv.className = "alert alert-success";
-        newDiv.role = "alert";
-        newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito.";
-    } else if (info === "error") {
-        newDiv.className = "alert alert-danger";
-        newDiv.role = "alert";
-        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
-    } else if (info === "errorLogged") {
-        newDiv.className = "alert alert-danger";
-        newDiv.role = "alert";
-        newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Volveremos a intentarlo más tarde.";
+    switch (info) {
+        case "success":
+            newDiv.className = "alert alert-success";
+            newDiv.role = "alert";
+            newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito.";
+            break;
+        case "error":
+            newDiv.className = "alert alert-danger";
+            newDiv.role = "alert";
+            newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
+            break;
+        case "errorLogged":
+            newDiv.className = "alert alert-danger";
+            newDiv.role = "alert";
+            newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Volveremos a intentarlo más tarde.";
+            break;
+        case "succesOneTime":
+            newDiv.className = "alert alert-success";
+            newDiv.role = "alert";
+            newDiv.innerHTML = "<strong>¡Genia!</strong> Tu fragmento de audio se ha subido con éxito. <strong>Ya puedes cerrar esta pestaña en tu navegador.</strong>";
+            break;
     }
     alertsArea.appendChild(newDiv);
 }
