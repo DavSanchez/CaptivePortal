@@ -238,7 +238,8 @@ function receiveResponse() {
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
     //userCreds.connected = connect(data.username, data.password);
-    connect(data.username, data.password);
+    chilliController.logon(data.username, data.password);
+    chilliController.refresh();
 
     $.ajax({
         type: 'POST',
