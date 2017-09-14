@@ -1,12 +1,5 @@
 'use strict';
 
-/* TODO tareas pendientes:
-- Añadir segundo botón para autenticarse con un procedimiento ligeramente diferente.
-- Añadir una categoría nueva de usuarios en el RADIUS para este nuevo procedimiento.
-- Añadir muchos usuarios en el RADIUS y en los JSON!!
-- Gestionar la conexión y desconexión de esta segunda categoría de usuarios.
-*/
-
 let id = val => document.getElementById(val), // Para extraer la ID de los campos HTML
     agreeBtn = id('agreeBtn'),                // Botón de Aceptar
     recordBtn = id('recordBtn'),
