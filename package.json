@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/DavSanchez/CaptivePortal#readme",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.15.5",
     "formidable": "^1.1.1"
   }
 }
