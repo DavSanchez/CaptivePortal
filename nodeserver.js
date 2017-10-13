@@ -52,6 +52,7 @@ app.get('/', function (req, res) {
 app.get('/creds', function (req, res) {
     console.log("Petición de credenciales recibida. Enviando...");
     var jsonCr = JSON.stringify(creds);
+    console.log("Datos enviados: %j", jsonCr);
     res.send(jsonCr);
 });
 /*
@@ -72,6 +73,7 @@ app.get('/serverstatus', function (req, res) {
  * Disconnecting user... 
  * */
 app.post('/userlogoff', function (req, res) {
+    console.log("Datos recibidos UserLogoff: %j", req.body);
     if (!req.body.oneTimePass) {
         console.log('Recibida desconexión de usuario. Desconectando al usuario ' + req.body.id);
         userController.userInactive(req.body.id);
@@ -175,6 +177,7 @@ function setCreds() {
     creds.username = data[1];
     creds.password = data[2];
     creds.oneTimePass = data[3];
+    console.log("Credenciales establecidas: %j", creds);
 }
 
 function setCredsOneTime() {
@@ -184,6 +187,7 @@ function setCredsOneTime() {
     creds.username = data[1];
     creds.password = data[2];
     creds.oneTimePass = data[3];
+    console.log("Credenciales establecidas: %j", creds);
 }
 
 /*
