@@ -243,7 +243,7 @@ function getUserCredentials(data) {
                     console.log('success ' + data);
                 }
             });
-    },800);
+    },1000);
 }
 
 
