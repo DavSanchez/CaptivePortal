@@ -232,7 +232,7 @@ function receiveResponse() {
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
     connect(data.username, data.password);
-    setTimeOut(function () {
+    setTimeout(function () {
         userCreds.connected = chilliController.clientState
         
             $.ajax({
