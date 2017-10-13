@@ -231,16 +231,19 @@ function receiveResponse() {
 //Extraer credenciales del JSON recibido, conectar Y COMPROBAR SI ESTAMOS CONECTADOS...
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
-    userCreds.connected = connect(data.username, data.password);
-
-    $.ajax({
-        type: 'POST',
-        url: '/userconnected',
-        data: userCreds,
-        success: function (data) {
-            console.log('success ' + data);
-        }
-    });
+    connect(data.username, data.password);
+    setTimeOut(function () {
+        userCreds.connected = chilliController.clientState
+        
+            $.ajax({
+                type: 'POST',
+                url: '/userconnected',
+                data: userCreds,
+                success: function (data) {
+                    console.log('success ' + data);
+                }
+            });
+    },500);
 }
 
 

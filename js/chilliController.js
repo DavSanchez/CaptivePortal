@@ -14,9 +14,8 @@ function connect(username, password){
         console.log('Algo va mal... ¿Usuarios completos? User: ' + username + '. Pass: ' + password + '.');
     chilliController.logon(username, password);
     //chilliController.refresh();
-    sleep(500);
-    console.log("Estado del logon: " + chilliController.clientState);
-    return chilliController.clientState;
+    //console.log("Estado del logon: " + chilliController.clientState);
+    //return chilliController.clientState;
 }
 
 function disconnect(userCreds){
