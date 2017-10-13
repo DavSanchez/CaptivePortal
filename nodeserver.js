@@ -11,7 +11,7 @@ http://pm2.keymetrics.io/docs/usage/startup/
  * formidable will parse the incoming form data (the uploaded files)
  * The fs module will be used to rename uploaded files
  * */
-// TEST
+// DEBUG
 var express = require('express');
 var app = express();
 var http = require('http');
