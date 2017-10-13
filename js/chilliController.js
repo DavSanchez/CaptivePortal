@@ -13,7 +13,7 @@ function connect(username, password){
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: ' + username + '. Pass: ' + password + '.');
     chilliController.logon(username, password);
-    //chilliController.refresh();
+    chilliController.refresh();
     console.log("Estado del logon: " + chilliController.clientState);
     return chilliController.clientState;
 }
