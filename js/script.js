@@ -220,6 +220,7 @@ function receiveResponse() {
         dataType: 'json',
         success: function (data) {
             console.log('respuesta recibida: ' + data + '. Conectando...');
+            console.log("Datos recibidos: %j", data);
             userCreds = data;
             getUserCredentials(userCreds);
         }
