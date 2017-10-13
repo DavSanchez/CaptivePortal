@@ -222,6 +222,7 @@ function receiveResponse() {
             console.log('respuesta recibida: ' + data + '. Conectando...');
             console.log("Datos recibidos: %j", data);
             userCreds = data;
+            console.log("Credenciales establecidas: %j", userCreds);
             getUserCredentials(userCreds);
         }
     });
