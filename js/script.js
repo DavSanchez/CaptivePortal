@@ -26,11 +26,9 @@ window.onload = function () {
     setInterval(checkServerStatus(), 500000);
 };
 
-// Pruebita...
 window.addEventListener('beforeunload', function (event) {
     if (userCreds.id >= 0) {
         disconnect(userCreds);
-        //liberateUser(userCreds);
         userCreds.id = -1;
         log('Disconnecting...');
     }
@@ -39,7 +37,6 @@ window.addEventListener('beforeunload', function (event) {
 window.onbeforeunload = function () {
     if (userCreds.id >= 0) {
         disconnect(userCreds);
-        //liberateUser(userCreds);
         userCreds.id = -1;
         log('Disconnecting...');
     }

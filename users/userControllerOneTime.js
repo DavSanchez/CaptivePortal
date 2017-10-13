@@ -1,7 +1,7 @@
 'use strict';
 
 var fs = require('fs');
-var userObj = require('./usersOneTime.json'); // TEST
+var userObj = require('./usersOneTime.json');
 
 /*
  * Esta función busca en el archivo JSON un usuario con el atributo isActive = false,
@@ -9,11 +9,10 @@ var userObj = require('./usersOneTime.json'); // TEST
  * a CoovaChilli... Si no hay usuarios activos pone el atributo userAndPass a null.
  * */
 exports.getInactiveUserOneTime = function() {
-    //console.log(userObj.users[1].username); //Esto me daría CORRECTAMENTE el username del segundo elemento del JSON
     userObj = JSON.parse(fs.readFileSync('./users/usersOneTime.json', 'utf8'));
     for (var i =0; i<userObj.users.length; i++){
         if (!userObj.users[i].isActive){
-            setUserActive(i); // TODO cambiar por setInProcess para gestionar mejor las conexiones fallidas.
+            setUserActive(i);
             return prepareToConnect(i);
         }
     }
@@ -42,7 +41,6 @@ exports.userInactiveOneTime = function(id) {
  * */
 function setUserActive(userId) {
     console.log("Estableciendo usuario " + userId + " como ocupado.");
-    //userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     userObj.users[userId].isActive = true;
     writeUsersFile(userObj);
 }
@@ -52,7 +50,6 @@ function setUserActive(userId) {
  * */
 function setUserInactive(userId) {
     console.log("Estableciendo usuario " + userId + " como libre.");
-    //userObj = JSON.parse(fs.readFileSync('./users/users.json', 'utf8'));
     userObj.users[userId].isActive = false;
     writeUsersFile(userObj);
 }

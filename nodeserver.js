@@ -1,17 +1,10 @@
 /*
-ESTAMOS USANDO PM2!!
-https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
-http://pm2.keymetrics.io/docs/usage/startup/
- */
-
-/*
  * https://coligo.io/building-ajax-file-uploader-with-node/
  * Let's start off by requiring all the modules needed for the file uploader:
  * express handles our routing and serves up the index.html page and static files to our visitors
  * formidable will parse the incoming form data (the uploaded files)
  * The fs module will be used to rename uploaded files
  * */
-// TEST
 var express = require('express');
 var app = express();
 var http = require('http');
@@ -189,27 +182,6 @@ function setCredsOneTime() {
     creds.oneTimePass = data[3];
     console.log("Credenciales establecidas: %j", creds);
 }
-
-/*
- * Now that we have everything set up and the route to handle the uploads in place,
- * all we need to do it start our NodeJS server and start processing uploads!
- * */
-/*
- http.createServer(app).listen(8080, function(){
- console.log('HTTP server listening on port 8080');
- });
- */
-// var server = app.listen(3000, function(){
-//    console.log('HTTP server listening on port 3000');
-//});
-
-// FOR SSL (HTTPS) WITH KEYS CREATED WITH THIS COMMAND:
-// openssl req -x509 -sha256 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
-// SOURCES:
-// https://sites.google.com/a/chromium.org/dev/Home/chromium-security/deprecating-powerful-features-on-insecure-origins
-// https://mail.mozilla.org/pipermail/web-vr-discuss/2016-July/001272.html
-// https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
-
 
 const options = {
     key: fs.readFileSync('./ssl/key.pem'),

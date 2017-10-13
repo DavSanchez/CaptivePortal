@@ -3,9 +3,8 @@
 chilliController.onError  = handleErrors;
 chilliController.onUpdate = updateUI ;
 
-// AJUSTES TEMPORALES PARA SSL (HTTPS)
+// AJUSTES PARA SSL (HTTPS)
 chilliController.ssl = true;
-//chilliController.port = 4990;
 
 //FUNCIÓN PARA CONECTARSE A CHILLI
 function connect(username, password){
@@ -13,9 +12,6 @@ function connect(username, password){
     if (username == "" || password == "") // ELABORAR
         console.log('Algo va mal... ¿Usuarios completos? User: ' + username + '. Pass: ' + password + '.');
     chilliController.logon(username, password);
-    //chilliController.refresh();
-    //console.log("Estado del logon: " + chilliController.clientState);
-    //return chilliController.clientState;
 }
 
 function disconnect(userCreds){
