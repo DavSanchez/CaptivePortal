@@ -83,7 +83,7 @@ app.post('/userlogoff', function (req, res) {
 * Checking if user connected correctly
 * */
 app.post('/userconnected', function (req, res) {
-    let valores = JSON.parse(req.body);
+    let valores = JSON.parse(req.body, null, 2);
     console.log("Datos recibidos: " + valores);
     if (req.body.connected != 1) { // Antes era (!req.body.state)
         console.log("El usuario no ha logrado conectarse.");
