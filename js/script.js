@@ -232,18 +232,18 @@ function receiveResponse() {
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
     connect(data.username, data.password);
-    setTimeout(function () {
-        console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
-        userCreds.connected = chilliController.clientState;
-            $.ajax({
-                type: 'POST',
-                url: '/userconnected',
-                data: userCreds,
-                success: function (data) {
-                    console.log('success ' + data);
-                }
-            });
-    },1000);
+    while (chilliController.clientState !== 0 && chilliController.clientState !== 1) {}
+    
+    console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
+    userCreds.connected = chilliController.clientState;
+    $.ajax({
+        type: 'POST',
+        url: '/userconnected',
+        data: userCreds,
+        success: function (data) {
+        console.log('success ' + data);
+        }
+    });
 }
 
 
