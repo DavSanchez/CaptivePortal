@@ -74,7 +74,7 @@ app.get('/serverstatus', function (req, res) {
  * */
 app.post('/userlogoff', function (req, res) {
     console.log("Datos recibidos UserLogoff: %j", req.body);
-    if (!req.body.oneTimePass) {
+    if (req.body.oneTimePass === false) {
         console.log('Recibida desconexión de usuario. Desconectando al usuario ' + req.body.id);
         userController.userInactive(req.body.id);
         res.end('success');
