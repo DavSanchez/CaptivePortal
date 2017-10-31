@@ -140,7 +140,7 @@ function checkServerStatus() {
 function saveAndSend() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
+    fd.append('blob', blob, `${locationTime}${media.ext}`); // PREVIO `${locationTime}${new Date()}${media.ext}`
     console.log('[Normal] Enviando audio al servidor...');
 
     $.ajax({
