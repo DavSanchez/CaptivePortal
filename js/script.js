@@ -229,34 +229,24 @@ function receiveResponse() {
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
     connect(data.username, data.password);
-    
-    var connectionState;
-    var loopController = 1;
 
-    while (loopController) {
-        chilliController.refresh();
-        connectionState = chilliController.clientState;
-
-        if (connectionState === 1) {
+    setTimeout(5000, function () {
+        if (chilliController.clientState === 1) {
             console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
             userCreds.connected = chilliController.clientState;
-            loopController = 0;
             $.ajax({
                 type: 'POST',
                 url: '/userconnected',
                 data: userCreds,
                 success: function (data) {
-                console.log('success ' + data);
+                    console.log('success ' + data);
                 }
             });
-        } else if (connectionState === 2) {
-            loopController = 0;
+        } else if (chilliController.clientState === 2) {
             console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
             setAlert("error");
         }
-    }
-    
-
+    });
 }
 
 // Función para liberar usuario de la lista
