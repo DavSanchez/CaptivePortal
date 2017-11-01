@@ -231,14 +231,16 @@ function getUserCredentials(data) {
     connect(data.username, data.password);
     
     var connectionState;
+    var loopController = 1;
 
-    while (true) {
-
+    while (loopController) {
+        chilliController.refresh();
         connectionState = chilliController.clientState;
 
         if (connectionState === 1) {
             console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
             userCreds.connected = chilliController.clientState;
+            loopController = 0;
             $.ajax({
                 type: 'POST',
                 url: '/userconnected',
@@ -247,11 +249,10 @@ function getUserCredentials(data) {
                 console.log('success ' + data);
                 }
             });
-            break;
         } else if (connectionState === 2) {
+            loopController = 0;
             console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
             setAlert("error");
-            break;
         }
     }
     
