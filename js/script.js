@@ -164,7 +164,7 @@ function saveAndSend() {
 function loggedUserSaveAndSend() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
+    fd.append('blob', blob, `${locationTime}${media.ext}`);
     console.log('[Logged] Enviando audio al servidor...');
 
     $.ajax({
@@ -187,7 +187,7 @@ function loggedUserSaveAndSend() {
 function saveAndSendOneTimePass() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
+    fd.append('blob', blob, `${locationTime}${media.ext}`);
     console.log('[One-time] Enviando audio al servidor...');
 
     $.ajax({
