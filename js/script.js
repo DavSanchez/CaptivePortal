@@ -140,7 +140,7 @@ function checkServerStatus() {
 function saveAndSend() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${media.ext}`); // PREVIO `${locationTime}${new Date()}${media.ext}`
+    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
     console.log('[Normal] Enviando audio al servidor...');
 
     $.ajax({
@@ -164,7 +164,7 @@ function saveAndSend() {
 function loggedUserSaveAndSend() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${media.ext}`);
+    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
     console.log('[Logged] Enviando audio al servidor...');
 
     $.ajax({
@@ -187,7 +187,7 @@ function loggedUserSaveAndSend() {
 function saveAndSendOneTimePass() {
     let blob = new Blob(chunks, { type: media.type });
     var fd = new FormData();
-    fd.append('blob', blob, `${locationTime}${media.ext}`);
+    fd.append('blob', blob, `${locationTime}${new Date()}${media.ext}`);
     console.log('[One-time] Enviando audio al servidor...');
 
     $.ajax({
@@ -229,19 +229,33 @@ function receiveResponse() {
 function getUserCredentials(data) {
     console.log('Conectando con username: ' + data.username + ' y password: ' + data.password);
     connect(data.username, data.password);
-
-    while (chilliController.clientState !== 0 && chilliController.clientState !== 1) {}
     
-    console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
-    userCreds.connected = chilliController.clientState;
-    $.ajax({
-        type: 'POST',
-        url: '/userconnected',
-        data: userCreds,
-        success: function (data) {
-        console.log('success ' + data);
+    var connectionState;
+
+    while (true) {
+
+        connectionState = chilliController.clientState;
+
+        if (connectionState === 1) {
+            console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
+            userCreds.connected = chilliController.clientState;
+            $.ajax({
+                type: 'POST',
+                url: '/userconnected',
+                data: userCreds,
+                success: function (data) {
+                console.log('success ' + data);
+                }
+            });
+            break;
+        } else if (connectionState === 2) {
+            console.log("Estado de conexión a CoovaChilli: " + chilliController.clientState);
+            setAlert("error");
+            break;
         }
-    });
+    }
+    
+
 }
 
 // Función para liberar usuario de la lista
@@ -301,7 +315,7 @@ function setAlert(info) {
         case "error":
             newDiv.className = "alert alert-danger";
             newDiv.role = "alert";
-            newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error enviando el fichero... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
+            newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
             break;
         case "errorLogged":
             newDiv.className = "alert alert-danger";
