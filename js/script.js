@@ -26,21 +26,16 @@ window.onload = function () {
     setInterval(checkServerStatus(), 500000);
 };
 
-window.addEventListener('beforeunload', function (event) {
+window.onbeforeunload = function (e) {
     if (userCreds.id >= 0) {
         disconnect(userCreds);
         userCreds.id = -1;
-        log('Disconnecting...');
+        //log('Disconnecting...');
     }
-});
-
-window.onbeforeunload = function () {
-    if (userCreds.id >= 0) {
-        disconnect(userCreds);
-        userCreds.id = -1;
-        log('Disconnecting...');
-    }
-}
+    var dialogText = "Disconnecting...";
+    e.returnValue = dialogText;
+    return dialogText;
+};
 
 agreeBtn.onclick = e => {
     let mediaOptions = {
