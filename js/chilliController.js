@@ -1,34 +1,48 @@
 // The included script ChilliLibrary.js creates a global chilliController object
-// then define event handler functions
+
+// Defining functions and flags.
 chilliController.onError  = handleErrors;
 chilliController.onUpdate = updateUI ;
-
-// AJUSTES PARA SSL (HTTPS)
 chilliController.ssl = true;
 
-//FUNCIÓN PARA CONECTARSE A CHILLI
+/**
+ * Attempts to connect a user through the Chilli controller.
+ * @param username User name retrieved from the node server.
+ * @param password Password retrieved from the node server.
+ */
 function connect(username, password){
-    console.log('Conectando...');
-    if (username == "" || password == "") // ELABORAR
-        console.log('Algo va mal... ¿Usuarios completos? User: ' + username + '. Pass: ' + password + '.');
     chilliController.logon(username, password);
 }
 
+/**
+ * Sends user credentials to the node server, which marks the user as inactive,
+ *  and disconnects the user through the Chilli controller.
+ * @param userCreds user credentials passed to the node server.
+ */
 function disconnect(userCreds){
     console.log('Disconnecting...');
     liberateUser(userCreds);
     chilliController.logoff();
 }
 
-// when the reply is ready, this handler function is called
-function updateUI( cmd ) {
-    console.log('You called the method ' + cmd +
-        '\n Your current state is = ' + chilliController.clientState);
+/**
+ * Callback function when the controller state changes.
+ * @param cmd Interface method called.
+ */
+function updateUI(cmd) {
+    console.log('Method called: ' + cmd +
+        '\n Current State: ' + chilliController.clientState);
 }
 
-// If an error occurs, this handler will be called instead
-function handleErrors ( code ) {
-    console.log( 'The last contact with the Controller failed. Error code = ' + code );
+/**
+ * Callback function to handle errors.
+ * @param code Error code.
+ */
+function handleErrors (code) {
+    console.log( 'Last contact with the Controller failed. Error code: ' + code );
 }
-//  finally, get current state
+
+/**
+ * Gets current state of the Chilli controller.
+ */
 chilliController.refresh();

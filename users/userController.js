@@ -16,7 +16,6 @@ exports.getInactiveUser = function() {
             return prepareToConnect(i);
         }
     }
-    console.log("Parece que no hay usuarios libres...");
     return ["", "", "", "", ""];
 };
 
