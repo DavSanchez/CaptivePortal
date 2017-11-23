@@ -2,7 +2,7 @@
 /**
  * Declaring variables and a function to get the HTML elements.
  * Variables "stream", "recorder", "chunks" y "media" are of use
- * to the MediaStream Recording API. The objecto creds is also
+ * to the MediaStream Recording API. The object userCreds is also
  * declared to store the credentials given by the node server.
  */
 let id = val => document.getElementById(val),
@@ -10,6 +10,7 @@ let id = val => document.getElementById(val),
     recordBtn = id('recordBtn'),
     recordBtn30min = id('recordBtn30min'),
     alertsArea = id('alertsArea'),
+    failedRecordTries,
     stream,
     recorder,
     chunks,
@@ -85,8 +86,11 @@ agreeBtn.onclick = e => {
                 }
             }
         };
-        log('got media successfully');
-    }).catch(function(err){
+        recorder.onerror = e => {
+            let error = e.error;
+            errorHandler();
+        };
+    }).catch(function (err) {
         agreeBtn.disabled = true;
         agreeBtn.textContent = "Permiso denegado o incompatible";
     });
@@ -188,7 +192,7 @@ function saveAndSend() {
         },
         error: function (data) {
             console.log('[Normal] upload error ' + data);
-            setAlert("error");
+            errorHandler();
         }
     });
 }
@@ -214,7 +218,7 @@ function loggedUserSaveAndSend() {
         },
         error: function (data) {
             console.log('[Logged] upload error ' + data);
-            setAlert("errorLogged");
+            errorHandler();
         }
     });
 }
@@ -315,6 +319,7 @@ function liberateUser(creds) {
  * the user position changes using the watchPosition() function.
  */
 function prepareSite() {
+    failedRecordTries = 0;
     if (navigator.geolocation) {
         try {
             navigator.geolocation.watchPosition(showPositionTime, positionError, geoOptions);
@@ -357,6 +362,20 @@ function positionError(positionError) {
 }
 
 /**
+ * Error handler supporting up to 3 failed tries, disconnecting the user.
+ */
+function errorHandler() {
+    if (failedRecordTries < 3) {
+        failedRecordTries++;
+        setAlert("errorLogged");
+    } else {
+        failedRecordTries = 0;
+        setAlert("error");
+        disconnect(userCreds);
+    }
+}
+
+/**
  * This function alerts the user of the success or failure of the audio file uploads and other errors.
  * It creates a new HTML element and adds a label to it, colored according to the Bootstrap color schemes.
  * @param info The alert type.
@@ -372,7 +391,7 @@ function setAlert(info) {
         case "error":
             newDiv.className = "alert alert-danger";
             newDiv.role = "alert";
-            newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error... Aún no tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
+            newDiv.innerHTML = "<strong>¡Vaya!</strong> Ha habido un error... No tienes internet. <strong>Trata de conectarte de nuevo.</strong>";
             break;
         case "errorLogged":
             newDiv.className = "alert alert-danger";
