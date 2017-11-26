@@ -1,6 +1,6 @@
-# Captive Portal
+# Audio-Login Portal
 A **Node.js** &amp; **MediaStream Recording** Captive Portal Web App to use
-with **CoovaChilli**
+with **CoovaChilli**.
 
 ## What is this?
 This is a captive portal service designed to serve as landing page and login process
@@ -19,8 +19,7 @@ location and microphone. If permissions are granted and the Connect button is cl
 its name. When this audio is received by the node server, the captive portal will ask the
 server for the credentials with which it will connect that user to CoovaChilli through its JSON
 interface. Once the credentials are received the captive portal attempts the login process to
-give network access to the user.
-
+give network access to the user. In this way, you can avoid the tedious form-filling process that almost always comes up when entering a WiFi network with a traditional captive portal service!
 
 ## How can I try this on my machine?
 For it to work you will need the following:
@@ -45,7 +44,7 @@ Once all of this is set, you will only need to edit the CoovaChilli configuratio
 (created by copying and renaming `/etc/chilli/defaults`) changing the following attributes:
 
 - `HS_UAMSECRET`: Leave it blank.
-- `HS_UAMSERVER`: The IP of the node server's location (for example `192.168.1.5`)
+- `HS_UAMSERVER`: The IP of the node server's location (for example `192.168.1.5`). You can find that IP running `ifconfig` on the device and checking the network interface that you used when configuring CoovaChilli's WAN interface.
 - `HS_UAMFORMAT`: The complete node server root URL (stored in the previous attribute), port
 included (for example `http://\$HS_UAMSERVER:3000` if the node server uses the default port).
 
@@ -69,6 +68,8 @@ I'll do my best to provide an answer!
 - Web Development with Node &amp; Express, by Ethan Brown
 - http://coova.github.io/CoovaChilli/JSON/
 - https://github.com/coova/coova-chilli
+- https://help.ubuntu.com/community/WifiDocs/CoovaChilli
+- ... and many more!
 
 [//]: # "- https://stackoverflow.com/questions/5009324/node-js-nginx-what-now"
 [//]: # "- https://carlosazaustre.es/blog/como-configurar-nginx-con-node-js-en-produccion/"
