@@ -25,23 +25,19 @@ give network access to the user.
 ## How can I try this on my machine?
 For it to work you will need the following:
 
-- **A working installation of CoovaChilli and the AAA manager it needs to function.** If you
-happen to be trying this on a Raspberry Pi with Raspbian OS to use it as a WiFi hotspot
-(as I did), I strongly recommend using the script provided by GitHub user _Pi Home Server_ at
-[this repository](https://github.com/pihomeserver/Pi-Hotspot-Script) to have all of this up
-and running in a snap!
+- **A working installation of CoovaChilli and the AAA manager it needs to function.** The original installation in which this Web App is working uses FreeRADIUS (with daloRADIUS as UI manager), all of them running on a Raspberry Pi. Of course, for CoovaChilli to work your device needs at least two network interfaces!
 
-- **The users on your AAA manager and `./users/users.json` have to be the same!** The IDs don't
+- **The users on your AAA manager and the files `./users/users.json` and `./users/usersOneTime.json` have to be the same!** The IDs don't
 matter provided they are greater than 0. Initially, their `isActive` value must be `false`, as
 everyone is disconnected from the service at the beginning.
 
-- **Node.js and a few NPM packages.** This service uses Node.js with the Express and Formidable
-packages for the backend. You can install the LTS or the latest version of Node and NPM
+- **Node.js and a few NPM packages.** This service uses Node.js with the Express, Formidable and Body-Parser
+packages for the backend (among others, chech the beginning of the file `nodeserver.js`). You can install the LTS or the latest version of Node and NPM
 following the instructions at their [website](https://nodejs.org/).
 
 - **A browser compatible with MediaStream Recording.** This captive portal service makes use
 of the MediaStream Recording API to record audio, which means that only clients using browsers
-that support this API (currently Firefox and Chrome) will be able to get past the landing page
+that support this API (currently Firefox and Chrome-based browsers) will be able to get past the landing page
 and be granted network access. Let's hope time treats this API well and gives support for it on
 all other browsers too!
 
@@ -53,13 +49,25 @@ Once all of this is set, you will only need to edit the CoovaChilli configuratio
 - `HS_UAMFORMAT`: The complete node server root URL (stored in the previous attribute), port
 included (for example `http://\$HS_UAMSERVER:3000` if the node server uses the default port).
 
+### HTTPS configuration
+
+To use a secure context (needed for `getUserMedia()` to work) you also need to enable HTTPS both in the Web App and in CoovaChilli itself. The former is already done in this code, to do do the latter modify the following `/etc/chilli/config` fields like this:
+
+- `HS_UAMFORMAT`: Remember to use https in place of http for proper redirect.
+- `HS_REDIRSSL`: on
+- `HS_SSLKEYFILE`: The route to your SSL key file.
+- `Hs_SSLCERTFILE`: The route to your SSL certificate file.
+
+The above fields (and the options passed to the HTTPS Node server in the code) use a valid SSL key and certificate. you can generate them with `openSSL`, [Let's Encrypt](https://letsencrypt.org) or another service of your choice. You can place these files in the `ssl` folder, as suggested in the code.
+
+**WARNING!** If you use self-signed SSL certificates (as I did) your browser will issue a security warning alerting you of this when you try the system. For testing purposes, you can add exceptions on your browsers for both the IP used by the Captive Portal Web App (the one used in the `HS_UAMSERVER` field) and CoovaChilli's web interface IP (if you did not change it, `1.0.0.1`).
+
 If you have any doubts, suggestions or problems with this just let me know by opening an issue.
 I'll do my best to provide an answer!
 
 ## Sources
 - Web Development with Node &amp; Express, by Ethan Brown
 - http://coova.github.io/CoovaChilli/JSON/
-- https://github.com/pihomeserver/Pi-Hotspot-Script
 - https://github.com/coova/coova-chilli
 
 [//]: # "- https://stackoverflow.com/questions/5009324/node-js-nginx-what-now"
