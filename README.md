@@ -53,13 +53,13 @@ included (for example `http://\$HS_UAMSERVER:3000` if the node server uses the d
 To use a secure context (needed for `getUserMedia()` to work) you also need to enable HTTPS both in the Web App and in CoovaChilli itself. The former is already done in this code, to do do the latter modify the following `/etc/chilli/config` fields like this:
 
 - `HS_UAMFORMAT`: Remember to use https in place of http for proper redirect.
-- `HS_REDIRSSL`: on
+- `HS_REDIRSSL`: Set to `on`.
 - `HS_SSLKEYFILE`: The route to your SSL key file.
 - `Hs_SSLCERTFILE`: The route to your SSL certificate file.
 
-The above fields (and the options passed to the HTTPS Node server in the code) use a valid SSL key and certificate. you can generate them with `openSSL`, [Let's Encrypt](https://letsencrypt.org) or another service of your choice. You can place these files in the `ssl` folder, as suggested in the code.
+The above fields (and the options passed to the HTTPS Node server in the code) use a valid SSL key and certificate. you can generate them with `openSSL`, [Let's Encrypt](https://letsencrypt.org) or another service of your choice. You can place these files in the `ssl` folder and then reference them both in the Web App (as suggested in the code) and in CoovaChilli's configuration file.
 
-**WARNING!** If you use self-signed SSL certificates (as I did) your browser will issue a security warning alerting you of this when you try the system. For testing purposes, you can add exceptions on your browsers for both the IP used by the Captive Portal Web App (the one used in the `HS_UAMSERVER` field) and CoovaChilli's web interface IP (if you did not change it, `1.0.0.1`).
+**WARNING!** If you use self-signed SSL certificates your browser will issue a rather ugly security warning, alerting you of this when you try the system. For testing purposes, you can add exceptions on your browsers for both the IP used by the Captive Portal Web App (the one used in the `HS_UAMSERVER` field) and CoovaChilli's UAM interface IP (if you did not change it, `1.0.0.1`).
 
 If you have any doubts, suggestions or problems with this just let me know by opening an issue.
 I'll do my best to provide an answer!
