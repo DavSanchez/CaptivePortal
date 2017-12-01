@@ -37,7 +37,7 @@ exports.checkInactiveUser = function () {
  * @param id ID of the user to mark as inactive.
  */
 exports.userInactive = function(id) {
-    setUserInactive(id);
+    return setUserInactive(id);
 };
 
 /**
@@ -56,6 +56,7 @@ function setUserActive(userId) {
 function setUserInactive(userId) {
     userObj.users[userId].isActive = false;
     writeUsersFile(userObj);
+    return userId;
 }
 
 /**
