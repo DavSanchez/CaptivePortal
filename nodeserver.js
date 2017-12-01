@@ -82,14 +82,14 @@ app.post('/userlogoff', function (req, res) {
 app.post('/userconnected', function (req, res) {
     if (req.body.connected != 1) {
         var checkOneTime = req.body.oneTimePass;
-        if (checkOneTime == true) {
+        if (checkOneTime == "true") {
             userControllerOneTime.userInactiveOneTime(req.body.id);
 
         } else {
             userController.userInactive(req.body.id);
         }
         res.end('success');
-    } else if (checkOneTime == true) {
+    } else if (checkOneTime == "true") {
         setTimeout(function () {
             userControllerOneTime.userInactiveOnetime(req.body.id);
         }, 1920000);
