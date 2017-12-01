@@ -68,7 +68,7 @@ app.get('/serverstatus', function (req, res) {
  */
 app.post('/userlogoff', function (req, res) {
     var checkOneTime = req.body.oneTimePass;
-    if (checkOneTime == false){
+    if (checkOneTime == "false"){
         userController.userInactive(req.body.id);
         res.end('success');
     }
