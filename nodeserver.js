@@ -67,8 +67,11 @@ app.get('/serverstatus', function (req, res) {
  * user as inactive through the user controller.
  */
 app.post('/userlogoff', function (req, res) {
+    var checkOneTime = req.body.oneTimePass;
+    if (checkOneTime == false){
         userController.userInactive(req.body.id);
         res.end('success');
+    }
 });
 
 /**
@@ -78,14 +81,15 @@ app.post('/userlogoff', function (req, res) {
  */
 app.post('/userconnected', function (req, res) {
     if (req.body.connected != 1) {
-        if (req.body.oneTimePass == true) {
+        var checkOneTime = req.body.oneTimePass;
+        if (checkOneTime == true) {
             userControllerOneTime.userInactiveOneTime(req.body.id);
 
         } else {
             userController.userInactive(req.body.id);
         }
         res.end('success');
-    } else if (req.body.oneTimePass == true) {
+    } else if (checkOneTime == true) {
         setTimeout(function () {
             userControllerOneTime.userInactiveOnetime(req.body.id);
         }, 1920000);
