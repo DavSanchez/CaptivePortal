@@ -67,13 +67,9 @@ app.get('/serverstatus', function (req, res) {
  * user as inactive through the user controller.
  */
 app.post('/userlogoff', function (req, res) {
-    console.log('Liberando usuario ' + req.body.id + ' ' + req.body.oneTimePass);
-    if (!req.body.oneTimePass) {
         console.log('DESCONECTTTTTT');
-        let logoff = userController.userInactive(req.body.id);
+        userController.userInactive(req.body.id);
         res.end('success');
-        console.log(logoff);
-    }
 });
 
 /**
