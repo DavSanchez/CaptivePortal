@@ -67,7 +67,6 @@ app.get('/serverstatus', function (req, res) {
  * user as inactive through the user controller.
  */
 app.post('/userlogoff', function (req, res) {
-        console.log('DESCONECTTTTTT');
         userController.userInactive(req.body.id);
         res.end('success');
 });
