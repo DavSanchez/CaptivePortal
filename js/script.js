@@ -302,7 +302,8 @@ function connectUser(data) {
  * @param creds The user credentials to be liberated on the node server
  */
 function liberateUser(creds) {
-    console.log('Liberando usuario...');
+    console.log('Liberando usuario...' + creds.id);
+    console.log(typeof creds.id + ', ' + typeof creds.connected + '; ' + typeof creds.oneTimePass);
     $.ajax({
         type: 'POST',
         url: '/userlogoff',

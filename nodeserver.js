@@ -67,6 +67,7 @@ app.get('/serverstatus', function (req, res) {
  * user as inactive through the user controller.
  */
 app.post('/userlogoff', function (req, res) {
+    console.log(typeof req.body.id + ', ' + typeof req.body.connected + '; ' + typeof req.body.oneTimePass);    
     var checkOneTime = req.body.oneTimePass;
     if (checkOneTime == "false"){
         userController.userInactive(req.body.id);
