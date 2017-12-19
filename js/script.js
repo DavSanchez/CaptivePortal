@@ -359,6 +359,8 @@ var geoOptions = {
  */
 function positionError(positionError) {
     console.log('Error ' + positionError.code + ' in geolocation: ' + positionError.message);
+    locationTime = 'LocationError-' +
+        'Time' + new Date();
 }
 
 /**
